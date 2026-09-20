@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Team Project - Syed Ismail</title>
+    <title>Ismail | Team Project</title>
 
     <link rel="stylesheet" href="style.css">
     <script src="src/app.js" defer></script>
@@ -13,49 +13,277 @@
 
 <body>
 
-    <h1>Welcome to Team Project</h1>
+    <!-- =========================
+         ANIMATED BACKGROUND
+    ========================== -->
 
-    <h2>My First GitHub Project</h2>
-
-    <p>My first collaborative software project.</p>
-
-
-    <!-- SYED ISMAIL DOT MATRIX -->
-
-    <div class="dot-name" id="dotName"></div>
+    <div class="background-animation"></div>
 
 
-    <!-- BREAKABLE PHOTO -->
+    <!-- =========================
+         WELCOME
+    ========================== -->
 
-    <div class="photo-area" id="photoArea">
+    <header class="welcome-section">
 
-        <div class="photo-card" id="photoCard">
+        <h1 id="welcomeTitle">
+            Welcome to My Project
+        </h1>
 
-            <img
-                src="ismail.jpg"
-                alt="Ismail"
-                class="photo-image"
-            >
+        <p id="typingText"></p>
+
+    </header>
+
+
+    <!-- =========================
+         LIVE DATE & TIME
+    ========================== -->
+
+    <section class="time-section">
+
+        <h2>⏰ Live Date & Time</h2>
+
+        <div id="liveDate">
+            Loading date...
+        </div>
+
+        <div id="liveTime">
+            Loading time...
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         ABOUT ME
+    ========================== -->
+
+    <section class="about section">
+
+        <h2>👤 About Me</h2>
+
+        <p>
+            Hello! I am Ismail, a B.Tech Computer Science
+            and Engineering student.
+        </p>
+
+        <p>
+            I am interested in Python, SQL, Web Development,
+            Software Development, and new technologies.
+        </p>
+
+    </section>
+
+
+    <!-- =========================
+         SKILLS
+    ========================== -->
+
+    <section class="skills section">
+
+        <h2>🚀 My Skills</h2>
+
+        <div class="skills-container">
+
+            <div class="skill">🐍 Python</div>
+
+            <div class="skill">🗄️ SQL</div>
+
+            <div class="skill">🌐 HTML</div>
+
+            <div class="skill">🎨 CSS</div>
+
+            <div class="skill">⚡ JavaScript</div>
+
+            <div class="skill">💻 GitHub</div>
 
         </div>
 
+    </section>
+
+
+    <!-- =========================
+         PROJECT / PROGRESS
+    ========================== -->
+
+    <section class="projects section">
+
+        <h2>📊 Project Progress</h2>
+
+        <div class="project-card">
+
+            <h3>My First GitHub Project</h3>
+
+            <p>
+                Building and improving my first
+                collaborative software project.
+            </p>
+
+            <div class="progress-bar">
+
+                <div
+                    id="progressFill"
+                    class="progress-fill">
+                </div>
+
+            </div>
+
+            <p id="progressText">
+                0% Complete
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         PHOTO
+    ========================== -->
+
+    <section class="photo-section section">
+
+        <h2>📸 My Photo</h2>
+
+        <div
+            class="photo-area"
+            id="photoArea">
+
+            <div
+                class="photo-card"
+                id="photoCard">
+
+                <img
+                    src="ismail.jpg"
+                    alt="Ismail"
+                    class="photo-image"
+                >
+
+            </div>
+
+        </div>
+
+        <p>
+            🖱️ Touch or click the photo
+            to break it!
+        </p>
+
+    </section>
+
+
+    <!-- =========================
+         MUSIC PLAYER
+    ========================== -->
+
+    <section class="music-section section">
+
+        <h2>🎵 Background Music</h2>
+
+        <audio
+            id="backgroundMusic"
+            loop>
+
+            <source
+                src="music.mp3"
+                type="audio/mpeg">
+
+        </audio>
+
+        <button
+            id="musicButton"
+            class="glow-button">
+
+            🎵 Play Music
+
+        </button>
+
+    </section>
+
+
+    <!-- =========================
+         MOUSE / TOUCH EFFECT
+    ========================== -->
+
+    <div
+        id="touchEffect"
+        class="touch-effect">
     </div>
 
 
-    <p class="instruction">
-        Touch the photo to break it
-    </p>
+    <!-- =========================
+         CONTACT
+    ========================== -->
+
+    <section class="contact section">
+
+        <h2>📧 Contact Me</h2>
+
+        <p>
+            Interested in my project?
+        </p>
+
+        <button
+            class="glow-button"
+            id="contactButton">
+
+            📧 Contact Me
+
+        </button>
+
+    </section>
 
 
-    <button id="resetButton">
-        Reset Photo
+    <!-- =========================
+         WELCOME BUTTON
+    ========================== -->
+
+    <button
+        id="welcomeButton"
+        class="glow-button">
+
+        🎉 Welcome
+
     </button>
+
+
+    <!-- =========================
+         RESET PHOTO
+    ========================== -->
+
+    <button
+        id="resetButton"
+        class="glow-button">
+
+        🔄 Reset Photo
+
+    </button>
+
+
+    <!-- =========================
+         BACK TO TOP
+    ========================== -->
+
+    <button
+        id="backToTop"
+        class="back-to-top">
+
+        🔝
+
+    </button>
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer>
+
+        <p>
+            © 2026 Ismail | My First GitHub Project
+        </p>
+
+    </footer>
 
 </body>
 
 </html>
-<audio id="backgroundMusic" loop>
-    <source src="music.mp3" type="audio/mpeg">
-</audio>
-
-<button id="musicButton">🎵 Play Music</button>
