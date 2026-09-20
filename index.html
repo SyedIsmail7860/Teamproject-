@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
 
     <meta
@@ -17,58 +16,28 @@
 
     <title>Ismail | Developer Portfolio</title>
 
-    <link
-        rel="stylesheet"
-        href="style.css"
-    >
+    <link rel="stylesheet" href="style.css">
 
-    <script
-        src="src/app.js"
-        defer>
-    </script>
-
+    <script src="src/app.js" defer></script>
 </head>
-
 
 <body>
 
-    <!-- =========================================
-         31–40 UI & DESIGN
-    ========================================== -->
+    <!-- PARTICLES -->
+    <div id="particles" class="particles"></div>
 
-    <div
-        id="particles"
-        class="particles">
-    </div>
+    <!-- TOUCH EFFECT -->
+    <div id="touchEffect" class="touch-effect"></div>
 
-    <div
-        id="touchEffect"
-        class="touch-effect">
-    </div>
-
-    <div
-        id="pageLoader"
-        class="page-loader">
-
-        <div class="loader-spinner"></div>
-
-        <p>Loading Ismail's Portfolio...</p>
-
-    </div>
+    <!-- SCROLL PROGRESS -->
+    <div id="scrollProgress" class="scroll-progress"></div>
 
 
     <!-- =========================================
-         41–50 NAVIGATION
+         NAVIGATION
     ========================================== -->
 
-    <div
-        id="scrollProgress"
-        class="scroll-progress">
-    </div>
-
-    <nav
-        id="navbar"
-        class="navbar">
+    <nav id="navbar" class="navbar">
 
         <div class="nav-logo">
             Ismail
@@ -77,30 +46,21 @@
         <button
             id="menuButton"
             class="menu-button"
-            type="button">
-
+            type="button"
+            aria-label="Open navigation menu"
+        >
             ☰
-
         </button>
 
-        <div
-            id="navLinks"
-            class="nav-links">
+        <div id="navLinks" class="nav-links">
 
             <a href="#home">Home</a>
-
             <a href="#about">About</a>
-
             <a href="#skills">Skills</a>
-
             <a href="#projects">Projects</a>
-
             <a href="#gallery">Gallery</a>
-
             <a href="#developer">Developer</a>
-
             <a href="#games">Games</a>
-
             <a href="#contact">Contact</a>
 
         </div>
@@ -110,11 +70,9 @@
 
     <!-- =========================================
          SEARCH
-         43
     ========================================== -->
 
-    <section
-        class="section search-section">
+    <section class="section search-section">
 
         <h2>🔎 Search Portfolio</h2>
 
@@ -125,26 +83,18 @@
             aria-label="Search portfolio"
         >
 
-        <div
-            id="searchResults"
-            class="search-results">
-        </div>
+        <div id="searchResults" class="search-results"></div>
 
     </section>
 
 
     <!-- =========================================
-         1 + 6 + 15 + 16 + 18 + 20 + 31–40
          HERO
     ========================================== -->
 
-    <header
-        id="home"
-        class="hero">
+    <header id="home" class="hero">
 
-        <div
-            id="heroCard"
-            class="hero-card">
+        <div id="heroCard" class="hero-card">
 
             <div class="animated-profile-frame">
 
@@ -172,28 +122,16 @@
 
             <div class="hero-buttons">
 
-                <a
-                    href="#projects"
-                    class="glow-button">
-
+                <a href="#projects" class="glow-button">
                     🚀 View Projects
-
                 </a>
 
-                <a
-                    href="#contact"
-                    class="glow-button">
-
+                <a href="#contact" class="glow-button">
                     📧 Contact Me
-
                 </a>
 
-                <a
-                    href="#developer"
-                    class="glow-button">
-
+                <a href="#developer" class="glow-button">
                     👨‍💻 Developer Mode
-
                 </a>
 
             </div>
@@ -204,8 +142,7 @@
 
 
     <!-- =========================================
-         32 GRADIENT SELECTOR
-         37 RAINBOW GLOW
+         VISUAL MODES
     ========================================== -->
 
     <section class="section">
@@ -217,73 +154,78 @@
             <button
                 class="theme-color"
                 data-color="#00ffff"
-                type="button">
-
+                type="button"
+            >
                 Cyan
-
             </button>
 
             <button
                 class="theme-color"
                 data-color="#0088ff"
-                type="button">
-
+                type="button"
+            >
                 Blue
-
             </button>
 
             <button
                 class="theme-color"
                 data-color="#9b00ff"
-                type="button">
-
+                type="button"
+            >
                 Purple
-
             </button>
 
             <button
                 class="theme-color"
                 data-color="#00ff66"
-                type="button">
-
+                type="button"
+            >
                 Green
-
             </button>
 
             <button
                 class="theme-color"
                 data-color="#ff0066"
-                type="button">
-
+                type="button"
+            >
                 Pink
-
             </button>
 
         </div>
 
-        <button
-            id="rainbowButton"
-            class="glow-button"
-            type="button">
+        <div class="mode-buttons">
 
-            🌈 Rainbow Glow
+            <button
+                id="rainbowButton"
+                class="glow-button"
+                type="button"
+            >
+                🌈 Rainbow Glow
+            </button>
 
-        </button>
+            <button
+                id="gradientButton"
+                class="glow-button"
+                type="button"
+            >
+                🌌 Change Gradient
+            </button>
 
-        <button
-            id="gradientButton"
-            class="glow-button"
-            type="button">
+            <button
+                id="lightDarkButton"
+                class="glow-button"
+                type="button"
+            >
+                🌓 Light / Dark
+            </button>
 
-            🌌 Change Gradient
-
-        </button>
+        </div>
 
     </section>
 
 
     <!-- =========================================
-         14 LIVE DATE & TIME
+         LIVE DATE & TIME
     ========================================== -->
 
     <section class="time-section section">
@@ -302,42 +244,41 @@
 
 
     <!-- =========================================
-         1 MUSIC
+         MUSIC PLAYER
     ========================================== -->
 
     <section class="section music-section">
 
         <h2>🎵 Background Music</h2>
 
-        <audio
-            id="backgroundMusic"
-            loop>
+        <audio id="backgroundMusic" loop>
 
             <source
                 src="music.mp3"
-                type="audio/mpeg">
+                type="audio/mpeg"
+            >
 
         </audio>
 
         <button
             id="musicButton"
             class="glow-button"
-            type="button">
-
+            type="button"
+        >
             🎵 Play Music
-
         </button>
 
     </section>
 
 
     <!-- =========================================
-         9 ABOUT ME
+         ABOUT
     ========================================== -->
 
     <section
         id="about"
-        class="section glass-card portfolio-search-item">
+        class="section glass-card portfolio-search-item"
+    >
 
         <h2>👤 About Me</h2>
 
@@ -360,123 +301,99 @@
 
 
     <!-- =========================================
-         10 + 21 + 59
          SKILLS
     ========================================== -->
 
     <section
         id="skills"
-        class="section glass-card portfolio-search-item">
+        class="section glass-card portfolio-search-item"
+    >
 
         <h2>🚀 My Skills</h2>
 
         <div class="skills-container">
 
             <div class="skill-card">
-
-                <div class="skill-title">
-                    🐍 Python
-                </div>
+                <div class="skill-title">🐍 Python</div>
 
                 <div class="skill-bar">
                     <div
                         class="skill-fill"
-                        data-progress="75">
-                    </div>
+                        data-progress="75"
+                    ></div>
                 </div>
 
                 <span>75%</span>
-
             </div>
 
 
             <div class="skill-card">
-
-                <div class="skill-title">
-                    🗄️ SQL
-                </div>
+                <div class="skill-title">🗄️ SQL</div>
 
                 <div class="skill-bar">
                     <div
                         class="skill-fill"
-                        data-progress="70">
-                    </div>
+                        data-progress="70"
+                    ></div>
                 </div>
 
                 <span>70%</span>
-
             </div>
 
 
             <div class="skill-card">
-
-                <div class="skill-title">
-                    🌐 HTML
-                </div>
+                <div class="skill-title">🌐 HTML</div>
 
                 <div class="skill-bar">
                     <div
                         class="skill-fill"
-                        data-progress="85">
-                    </div>
+                        data-progress="85"
+                    ></div>
                 </div>
 
                 <span>85%</span>
-
             </div>
 
 
             <div class="skill-card">
-
-                <div class="skill-title">
-                    🎨 CSS
-                </div>
+                <div class="skill-title">🎨 CSS</div>
 
                 <div class="skill-bar">
                     <div
                         class="skill-fill"
-                        data-progress="75">
-                    </div>
+                        data-progress="75"
+                    ></div>
                 </div>
 
                 <span>75%</span>
-
             </div>
 
 
             <div class="skill-card">
-
-                <div class="skill-title">
-                    ⚡ JavaScript
-                </div>
+                <div class="skill-title">⚡ JavaScript</div>
 
                 <div class="skill-bar">
                     <div
                         class="skill-fill"
-                        data-progress="65">
-                    </div>
+                        data-progress="65"
+                    ></div>
                 </div>
 
                 <span>65%</span>
-
             </div>
 
 
             <div class="skill-card">
-
-                <div class="skill-title">
-                    💻 GitHub
-                </div>
+                <div class="skill-title">💻 GitHub</div>
 
                 <div class="skill-bar">
                     <div
                         class="skill-fill"
-                        data-progress="80">
-                    </div>
+                        data-progress="80"
+                    ></div>
                 </div>
 
                 <span>80%</span>
-
             </div>
 
         </div>
@@ -485,65 +402,37 @@
 
 
     <!-- =========================================
-         60 DEVELOPER TIMELINE
+         DEVELOPER JOURNEY
     ========================================== -->
 
-    <section
-        class="section glass-card portfolio-search-item">
+    <section class="section glass-card portfolio-search-item">
 
         <h2>🧑‍💻 Developer Journey</h2>
 
         <div class="timeline">
 
             <div class="timeline-item">
-
                 <span>2024</span>
-
                 <h3>🎓 Started B.Tech CSE</h3>
-
-                <p>
-                    Started my Computer Science journey.
-                </p>
-
+                <p>Started my Computer Science journey.</p>
             </div>
 
-
             <div class="timeline-item">
-
                 <span>2025</span>
-
                 <h3>🐍 Started Python</h3>
-
-                <p>
-                    Began learning programming fundamentals.
-                </p>
-
+                <p>Began learning programming fundamentals.</p>
             </div>
 
-
             <div class="timeline-item">
-
                 <span>2026</span>
-
                 <h3>🌐 Web Development</h3>
-
-                <p>
-                    Started building real web projects.
-                </p>
-
+                <p>Started building real web projects.</p>
             </div>
 
-
             <div class="timeline-item">
-
                 <span>Future</span>
-
                 <h3>🚀 Software Developer</h3>
-
-                <p>
-                    Continue learning and building.
-                </p>
-
+                <p>Continue learning and building.</p>
             </div>
 
         </div>
@@ -552,20 +441,19 @@
 
 
     <!-- =========================================
-         11 PROJECT PROGRESS
+         PROJECT PROGRESS
     ========================================== -->
 
     <section
         id="projects"
-        class="section glass-card portfolio-search-item">
+        class="section glass-card portfolio-search-item"
+    >
 
         <h2>📊 Project Progress</h2>
 
         <div class="project-card">
 
-            <h3>
-                My First GitHub Project
-            </h3>
+            <h3>My First GitHub Project</h3>
 
             <p>
                 Building and improving my first
@@ -576,8 +464,8 @@
 
                 <div
                     id="progressFill"
-                    class="progress-fill">
-                </div>
+                    class="progress-fill"
+                ></div>
 
             </div>
 
@@ -586,7 +474,6 @@
             </p>
 
         </div>
-
 
         <div class="project-list">
 
@@ -608,20 +495,16 @@
 
 
     <!-- =========================================
-         4 PHOTO BREAK
+         PHOTO BREAK
     ========================================== -->
 
     <section class="section photo-section">
 
         <h2>📸 My Photo</h2>
 
-        <div
-            id="photoArea"
-            class="photo-area">
+        <div id="photoArea" class="photo-area">
 
-            <div
-                id="photoCard"
-                class="photo-card">
+            <div id="photoCard" class="photo-card">
 
                 <img
                     src="ismail.jpg"
@@ -634,29 +517,28 @@
         </div>
 
         <p>
-            🖱️ Touch or click the photo
-            to break it!
+            🖱️ Touch or click the photo to break it!
         </p>
 
         <button
             id="resetButton"
             class="glow-button"
-            type="button">
-
+            type="button"
+        >
             🔄 Reset Photo
-
         </button>
 
     </section>
 
 
     <!-- =========================================
-         22 + 23 PHOTO GALLERY
+         PHOTO GALLERY
     ========================================== -->
 
     <section
         id="gallery"
-        class="section glass-card portfolio-search-item">
+        class="section glass-card portfolio-search-item"
+    >
 
         <h2>🖼️ Photo Gallery</h2>
 
@@ -686,16 +568,12 @@
 
 
     <!-- =========================================
-         24 SCROLL REVEAL
-         39 SPARKLE
+         KEEP LEARNING
     ========================================== -->
 
-    <section
-        class="section reveal-card">
+    <section class="section reveal-card">
 
-        <h2>
-            ✨ Keep Learning
-        </h2>
+        <h2>✨ Keep Learning</h2>
 
         <p>
             Learn. Build. Practice. Improve.
@@ -705,22 +583,19 @@
 
 
     <!-- =========================================
-         27 GITHUB
-         57 GITHUB STATISTICS
-         58 CONTRIBUTION HEATMAP
+         GITHUB
     ========================================== -->
 
     <section
         id="developer"
-        class="section glass-card portfolio-search-item">
+        class="section glass-card portfolio-search-item"
+    >
 
         <h2>🐙 GitHub Developer</h2>
 
         <div class="github-card">
 
-            <h3>
-                Ismail's GitHub
-            </h3>
+            <h3>Ismail's GitHub</h3>
 
             <p>
                 Explore my repositories,
@@ -731,17 +606,15 @@
                 href="https://github.com/"
                 target="_blank"
                 rel="noopener"
-                class="glow-button">
-
+                class="glow-button github-link"
+            >
                 Visit GitHub
-
             </a>
 
         </div>
 
-        <div
-            id="githubStats"
-            class="github-stats">
+
+        <div id="githubStats" class="github-stats">
 
             <div>
                 <strong id="repoCount">--</strong>
@@ -767,7 +640,8 @@
 
         <div
             id="contributionHeatmap"
-            class="contribution-heatmap">
+            class="contribution-heatmap"
+        >
 
             <div class="heat-cell"></div>
             <div class="heat-cell"></div>
@@ -788,11 +662,10 @@
 
 
     <!-- =========================================
-         51 CODING TERMINAL
+         CODING TERMINAL
     ========================================== -->
 
-    <section
-        class="section glass-card portfolio-search-item">
+    <section class="section glass-card portfolio-search-item">
 
         <h2>👨‍💻 Coding Terminal</h2>
 
@@ -804,12 +677,11 @@
 
             <div
                 id="terminalOutput"
-                class="terminal-output">
-
+                class="terminal-output"
+            >
                 $ welcome Ismail<br>
                 $ portfolio loaded<br>
                 $ ready to code...
-
             </div>
 
             <div class="terminal-input-row">
@@ -831,7 +703,7 @@
 
 
     <!-- =========================================
-         52 PYTHON SHOWCASE
+         PYTHON SHOWCASE
     ========================================== -->
 
     <section class="section glass-card">
@@ -845,11 +717,19 @@ print("Hello", name)
 for i in range(5):
     print("Keep learning 🚀")</code></pre>
 
+        <button
+            id="pythonCopyButton"
+            class="glow-button"
+            type="button"
+        >
+            📋 Copy Python Code
+        </button>
+
     </section>
 
 
     <!-- =========================================
-         53 RESUME
+         RESUME
     ========================================== -->
 
     <section class="section">
@@ -864,17 +744,16 @@ for i in range(5):
         <a
             href="resume.pdf"
             download
-            class="glow-button">
-
+            class="glow-button"
+        >
             📥 Download Resume
-
         </a>
 
     </section>
 
 
     <!-- =========================================
-         54–56 PROJECT DETAILS
+         FEATURED PROJECTS
     ========================================== -->
 
     <section class="section glass-card">
@@ -885,9 +764,7 @@ for i in range(5):
 
             <article class="featured-project">
 
-                <h3>
-                    Personal Portfolio
-                </h3>
+                <h3>Personal Portfolio</h3>
 
                 <p>
                     Modern responsive portfolio
@@ -897,18 +774,16 @@ for i in range(5):
                 <button
                     class="project-details-button"
                     data-project="portfolio"
-                    type="button">
-
+                    type="button"
+                >
                     🔍 View Details
-
                 </button>
 
                 <a
                     href="#"
-                    class="glow-button">
-
+                    class="glow-button live-demo"
+                >
                     🌐 Live Demo
-
                 </a>
 
                 <div class="project-rating">
@@ -920,9 +795,7 @@ for i in range(5):
 
             <article class="featured-project">
 
-                <h3>
-                    Python Projects
-                </h3>
+                <h3>Python Projects</h3>
 
                 <p>
                     Beginner programming projects
@@ -932,10 +805,9 @@ for i in range(5):
                 <button
                     class="project-details-button"
                     data-project="python"
-                    type="button">
-
+                    type="button"
+                >
                     🔍 View Details
-
                 </button>
 
                 <div class="project-rating">
@@ -950,12 +822,13 @@ for i in range(5):
 
 
     <!-- =========================================
-         61 CODING QUIZ
+         CODING QUIZ
     ========================================== -->
 
     <section
         id="games"
-        class="section game-section portfolio-search-item">
+        class="section game-section portfolio-search-item"
+    >
 
         <h2>🧩 Coding Quiz</h2>
 
@@ -970,20 +843,57 @@ for i in range(5):
                 <button
                     class="quiz-option"
                     data-answer="wrong"
-                    type="button">
-
+                    type="button"
+                >
                     Hyper Text Machine Language
-
                 </button>
 
                 <button
                     class="quiz-option"
                     data-answer="correct"
-                    type="button">
-
+                    type="button"
+                >
                     HyperText Markup Language
-
                 </button>
 
                 <button
-              
+                    class="quiz-option"
+                    data-answer="wrong"
+                    type="button"
+                >
+                    High Text Markdown Language
+                </button>
+
+            </div>
+
+            <p id="quizScore">
+                Score: 0
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================
+         TRIVIA
+    ========================================== -->
+
+    <section class="section game-section">
+
+        <h2>🧠 Programming Trivia</h2>
+
+        <button
+            id="triviaButton"
+            class="glow-button"
+            type="button"
+        >
+            🎯 Start Trivia
+        </button>
+
+        <p id="triviaResult"></p>
+
+    </section>
+
+
+    <!-- =
