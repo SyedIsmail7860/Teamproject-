@@ -1,109 +1,109 @@
 /* =========================
-   DOT MATRIX LETTERS
+   SYED ISMAIL
+   DOT-MATRIX LETTERS
    ========================= */
 
 const letters = {
 
-    "S": [
-        "11111",
-        "10000",
-        "10000",
-        "11111",
-        "00001",
-        "00001",
-        "11111"
+    S: [
+        "111111",
+        "110000",
+        "110000",
+        "111111",
+        "000011",
+        "000011",
+        "111111"
     ],
 
-    "Y": [
-        "10001",
-        "10001",
-        "01010",
-        "00100",
-        "00100",
-        "00100",
-        "00100"
+    Y: [
+        "110011",
+        "110011",
+        "011110",
+        "001100",
+        "001100",
+        "001100",
+        "001100"
     ],
 
-    "E": [
-        "11111",
-        "10000",
-        "10000",
-        "11110",
-        "10000",
-        "10000",
-        "11111"
+    E: [
+        "111111",
+        "110000",
+        "110000",
+        "111110",
+        "110000",
+        "110000",
+        "111111"
     ],
 
-    "D": [
-        "11110",
-        "10001",
-        "10001",
-        "10001",
-        "10001",
-        "10001",
-        "11110"
+    D: [
+        "111110",
+        "110011",
+        "110011",
+        "110011",
+        "110011",
+        "110011",
+        "111110"
     ],
 
-    "I": [
-        "11111",
-        "00100",
-        "00100",
-        "00100",
-        "00100",
-        "00100",
-        "11111"
+    I: [
+        "111111",
+        "001100",
+        "001100",
+        "001100",
+        "001100",
+        "001100",
+        "111111"
     ],
 
-    "M": [
-        "10001",
-        "11011",
-        "10101",
-        "10101",
-        "10001",
-        "10001",
-        "10001"
+    M: [
+        "110011",
+        "111111",
+        "111111",
+        "110011",
+        "110011",
+        "110011",
+        "110011"
     ],
 
-    "A": [
-        "01110",
-        "10001",
-        "10001",
-        "11111",
-        "10001",
-        "10001",
-        "10001"
+    A: [
+        "011110",
+        "110011",
+        "110011",
+        "111111",
+        "110011",
+        "110011",
+        "110011"
     ],
 
-    "L": [
-        "10000",
-        "10000",
-        "10000",
-        "10000",
-        "10000",
-        "10000",
-        "11111"
+    L: [
+        "110000",
+        "110000",
+        "110000",
+        "110000",
+        "110000",
+        "110000",
+        "111111"
     ],
 
     " ": [
-        "000",
-        "000",
-        "000",
-        "000",
-        "000",
-        "000",
-        "000"
+        "0000",
+        "0000",
+        "0000",
+        "0000",
+        "0000",
+        "0000",
+        "0000"
     ]
 };
 
 
 /* =========================
-   CREATE SYED ISMAIL
+   CREATE NAME FROM DOTS
    ========================= */
 
 const nameText = "SYED ISMAIL";
 
-const dotName =
-    document.getElementById("dotName");
+const dotName = document.getElementById("dotName");
 
 const dotElements = [];
 
@@ -116,8 +116,7 @@ for (let row = 0; row < 7; row++) {
 
         for (const value of pattern[row]) {
 
-            const dot =
-                document.createElement("div");
+            const dot = document.createElement("div");
 
             if (value === "1") {
 
@@ -135,8 +134,7 @@ for (let row = 0; row < 7; row++) {
 
         /* Space between letters */
 
-        const gap =
-            document.createElement("div");
+        const gap = document.createElement("div");
 
         gap.className = "empty-dot";
 
@@ -150,7 +148,6 @@ for (let row = 0; row < 7; row++) {
    ========================= */
 
 const colors = [
-
     "#ff0000",
     "#ff3300",
     "#ff6600",
@@ -212,14 +209,12 @@ let colorIndex = 0;
 
 
 /* =========================
-   CHANGE LED COLOR
-   EVERY 1 SECOND
+   LED COLOR CHANGE
    ========================= */
 
 function changeColor() {
 
-    const color =
-        colors[colorIndex];
+    const color = colors[colorIndex];
 
     dotElements.forEach(dot => {
 
@@ -242,12 +237,11 @@ function changeColor() {
 }
 
 
-/* START */
+/* Start */
 
 changeColor();
 
-
-/* EVERY 1 SECOND */
+/* Change every 1 second */
 
 setInterval(changeColor, 1000);
 
@@ -256,11 +250,9 @@ setInterval(changeColor, 1000);
    3D PHOTO
    ========================= */
 
-const card =
-    document.getElementById("photoCard");
+const card = document.getElementById("photoCard");
 
-const area =
-    document.querySelector(".photo-area");
+const area = document.querySelector(".photo-area");
 
 const resetButton =
     document.getElementById("resetButton");
@@ -272,8 +264,6 @@ let targetY = 0;
 let currentX = 0;
 let currentY = 0;
 
-
-/* SMOOTH ANIMATION */
 
 function animate() {
 
@@ -289,6 +279,7 @@ function animate() {
 
     requestAnimationFrame(animate);
 }
+
 
 animate();
 
@@ -325,7 +316,7 @@ area.addEventListener(
 );
 
 
-/* RETURN PHOTO */
+/* Return photo */
 
 area.addEventListener(
     "pointerleave",
@@ -337,9 +328,7 @@ area.addEventListener(
 );
 
 
-/* =========================
-   RESET 3D
-   ========================= */
+/* Reset */
 
 resetButton.addEventListener(
     "click",
