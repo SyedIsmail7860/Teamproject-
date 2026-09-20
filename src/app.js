@@ -12,23 +12,39 @@ if (music && musicButton) {
 
     musicButton.addEventListener(
         "click",
-        function () {
+        async function () {
 
-            if (music.paused) {
+            try {
 
-                music.play();
+                if (music.paused) {
 
-                musicButton.textContent =
-                    "🔇 Pause Music";
+                    await music.play();
 
-            } else {
+                    musicButton.textContent =
+                        "🔇 Pause Music";
 
-                music.pause();
+                    showToast(
+                        "🎵 Music started"
+                    );
 
-                musicButton.textContent =
-                    "🎵 Play Music";
+                } else {
+
+                    music.pause();
+
+                    musicButton.textContent =
+                        "🎵 Play Music";
+
+                    showToast(
+                        "⏸️ Music paused"
+                    );
+                }
+
+            } catch (error) {
+
+                showToast(
+                    "⚠️ Add music.mp3 to the project"
+                );
             }
-
         }
     );
 }
@@ -68,7 +84,7 @@ function typeMessage() {
 
         setTimeout(
             typeMessage,
-            80
+            70
         );
 
     } else {
@@ -83,20 +99,21 @@ function typeMessage() {
 
 function eraseMessage() {
 
+    if (!typingText) return;
+
     if (characterIndex > 0) {
 
         typingText.textContent =
-            messages[messageIndex]
-                .substring(
-                    0,
-                    characterIndex - 1
-                );
+            messages[messageIndex].substring(
+                0,
+                characterIndex - 1
+            );
 
         characterIndex--;
 
         setTimeout(
             eraseMessage,
-            40
+            35
         );
 
     } else {
@@ -117,7 +134,6 @@ function eraseMessage() {
     }
 }
 
-
 typeMessage();
 
 
@@ -130,7 +146,6 @@ const liveDate =
 
 const liveTime =
     document.getElementById("liveTime");
-
 
 function updateDateTime() {
 
@@ -159,13 +174,45 @@ function updateDateTime() {
     }
 }
 
-
 updateDateTime();
 
 setInterval(
     updateDateTime,
     1000
 );
+
+
+/* =========================
+   TOAST NOTIFICATION
+========================= */
+
+const toast =
+    document.getElementById("toast");
+
+let toastTimer;
+
+function showToast(message) {
+
+    if (!toast) return;
+
+    toast.textContent = message;
+
+    toast.classList.add("show");
+
+    clearTimeout(toastTimer);
+
+    toastTimer =
+        setTimeout(
+            function () {
+
+                toast.classList.remove(
+                    "show"
+                );
+
+            },
+            2500
+        );
+}
 
 
 /* =========================
@@ -190,11 +237,14 @@ function breakPhoto() {
         "breaking"
     );
 
-    // Restart animation
     void photoCard.offsetWidth;
 
     photoCard.classList.add(
         "breaking"
+    );
+
+    showToast(
+        "💥 Photo effect activated!"
     );
 
     setTimeout(
@@ -209,8 +259,6 @@ function breakPhoto() {
     );
 }
 
-
-/* Touch + Mouse */
 
 if (photoArea) {
 
@@ -231,16 +279,21 @@ if (photoArea) {
 }
 
 
-/* Reset */
-
 if (resetButton) {
 
     resetButton.addEventListener(
         "click",
         function () {
 
-            photoCard.classList.remove(
-                "breaking"
+            if (photoCard) {
+
+                photoCard.classList.remove(
+                    "breaking"
+                );
+            }
+
+            showToast(
+                "🔄 Photo reset"
             );
         }
     );
@@ -253,7 +306,6 @@ if (resetButton) {
 
 const touchEffect =
     document.getElementById("touchEffect");
-
 
 function createTouchEffect(x, y) {
 
@@ -290,6 +342,64 @@ document.addEventListener(
 
 
 /* =========================
+   3D HERO CARD
+========================= */
+
+const heroCard =
+    document.getElementById("heroCard");
+
+if (heroCard) {
+
+    heroCard.addEventListener(
+        "pointermove",
+        function (event) {
+
+            if (
+                window.matchMedia(
+                    "(pointer: coarse)"
+                ).matches
+            ) {
+                return;
+            }
+
+            const rect =
+                heroCard.getBoundingClientRect();
+
+            const x =
+                event.clientX -
+                rect.left;
+
+            const y =
+                event.clientY -
+                rect.top;
+
+            const rotateY =
+                ((x / rect.width) - 0.5) * 12;
+
+            const rotateX =
+                ((y / rect.height) - 0.5) * -12;
+
+            heroCard.style.transform =
+                `perspective(900px)
+                 rotateX(${rotateX}deg)
+                 rotateY(${rotateY}deg)
+                 translateY(-4px)`;
+        }
+    );
+
+
+    heroCard.addEventListener(
+        "pointerleave",
+        function () {
+
+            heroCard.style.transform =
+                "";
+        }
+    );
+}
+
+
+/* =========================
    PROJECT PROGRESS
 ========================= */
 
@@ -303,9 +413,7 @@ const progressText =
         "progressText"
     );
 
-
 let progress = 0;
-
 
 function updateProgress() {
 
@@ -335,11 +443,177 @@ function updateProgress() {
     }
 }
 
-
 setTimeout(
     updateProgress,
     800
 );
+
+
+/* =========================
+   SKILL PROGRESS BARS
+========================= */
+
+const skillFills =
+    document.querySelectorAll(
+        ".skill-fill"
+    );
+
+function animateSkills() {
+
+    skillFills.forEach(
+        function (fill) {
+
+            const progress =
+                Number(
+                    fill.dataset.progress
+                );
+
+            if (
+                Number.isFinite(progress)
+            ) {
+
+                const safeProgress =
+                    Math.max(
+                        0,
+                        Math.min(
+                            100,
+                            progress
+                        )
+                    );
+
+                fill.style.width =
+                    safeProgress + "%";
+            }
+        }
+    );
+}
+
+setTimeout(
+    animateSkills,
+    700
+);
+
+
+/* =========================
+   SCROLL REVEAL
+========================= */
+
+const revealCards =
+    document.querySelectorAll(
+        ".reveal-card"
+    );
+
+function revealOnScroll() {
+
+    revealCards.forEach(
+        function (card) {
+
+            const rect =
+                card.getBoundingClientRect();
+
+            if (
+                rect.top <
+                window.innerHeight * 0.85
+            ) {
+
+                card.classList.add(
+                    "visible"
+                );
+            }
+        }
+    );
+}
+
+window.addEventListener(
+    "scroll",
+    revealOnScroll
+);
+
+revealOnScroll();
+
+
+/* =========================
+   MINI GAME
+========================= */
+
+const gameButton =
+    document.getElementById(
+        "gameButton"
+    );
+
+const gameScore =
+    document.getElementById(
+        "gameScore"
+    );
+
+let score = 0;
+
+if (gameButton) {
+
+    gameButton.addEventListener(
+        "click",
+        function () {
+
+            score++;
+
+            if (gameScore) {
+
+                gameScore.textContent =
+                    score;
+            }
+
+            if (
+                score === 10 ||
+                score === 25 ||
+                score === 50
+            ) {
+
+                showToast(
+                    `🏆 Score reached ${score}!`
+                );
+            }
+        }
+    );
+}
+
+
+/* =========================
+   COPY TO CLIPBOARD
+========================= */
+
+const copyButton =
+    document.getElementById(
+        "copyButton"
+    );
+
+if (copyButton) {
+
+    copyButton.addEventListener(
+        "click",
+        async function () {
+
+            const text =
+                "B.Tech CSE | Web Development | Python | SQL";
+
+            try {
+
+                await navigator.clipboard.writeText(
+                    text
+                );
+
+                showToast(
+                    "📋 Information copied!"
+                );
+
+            } catch (error) {
+
+                showToast(
+                    "⚠️ Copy is not available"
+                );
+            }
+        }
+    );
+}
 
 
 /* =========================
@@ -350,7 +624,6 @@ const contactButton =
     document.getElementById(
         "contactButton"
     );
-
 
 if (contactButton) {
 
@@ -366,30 +639,6 @@ if (contactButton) {
 
 
 /* =========================
-   WELCOME BUTTON
-========================= */
-
-const welcomeButton =
-    document.getElementById(
-        "welcomeButton"
-    );
-
-
-if (welcomeButton) {
-
-    welcomeButton.addEventListener(
-        "click",
-        function () {
-
-            alert(
-                "🎉 Welcome to Ismail's Project!"
-            );
-        }
-    );
-}
-
-
-/* =========================
    BACK TO TOP
 ========================= */
 
@@ -397,7 +646,6 @@ const backToTop =
     document.getElementById(
         "backToTop"
     );
-
 
 window.addEventListener(
     "scroll",
@@ -431,7 +679,216 @@ if (backToTop) {
                 top: 0,
                 behavior: "smooth"
             });
+        }
+    );
+}
 
+
+/* =========================
+   THEME COLOR SELECTOR
+========================= */
+
+const themeButtons =
+    document.querySelectorAll(
+        ".theme-color"
+    );
+
+themeButtons.forEach(
+    function (button) {
+
+        button.addEventListener(
+            "click",
+            function () {
+
+                const color =
+                    button.dataset.color;
+
+                if (!color) return;
+
+                document.documentElement
+                    .style.setProperty(
+                        "--accent",
+                        color
+                    );
+
+                const rgb =
+                    hexToRgb(color);
+
+                if (rgb) {
+
+                    document.documentElement
+                        .style.setProperty(
+                            "--accent-rgb",
+                            `${rgb.r}, ${rgb.g}, ${rgb.b}`
+                        );
+                }
+
+                showToast(
+                    "🎨 Theme color changed!"
+                );
+            }
+        );
+    }
+);
+
+
+function hexToRgb(hex) {
+
+    const value =
+        hex.replace("#", "");
+
+    if (value.length !== 6) {
+        return null;
+    }
+
+    const number =
+        parseInt(value, 16);
+
+    if (Number.isNaN(number)) {
+        return null;
+    }
+
+    return {
+        r: (number >> 16) & 255,
+        g: (number >> 8) & 255,
+        b: number & 255
+    };
+}
+
+
+/* =========================
+   GALLERY IMAGE VIEWER
+========================= */
+
+const galleryImages =
+    document.querySelectorAll(
+        ".gallery-image"
+    );
+
+galleryImages.forEach(
+    function (image) {
+
+        image.addEventListener(
+            "click",
+            function () {
+
+                openImageViewer(
+                    image.src,
+                    image.alt
+                );
+            }
+        );
+    }
+);
+
+
+function openImageViewer(
+    src,
+    alt
+) {
+
+    const viewer =
+        document.createElement("div");
+
+    viewer.style.position =
+        "fixed";
+
+    viewer.style.inset =
+        "0";
+
+    viewer.style.zIndex =
+        "10000";
+
+    viewer.style.background =
+        "rgba(0,0,0,0.95)";
+
+    viewer.style.display =
+        "flex";
+
+    viewer.style.alignItems =
+        "center";
+
+    viewer.style.justifyContent =
+        "center";
+
+    viewer.style.padding =
+        "20px";
+
+    viewer.innerHTML = `
+        <button
+            type="button"
+            aria-label="Close image"
+            style="
+                position:absolute;
+                top:20px;
+                right:20px;
+                z-index:2;
+                margin:0;
+            "
+        >
+            ✕
+        </button>
+
+        <img
+            src="${src}"
+            alt="${alt || "Gallery image"}"
+            style="
+                max-width:95%;
+                max-height:90%;
+                object-fit:contain;
+                border-radius:18px;
+                box-shadow:0 0 40px rgba(0,255,255,0.25);
+            "
+        >
+    `;
+
+    document.body.appendChild(
+        viewer
+    );
+
+    const closeButton =
+        viewer.querySelector(
+            "button"
+        );
+
+    closeButton.addEventListener(
+        "click",
+        function () {
+
+            viewer.remove();
+        }
+    );
+
+    viewer.addEventListener(
+        "click",
+        function (event) {
+
+            if (
+                event.target === viewer
+            ) {
+
+                viewer.remove();
+            }
+        }
+    );
+
+    document.addEventListener(
+        "keydown",
+        function closeWithEscape(
+            event
+        ) {
+
+            if (
+                event.key === "Escape"
+            ) {
+
+                viewer.remove();
+
+                document.removeEventListener(
+                    "keydown",
+                    closeWithEscape
+                );
+            }
         }
     );
 }
@@ -465,5 +922,57 @@ window.addEventListener(
                 500
             );
         }
+
+        setTimeout(
+            function () {
+
+                showToast(
+                    "🎉 Welcome to Ismail's Portfolio!"
+                );
+
+            },
+            1200
+        );
     }
+);
+
+
+/* =========================
+   NAVIGATION ACTIVE EFFECT
+========================= */
+
+const navLinks =
+    document.querySelectorAll(
+        ".nav-links a"
+    );
+
+navLinks.forEach(
+    function (link) {
+
+        link.addEventListener(
+            "click",
+            function () {
+
+                navLinks.forEach(
+                    function (item) {
+
+                        item.style.color =
+                            "";
+                    }
+                );
+
+                link.style.color =
+                    "var(--accent)";
+            }
+        );
+    }
+);
+
+
+/* =========================
+   CONSOLE MESSAGE
+========================= */
+
+console.log(
+    "🚀 Ismail's 30-feature portfolio loaded successfully!"
 );
