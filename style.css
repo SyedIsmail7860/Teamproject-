@@ -1,11 +1,16 @@
 body {
     font-family: Arial, sans-serif;
     text-align: center;
-    margin-top: 100px;
+    margin-top: 60px;
+    background: #f0f4f8;
 }
 
 h1 {
     font-size: 40px;
+}
+
+h2 {
+    font-size: 28px;
 }
 
 p {
@@ -15,4 +20,25 @@ p {
 .name {
     font-size: 70px;
     margin: 30px 0;
+}
+
+/* 3D Photo */
+.photo-3d {
+    width: 280px;
+    margin: 30px auto;
+    perspective: 1000px;
+}
+
+.photo-3d img {
+    width: 100%;
+    border-radius: 20px;
+    display: block;
+    box-shadow: 0 25px 40px rgba(0, 0, 0, 0.35);
+    transform: rotateY(-12deg) rotateX(5deg);
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+.photo-3d img:hover {
+    transform: rotateY(0deg) rotateX(0deg) scale(1.05);
+    box-shadow: 0 35px 55px rgba(0, 0, 0, 0.45);
 }
