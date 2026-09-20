@@ -1,9 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Team Project - Ismail</title>
+
     <link rel="stylesheet" href="style.css">
-    <script src="src/app.js"></script>
+    <script src="src/app.js" defer></script>
 </head>
 
 <body>
@@ -16,11 +21,27 @@
 
     <h1 class="name">ISMAIL</h1>
 
-    <div class="photo-3d">
-        <img src="ismail.jpg" alt="Ismail">
+    <!-- 3D Photo -->
+    <div class="photo-area">
+
+        <div class="photo-card" id="photoCard">
+
+            <div class="photo-glow"></div>
+
+            <img src="ismail.jpg" alt="Ismail">
+
+        </div>
+
     </div>
 
-    <button onclick="showMessage()">Click Me</button>
+    <p class="instruction">
+        Move your finger or mouse over the photo
+    </p>
+
+    <button id="resetButton">
+        Reset 3D
+    </button>
 
 </body>
+
 </html>
