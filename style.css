@@ -36,13 +36,11 @@ body {
 
 h1 {
     font-size: 40px;
-
     margin: 10px 0;
 }
 
 h2 {
     font-size: 28px;
-
     margin: 15px 0;
 }
 
@@ -52,7 +50,7 @@ p {
 
 
 /* =========================
-   SYED ISMAIL LED DOTS
+   SYED ISMAIL DOT MATRIX
    ========================= */
 
 .dot-name {
@@ -75,7 +73,6 @@ p {
 
 .name-dot {
     width: 12px;
-
     height: 12px;
 
     border-radius: 50%;
@@ -99,7 +96,6 @@ p {
 
 .empty-dot {
     width: 12px;
-
     height: 12px;
 
     visibility: hidden;
@@ -110,13 +106,11 @@ p {
 
     from {
         opacity: 0.7;
-
         transform: scale(0.9);
     }
 
     to {
         opacity: 1;
-
         transform: scale(1.15);
     }
 }
@@ -128,7 +122,6 @@ p {
 
 .photo-area {
     width: 300px;
-
     height: 400px;
 
     margin: 45px auto;
@@ -149,14 +142,13 @@ p {
     position: relative;
 
     width: 100%;
-
     height: 100%;
 
     border-radius: 25px;
 
-    overflow: visible;
+    overflow: hidden;
 
-    transform-style: preserve-3d;
+    cursor: pointer;
 
     box-shadow:
         0 25px 50px
@@ -164,145 +156,92 @@ p {
 
     border:
         3px solid
-        rgba(255, 255, 255, 0.7);
+        rgba(255, 255, 255, 0.8);
 
-    cursor: pointer;
+    transform-style: preserve-3d;
 }
 
 
 /* =========================
-   PHOTO PIECES
+   PHOTO
    ========================= */
 
-.photo-piece {
+.photo-image {
     position: absolute;
 
-    width: 25%;
+    width: 100%;
+    height: 100%;
 
-    height: 20%;
+    left: 0;
+    top: 0;
 
-    background-image:
-        url("../ismail.jpg");
+    object-fit: cover;
 
-    background-size:
-        400% 500%;
+    display: block;
 
-    background-repeat: no-repeat;
+    user-select: none;
+
+    pointer-events: none;
 
     transition:
         transform 0.7s ease,
         opacity 0.7s ease;
-
-    border: 1px solid
-        rgba(255, 255, 255, 0.08);
-
-    overflow: hidden;
 }
 
 
 /* =========================
-   PHOTO BREAK
+   PHOTO BREAK EFFECT
    ========================= */
 
-.photo-card.breaking
-.photo-piece:nth-child(1) {
-    transform:
-        translate(-80px, -90px)
-        rotate(-18deg)
-        scale(1.05);
+.photo-card.breaking {
+    animation:
+        photoShake 0.7s ease;
 }
 
-.photo-card.breaking
-.photo-piece:nth-child(2) {
-    transform:
-        translate(0, -110px)
-        rotate(12deg)
-        scale(1.08);
-}
 
 .photo-card.breaking
-.photo-piece:nth-child(3) {
+.photo-image {
     transform:
-        translate(90px, -80px)
-        rotate(20deg)
-        scale(1.05);
+        scale(1.15)
+        rotate(3deg);
+
+    opacity: 0.35;
 }
 
-.photo-card.breaking
-.photo-piece:nth-child(4) {
-    transform:
-        translate(120px, -10px)
-        rotate(25deg)
-        scale(1.08);
-}
 
-.photo-card.breaking
-.photo-piece:nth-child(5) {
-    transform:
-        translate(-110px, -20px)
-        rotate(-25deg)
-        scale(1.08);
-}
+@keyframes photoShake {
 
-.photo-card.breaking
-.photo-piece:nth-child(6) {
-    transform:
-        translate(0, 0)
-        rotate(5deg)
-        scale(1.15);
-}
+    0% {
+        transform: scale(1);
+    }
 
-.photo-card.breaking
-.photo-piece:nth-child(7) {
-    transform:
-        translate(110px, 20px)
-        rotate(22deg)
-        scale(1.08);
-}
+    20% {
+        transform:
+            scale(1.05)
+            rotate(-2deg);
+    }
 
-.photo-card.breaking
-.photo-piece:nth-child(8) {
-    transform:
-        translate(-100px, 80px)
-        rotate(-22deg)
-        scale(1.05);
-}
+    40% {
+        transform:
+            scale(0.95)
+            rotate(2deg);
+    }
 
-.photo-card.breaking
-.photo-piece:nth-child(9) {
-    transform:
-        translate(0, 110px)
-        rotate(-12deg)
-        scale(1.08);
-}
+    60% {
+        transform:
+            scale(1.05)
+            rotate(-1deg);
+    }
 
-.photo-card.breaking
-.photo-piece:nth-child(10) {
-    transform:
-        translate(90px, 90px)
-        rotate(18deg)
-        scale(1.05);
-}
+    80% {
+        transform:
+            scale(0.98)
+            rotate(1deg);
+    }
 
-.photo-card.breaking
-.photo-piece:nth-child(11) {
-    transform:
-        translate(-70px, 130px)
-        rotate(-15deg)
-        scale(1.05);
-}
-
-.photo-card.breaking
-.photo-piece:nth-child(12) {
-    transform:
-        translate(70px, 140px)
-        rotate(15deg)
-        scale(1.05);
-}
-
-.photo-card.breaking
-.photo-piece {
-    opacity: 0.85;
+    100% {
+        transform: scale(1);
+    }
 }
 
 
@@ -384,14 +323,12 @@ button:hover {
     .name-dot,
     .empty-dot {
         width: 8px;
-
         height: 8px;
     }
 
 
     .photo-area {
         width: 280px;
-
         height: 370px;
     }
 }
