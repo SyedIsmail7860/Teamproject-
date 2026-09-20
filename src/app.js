@@ -98,11 +98,9 @@ const letters = {
 
 /* =========================
    CREATE SYED ISMAIL
-   USING ONLY DOTS
    ========================= */
 
-const nameText =
-    "SYED ISMAIL";
+const nameText = "SYED ISMAIL";
 
 const dotName =
     document.getElementById("dotName");
@@ -219,7 +217,7 @@ let colorIndex = 0;
 
 
 /* =========================
-   LED COLOR ANIMATION
+   CHANGE LED COLOR
    ========================= */
 
 function changeColor() {
@@ -262,51 +260,17 @@ setInterval(
 
 
 /* =========================
-   CREATE PHOTO PIECES
+   PHOTO
    ========================= */
-
-const photoCard =
-    document.getElementById("photoCard");
 
 const photoArea =
     document.getElementById("photoArea");
 
+const photoCard =
+    document.getElementById("photoCard");
+
 const resetButton =
     document.getElementById("resetButton");
-
-
-const rows = 5;
-
-const columns = 4;
-
-
-for (let row = 0; row < rows; row++) {
-
-    for (let column = 0; column < columns; column++) {
-
-        const piece =
-            document.createElement("div");
-
-
-        piece.className =
-            "photo-piece";
-
-
-        piece.style.left =
-            `${column * 25}%`;
-
-
-        piece.style.top =
-            `${row * 20}%`;
-
-
-        piece.style.backgroundPosition =
-            `${column * 33.333333}% ${row * 25}%`;
-
-
-        photoCard.appendChild(piece);
-    }
-}
 
 
 /* =========================
@@ -319,8 +283,6 @@ function breakPhoto() {
         "breaking"
     );
 
-
-    /* Come back after 2 seconds */
 
     setTimeout(
         function() {
@@ -336,7 +298,7 @@ function breakPhoto() {
 
 
 /* =========================
-   TOUCH / CLICK PHOTO
+   TOUCH / CLICK
    ========================= */
 
 photoArea.addEventListener(
@@ -351,7 +313,7 @@ photoArea.addEventListener(
 
 
 /* =========================
-   RESET BUTTON
+   RESET
    ========================= */
 
 resetButton.addEventListener(
