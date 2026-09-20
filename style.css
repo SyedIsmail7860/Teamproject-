@@ -8,12 +8,17 @@ body {
     margin: 0;
     padding: 50px 20px;
     min-height: 100vh;
+
     color: white;
 
     background-color: #061b4f;
 
     background-image:
-        radial-gradient(circle, #ff0000 2px, transparent 2px);
+        radial-gradient(
+            circle,
+            #ff0000 2px,
+            transparent 2px
+        );
 
     background-size: 25px 25px;
 
@@ -41,76 +46,6 @@ p {
 
 
 /* =========================
-   SYED ISMAIL LED DOT MATRIX
-   ========================= */
-
-.dot-name {
-    display: grid;
-
-    grid-template-columns: repeat(55, 14px);
-
-    gap: 9px;
-
-    justify-content: center;
-    align-items: center;
-
-    margin: 50px auto;
-
-    min-height: 160px;
-}
-
-
-/* LED DOT */
-
-.name-dot {
-    width: 14px;
-    height: 14px;
-
-    border-radius: 50%;
-
-    background: #ff0000;
-
-    box-shadow:
-        0 0 5px currentColor,
-        0 0 12px currentColor,
-        0 0 25px currentColor,
-        0 0 40px currentColor;
-
-    transition:
-        background-color 0.15s ease,
-        box-shadow 0.15s ease;
-
-    animation: ledPulse 0.8s infinite alternate;
-}
-
-
-/* EMPTY DOT */
-
-.empty-dot {
-    width: 14px;
-    height: 14px;
-
-    visibility: hidden;
-}
-
-
-/* LED PULSE */
-
-@keyframes ledPulse {
-
-    from {
-        opacity: 0.75;
-        transform: scale(0.9);
-    }
-
-    to {
-        opacity: 1;
-        transform: scale(1.15);
-    }
-}
-
-
-/* =========================
    3D PHOTO
    ========================= */
 
@@ -125,6 +60,7 @@ p {
     touch-action: none;
 }
 
+
 .photo-card {
     position: relative;
 
@@ -137,8 +73,6 @@ p {
 
     transform-style: preserve-3d;
 
-    transition: box-shadow 0.3s ease;
-
     will-change: transform;
 
     box-shadow:
@@ -147,6 +81,11 @@ p {
     border:
         3px solid rgba(255, 255, 255, 0.7);
 }
+
+
+/* =========================
+   PHOTO
+   ========================= */
 
 .photo-card img {
     width: 100%;
@@ -164,7 +103,9 @@ p {
 }
 
 
-/* PHOTO LIGHT */
+/* =========================
+   PHOTO LIGHT EFFECT
+   ========================= */
 
 .photo-glow {
     position: absolute;
@@ -195,6 +136,7 @@ p {
 
 .instruction {
     font-size: 16px;
+
     opacity: 0.85;
 }
 
@@ -224,6 +166,7 @@ button {
     transition: 0.2s;
 }
 
+
 button:hover {
     background: #2985ff;
 
@@ -237,31 +180,6 @@ button:hover {
 
 @media (max-width: 700px) {
 
-    .dot-name {
-        grid-template-columns: repeat(55, 9px);
-
-        gap: 5px;
-
-        overflow-x: auto;
-
-        justify-content: start;
-
-        padding: 15px;
-    }
-
-    .name-dot,
-    .empty-dot {
-        width: 9px;
-        height: 9px;
-    }
-
-    .name-dot {
-        box-shadow:
-            0 0 4px currentColor,
-            0 0 9px currentColor,
-            0 0 18px currentColor;
-    }
-
     h1 {
         font-size: 30px;
     }
@@ -274,4 +192,4 @@ button:hover {
         width: 280px;
         height: 370px;
     }
-        }
+}
