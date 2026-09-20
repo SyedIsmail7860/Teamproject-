@@ -1,899 +1,1018 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Ismail - CSE Developer Portfolio">
+  <meta name="author" content="Ismail">
+  <title>Ismail | Developer Portfolio</title>
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <meta
-        name="description"
-        content="Ismail's 70-feature developer portfolio"
-    >
-
-    <title>Ismail | Developer Portfolio</title>
-
-    <link rel="stylesheet" href="style.css">
-
-    <script src="src/app.js" defer></script>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <!-- PARTICLES -->
-    <div id="particles" class="particles"></div>
+  <!-- =========================================================
+       1–20 : VISUAL & DESIGN FEATURES
+  ========================================================== -->
 
-    <!-- TOUCH EFFECT -->
-    <div id="touchEffect" class="touch-effect"></div>
+  <!-- 2. Shooting Stars -->
+  <div id="shootingStars"></div>
 
-    <!-- SCROLL PROGRESS -->
-    <div id="scrollProgress" class="scroll-progress"></div>
+  <!-- 3. Rain -->
+  <div id="rainEffect"></div>
+
+  <!-- 4. Snow -->
+  <div id="snowEffect"></div>
+
+  <!-- 5. Fire Particles -->
+  <div id="fireParticles"></div>
+
+  <!-- 6. Lightning -->
+  <div id="lightningEffect"></div>
+
+  <!-- 7. Ocean Waves -->
+  <div id="oceanWaves"></div>
+
+  <!-- 8. Galaxy -->
+  <div id="galaxyBackground"></div>
+
+  <!-- 9. Clouds -->
+  <div id="movingClouds"></div>
+
+  <!-- 10. Day/Night -->
+  <div id="dayNightSky"></div>
+
+  <!-- 13. Aurora -->
+  <div id="auroraBackground"></div>
+
+  <!-- 14. Spiral -->
+  <div id="spiralBackground"></div>
+
+  <!-- 16. Bubbles -->
+  <div id="bubbleAnimation"></div>
+
+  <!-- 17. Falling Petals -->
+  <div id="fallingPetals"></div>
+
+  <!-- 18. Falling Leaves -->
+  <div id="fallingLeaves"></div>
+
+  <!-- 19. Fireworks -->
+  <div id="fireworks"></div>
+
+  <!-- 20. Interactive Web -->
+  <canvas id="webCanvas"></canvas>
+
+  <!-- Existing particle system -->
+  <div id="particles"></div>
+
+  <!-- Click Explosion -->
+  <div id="clickExplosion"></div>
 
 
-    <!-- =========================================
-         NAVIGATION
-    ========================================== -->
+  <!-- =========================================================
+       NAVIGATION
+  ========================================================== -->
 
-    <nav id="navbar" class="navbar">
+  <header id="navbar">
 
-        <div class="nav-logo">
-            Ismail
-        </div>
+    <!-- 1. Neon Logo -->
+    <a href="#home" class="neon-logo">
+      ISMAIL<span>07</span>
+    </a>
 
-        <button
-            id="menuButton"
-            class="menu-button"
-            type="button"
-            aria-label="Open navigation menu"
-        >
-            ☰
-        </button>
+    <button id="menuButton" type="button" aria-label="Open menu">
+      ☰
+    </button>
 
-        <div id="navLinks" class="nav-links">
-
-            <a href="#home">Home</a>
-            <a href="#about">About</a>
-            <a href="#skills">Skills</a>
-            <a href="#projects">Projects</a>
-            <a href="#gallery">Gallery</a>
-            <a href="#developer">Developer</a>
-            <a href="#games">Games</a>
-            <a href="#contact">Contact</a>
-
-        </div>
-
+    <nav id="navLinks">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#tools">Tools</a>
+      <a href="#games">Games</a>
+      <a href="#career">Career</a>
+      <a href="#contact">Contact</a>
     </nav>
 
-
-    <!-- =========================================
-         SEARCH
-    ========================================== -->
-
-    <section class="section search-section">
-
-        <h2>🔎 Search Portfolio</h2>
-
-        <input
-            id="portfolioSearch"
-            type="search"
-            placeholder="Search sections..."
-            aria-label="Search portfolio"
-        >
-
-        <div id="searchResults" class="search-results"></div>
-
-    </section>
+  </header>
 
 
-    <!-- =========================================
-         HERO
-    ========================================== -->
+  <!-- Scroll Progress -->
+  <div id="scrollProgress"></div>
 
-    <header id="home" class="hero">
 
-        <div id="heroCard" class="hero-card">
+  <!-- =========================================================
+       21–35 : PROFILE
+  ========================================================== -->
 
-            <div class="animated-profile-frame">
+  <main>
 
-                <img
-                    src="ismail.jpg"
-                    alt="Ismail"
-                    class="hero-profile-image"
-                >
+    <!-- HOME -->
+    <section id="home" class="hero">
 
-            </div>
+      <div class="hero-card">
 
-            <span class="badge">
-                🚀 CSE Developer
-            </span>
+        <!-- 33. Animated Profile Frame -->
+        <div class="profile-frame">
 
-            <h1 id="welcomeTitle">
-                Welcome to My Portfolio
-            </h1>
-
-            <h2>
-                I'm Ismail
-            </h2>
-
-            <p id="typingText"></p>
-
-            <div class="hero-buttons">
-
-                <a href="#projects" class="glow-button">
-                    🚀 View Projects
-                </a>
-
-                <a href="#contact" class="glow-button">
-                    📧 Contact Me
-                </a>
-
-                <a href="#developer" class="glow-button">
-                    👨‍💻 Developer Mode
-                </a>
-
-            </div>
+          <img
+            src="ismail.jpg"
+            alt="Ismail profile photo"
+            class="profile-image"
+          >
 
         </div>
 
-    </header>
-
-
-    <!-- =========================================
-         VISUAL MODES
-    ========================================== -->
-
-    <section class="section">
-
-        <h2>🎨 Visual Modes</h2>
-
-        <div class="theme-buttons">
-
-            <button
-                class="theme-color"
-                data-color="#00ffff"
-                type="button"
-            >
-                Cyan
-            </button>
-
-            <button
-                class="theme-color"
-                data-color="#0088ff"
-                type="button"
-            >
-                Blue
-            </button>
-
-            <button
-                class="theme-color"
-                data-color="#9b00ff"
-                type="button"
-            >
-                Purple
-            </button>
-
-            <button
-                class="theme-color"
-                data-color="#00ff66"
-                type="button"
-            >
-                Green
-            </button>
-
-            <button
-                class="theme-color"
-                data-color="#ff0066"
-                type="button"
-            >
-                Pink
-            </button>
-
-        </div>
-
-        <div class="mode-buttons">
-
-            <button
-                id="rainbowButton"
-                class="glow-button"
-                type="button"
-            >
-                🌈 Rainbow Glow
-            </button>
-
-            <button
-                id="gradientButton"
-                class="glow-button"
-                type="button"
-            >
-                🌌 Change Gradient
-            </button>
-
-            <button
-                id="lightDarkButton"
-                class="glow-button"
-                type="button"
-            >
-                🌓 Light / Dark
-            </button>
-
-        </div>
-
-    </section>
-
-
-    <!-- =========================================
-         LIVE DATE & TIME
-    ========================================== -->
-
-    <section class="time-section section">
-
-        <h2>⏰ Live Date & Time</h2>
-
-        <div id="liveDate">
-            Loading date...
-        </div>
-
-        <div id="liveTime">
-            Loading time...
-        </div>
-
-    </section>
-
-
-    <!-- =========================================
-         MUSIC PLAYER
-    ========================================== -->
-
-    <section class="section music-section">
-
-        <h2>🎵 Background Music</h2>
-
-        <audio id="backgroundMusic" loop>
-
-            <source
-                src="music.mp3"
-                type="audio/mpeg"
-            >
-
-        </audio>
-
-        <button
-            id="musicButton"
-            class="glow-button"
-            type="button"
-        >
-            🎵 Play Music
-        </button>
-
-    </section>
-
-
-    <!-- =========================================
-         ABOUT
-    ========================================== -->
-
-    <section
-        id="about"
-        class="section glass-card portfolio-search-item"
-    >
-
-        <h2>👤 About Me</h2>
-
-        <p>
-            Hello! I am Ismail, a B.Tech Computer Science
-            and Engineering student.
-        </p>
-
-        <p>
-            I am interested in Python, SQL, Web Development,
-            Software Development and modern technologies.
-        </p>
-
-        <p>
-            This website is my personal GitHub project
-            where I experiment with web development.
-        </p>
-
-    </section>
-
-
-    <!-- =========================================
-         SKILLS
-    ========================================== -->
-
-    <section
-        id="skills"
-        class="section glass-card portfolio-search-item"
-    >
-
-        <h2>🚀 My Skills</h2>
-
-        <div class="skills-container">
-
-            <div class="skill-card">
-                <div class="skill-title">🐍 Python</div>
-
-                <div class="skill-bar">
-                    <div
-                        class="skill-fill"
-                        data-progress="75"
-                    ></div>
-                </div>
-
-                <span>75%</span>
-            </div>
-
-
-            <div class="skill-card">
-                <div class="skill-title">🗄️ SQL</div>
-
-                <div class="skill-bar">
-                    <div
-                        class="skill-fill"
-                        data-progress="70"
-                    ></div>
-                </div>
-
-                <span>70%</span>
-            </div>
-
-
-            <div class="skill-card">
-                <div class="skill-title">🌐 HTML</div>
-
-                <div class="skill-bar">
-                    <div
-                        class="skill-fill"
-                        data-progress="85"
-                    ></div>
-                </div>
-
-                <span>85%</span>
-            </div>
-
-
-            <div class="skill-card">
-                <div class="skill-title">🎨 CSS</div>
-
-                <div class="skill-bar">
-                    <div
-                        class="skill-fill"
-                        data-progress="75"
-                    ></div>
-                </div>
-
-                <span>75%</span>
-            </div>
-
-
-            <div class="skill-card">
-                <div class="skill-title">⚡ JavaScript</div>
-
-                <div class="skill-bar">
-                    <div
-                        class="skill-fill"
-                        data-progress="65"
-                    ></div>
-                </div>
-
-                <span>65%</span>
-            </div>
-
-
-            <div class="skill-card">
-                <div class="skill-title">💻 GitHub</div>
-
-                <div class="skill-bar">
-                    <div
-                        class="skill-fill"
-                        data-progress="80"
-                    ></div>
-                </div>
-
-                <span>80%</span>
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- =========================================
-         DEVELOPER JOURNEY
-    ========================================== -->
-
-    <section class="section glass-card portfolio-search-item">
-
-        <h2>🧑‍💻 Developer Journey</h2>
-
-        <div class="timeline">
-
-            <div class="timeline-item">
-                <span>2024</span>
-                <h3>🎓 Started B.Tech CSE</h3>
-                <p>Started my Computer Science journey.</p>
-            </div>
-
-            <div class="timeline-item">
-                <span>2025</span>
-                <h3>🐍 Started Python</h3>
-                <p>Began learning programming fundamentals.</p>
-            </div>
-
-            <div class="timeline-item">
-                <span>2026</span>
-                <h3>🌐 Web Development</h3>
-                <p>Started building real web projects.</p>
-            </div>
-
-            <div class="timeline-item">
-                <span>Future</span>
-                <h3>🚀 Software Developer</h3>
-                <p>Continue learning and building.</p>
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- =========================================
-         PROJECT PROGRESS
-    ========================================== -->
-
-    <section
-        id="projects"
-        class="section glass-card portfolio-search-item"
-    >
-
-        <h2>📊 Project Progress</h2>
-
-        <div class="project-card">
-
-            <h3>My First GitHub Project</h3>
-
-            <p>
-                Building and improving my first
-                collaborative software project.
-            </p>
-
-            <div class="progress-bar">
-
-                <div
-                    id="progressFill"
-                    class="progress-fill"
-                ></div>
-
-            </div>
-
-            <p id="progressText">
-                0% Complete
-            </p>
-
-        </div>
-
-        <div class="project-list">
-
-            <div class="project-item">
-                🌐 Personal Portfolio
-            </div>
-
-            <div class="project-item">
-                💻 Team Project
-            </div>
-
-            <div class="project-item">
-                🐍 Python Projects
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- =========================================
-         PHOTO BREAK
-    ========================================== -->
-
-    <section class="section photo-section">
-
-        <h2>📸 My Photo</h2>
-
-        <div id="photoArea" class="photo-area">
-
-            <div id="photoCard" class="photo-card">
-
-                <img
-                    src="ismail.jpg"
-                    alt="Ismail"
-                    class="photo-image"
-                >
-
-            </div>
-
-        </div>
-
-        <p>
-            🖱️ Touch or click the photo to break it!
-        </p>
-
-        <button
-            id="resetButton"
-            class="glow-button"
-            type="button"
-        >
-            🔄 Reset Photo
-        </button>
-
-    </section>
-
-
-    <!-- =========================================
-         PHOTO GALLERY
-    ========================================== -->
-
-    <section
-        id="gallery"
-        class="section glass-card portfolio-search-item"
-    >
-
-        <h2>🖼️ Photo Gallery</h2>
-
-        <div class="gallery">
-
-            <div class="gallery-item">
-
-                <img
-                    src="ismail.jpg"
-                    alt="Ismail photo"
-                    class="gallery-image"
-                >
-
-            </div>
-
-            <div class="gallery-item gallery-placeholder">
-                📷 Photo 2
-            </div>
-
-            <div class="gallery-item gallery-placeholder">
-                📷 Photo 3
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- =========================================
-         KEEP LEARNING
-    ========================================== -->
-
-    <section class="section reveal-card">
-
-        <h2>✨ Keep Learning</h2>
-
-        <p>
-            Learn. Build. Practice. Improve.
-        </p>
-
-    </section>
-
-
-    <!-- =========================================
-         GITHUB
-    ========================================== -->
-
-    <section
-        id="developer"
-        class="section glass-card portfolio-search-item"
-    >
-
-        <h2>🐙 GitHub Developer</h2>
-
-        <div class="github-card">
-
-            <h3>Ismail's GitHub</h3>
-
-            <p>
-                Explore my repositories,
-                projects and coding journey.
-            </p>
-
-            <a
-                href="https://github.com/"
-                target="_blank"
-                rel="noopener"
-                class="glow-button github-link"
-            >
-                Visit GitHub
+        <!-- 31. Developer Profile Card -->
+        <div class="developer-profile-card">
+
+          <p class="small-title">WELCOME TO MY PORTFOLIO</p>
+
+          <h1>
+            Hi, I'm <span>Ismail</span>
+          </h1>
+
+          <!-- 30. Coding Story / Typing -->
+          <h2 id="typingText">
+            B.Tech CSE Developer
+          </h2>
+
+          <p>
+            Python • SQL • Web Development • Problem Solving
+          </p>
+
+          <div class="hero-buttons">
+            <a href="#projects" class="glow-button">
+              View Projects
             </a>
 
-        </div>
-
-
-        <div id="githubStats" class="github-stats">
-
-            <div>
-                <strong id="repoCount">--</strong>
-                <span>Repositories</span>
-            </div>
-
-            <div>
-                <strong id="followerCount">--</strong>
-                <span>Followers</span>
-            </div>
-
-            <div>
-                <strong id="followingCount">--</strong>
-                <span>Following</span>
-            </div>
+            <a href="#contact" class="glow-button">
+              Contact Me
+            </a>
+          </div>
 
         </div>
 
+      </div>
 
-        <h3 class="sub-heading">
-            🔥 Contribution Activity
-        </h3>
 
-        <div
-            id="contributionHeatmap"
-            class="contribution-heatmap"
-        >
+      <!-- 22. Birthday Countdown -->
+      <div class="feature-card">
 
-            <div class="heat-cell"></div>
-            <div class="heat-cell"></div>
-            <div class="heat-cell"></div>
-            <div class="heat-cell"></div>
-            <div class="heat-cell"></div>
-            <div class="heat-cell"></div>
-            <div class="heat-cell"></div>
-            <div class="heat-cell"></div>
-            <div class="heat-cell"></div>
-            <div class="heat-cell"></div>
-            <div class="heat-cell"></div>
-            <div class="heat-cell"></div>
+        <h3>🎂 Birthday Countdown</h3>
 
+        <div id="birthdayCountdown">
+          Loading...
         </div>
 
-    </section>
+      </div>
 
 
-    <!-- =========================================
-         CODING TERMINAL
-    ========================================== -->
+      <!-- 23. Age Counter -->
+      <div class="feature-card">
 
-    <section class="section glass-card portfolio-search-item">
+        <h3>⏳ My Age</h3>
 
-        <h2>👨‍💻 Coding Terminal</h2>
-
-        <div class="terminal">
-
-            <div class="terminal-header">
-                ● ● ●
-            </div>
-
-            <div
-                id="terminalOutput"
-                class="terminal-output"
-            >
-                $ welcome Ismail<br>
-                $ portfolio loaded<br>
-                $ ready to code...
-            </div>
-
-            <div class="terminal-input-row">
-
-                <span>$</span>
-
-                <input
-                    id="terminalInput"
-                    type="text"
-                    placeholder="Type a command..."
-                    autocomplete="off"
-                >
-
-            </div>
-
+        <div id="ageCounter">
+          Loading...
         </div>
 
-    </section>
+      </div>
 
 
-    <!-- =========================================
-         PYTHON SHOWCASE
-    ========================================== -->
+      <!-- 24. Hometown -->
+      <div class="feature-card">
 
-    <section class="section glass-card">
-
-        <h2>🐍 Python Code</h2>
-
-        <pre class="code-block"><code>name = "Ismail"
-
-print("Hello", name)
-
-for i in range(5):
-    print("Keep learning 🚀")</code></pre>
-
-        <button
-            id="pythonCopyButton"
-            class="glow-button"
-            type="button"
-        >
-            📋 Copy Python Code
-        </button>
-
-    </section>
-
-
-    <!-- =========================================
-         RESUME
-    ========================================== -->
-
-    <section class="section">
-
-        <h2>📄 Resume</h2>
+        <h3>📍 Hometown</h3>
 
         <p>
-            Download my resume and learn more
-            about my skills and projects.
+          Gurramkonda, Andhra Pradesh
         </p>
 
-        <a
-            href="resume.pdf"
-            download
-            class="glow-button"
-        >
-            📥 Download Resume
-        </a>
+      </div>
 
     </section>
 
 
-    <!-- =========================================
-         FEATURED PROJECTS
-    ========================================== -->
+    <!-- =====================================================
+         25. EDUCATION TIMELINE
+    ====================================================== -->
 
-    <section class="section glass-card">
+    <section id="education">
 
-        <h2>🚀 Featured Projects</h2>
+      <h2>🎓 Education Timeline</h2>
 
-        <div class="project-showcase">
+      <div class="timeline">
 
-            <article class="featured-project">
-
-                <h3>Personal Portfolio</h3>
-
-                <p>
-                    Modern responsive portfolio
-                    built with HTML, CSS and JavaScript.
-                </p>
-
-                <button
-                    class="project-details-button"
-                    data-project="portfolio"
-                    type="button"
-                >
-                    🔍 View Details
-                </button>
-
-                <a
-                    href="#"
-                    class="glow-button live-demo"
-                >
-                    🌐 Live Demo
-                </a>
-
-                <div class="project-rating">
-                    ⭐⭐⭐⭐⭐
-                </div>
-
-            </article>
-
-
-            <article class="featured-project">
-
-                <h3>Python Projects</h3>
-
-                <p>
-                    Beginner programming projects
-                    created while learning Python.
-                </p>
-
-                <button
-                    class="project-details-button"
-                    data-project="python"
-                    type="button"
-                >
-                    🔍 View Details
-                </button>
-
-                <div class="project-rating">
-                    ⭐⭐⭐⭐⭐
-                </div>
-
-            </article>
-
+        <div class="timeline-item">
+          <h3>School</h3>
+          <p>Gurramkonda</p>
         </div>
 
-    </section>
-
-
-    <!-- =========================================
-         CODING QUIZ
-    ========================================== -->
-
-    <section
-        id="games"
-        class="section game-section portfolio-search-item"
-    >
-
-        <h2>🧩 Coding Quiz</h2>
-
-        <div id="quizContainer">
-
-            <p id="quizQuestion">
-                What does HTML stand for?
-            </p>
-
-            <div class="quiz-options">
-
-                <button
-                    class="quiz-option"
-                    data-answer="wrong"
-                    type="button"
-                >
-                    Hyper Text Machine Language
-                </button>
-
-                <button
-                    class="quiz-option"
-                    data-answer="correct"
-                    type="button"
-                >
-                    HyperText Markup Language
-                </button>
-
-                <button
-                    class="quiz-option"
-                    data-answer="wrong"
-                    type="button"
-                >
-                    High Text Markdown Language
-                </button>
-
-            </div>
-
-            <p id="quizScore">
-                Score: 0
-            </p>
-
+        <div class="timeline-item">
+          <h3>B.Tech</h3>
+          <p>Computer Science & Engineering</p>
         </div>
 
+        <div class="timeline-item">
+          <h3>2024–2028</h3>
+          <p>Viswam Engineering College</p>
+        </div>
+
+      </div>
+
     </section>
 
 
-    <!-- =========================================
-         TRIVIA
-    ========================================== -->
+    <!-- =====================================================
+         26–29. PERSONAL FEATURES
+    ====================================================== -->
 
-    <section class="section game-section">
+    <section id="personal">
 
-        <h2>🧠 Programming Trivia</h2>
+      <h2>🏆 Personal Dashboard</h2>
 
-        <button
-            id="triviaButton"
-            class="glow-button"
-            type="button"
+      <div class="feature-grid">
+
+        <!-- 26 -->
+        <article class="feature-card">
+          <h3>🏅 Achievements</h3>
+          <strong id="achievementCounter">0</strong>
+        </article>
+
+        <!-- 27 -->
+        <article class="feature-card">
+          <h3>💼 Career Goal</h3>
+          <p>₹15 LPA Developer</p>
+          <div class="progress-bar">
+            <div id="careerProgress"></div>
+          </div>
+        </article>
+
+        <!-- 28 -->
+        <article class="feature-card">
+          <h3>🎯 Personal Goals</h3>
+          <ul>
+            <li>Improve Coding</li>
+            <li>Build Projects</li>
+            <li>Get Placement</li>
+          </ul>
+        </article>
+
+        <!-- 29 -->
+        <article class="feature-card">
+          <h3>📅 Activity Tracker</h3>
+          <p id="activityTracker">
+            Coding today: 0 minutes
+          </p>
+        </article>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         32. MILESTONE TIMELINE
+    ====================================================== -->
+
+    <section id="milestones">
+
+      <h2>🏆 My Milestones</h2>
+
+      <div class="timeline">
+
+        <div class="timeline-item">
+          <span>01</span>
+          <p>Started Programming</p>
+        </div>
+
+        <div class="timeline-item">
+          <span>02</span>
+          <p>Started Python</p>
+        </div>
+
+        <div class="timeline-item">
+          <span>03</span>
+          <p>Started Web Development</p>
+        </div>
+
+        <div class="timeline-item">
+          <span>04</span>
+          <p>Building Portfolio</p>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         33–34. INTERESTS & FAVORITES
+    ====================================================== -->
+
+    <section id="interests">
+
+      <h2>💡 My Interests</h2>
+
+      <div class="tag-container">
+
+        <span>💻 Coding</span>
+        <span>🐍 Python</span>
+        <span>🌐 Web Development</span>
+        <span>🤖 AI</span>
+        <span>🎮 Games</span>
+        <span>📚 Learning</span>
+
+      </div>
+
+      <h2>❤️ Favorite Things</h2>
+
+      <div class="tag-container">
+
+        <span>💙 Blue</span>
+        <span>⚡ Technology</span>
+        <span>💻 Programming</span>
+        <span>🚀 Future Tech</span>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         35. BEFORE / AFTER
+    ====================================================== -->
+
+    <section id="beforeAfter">
+
+      <h2>📸 Before / After</h2>
+
+      <div class="before-after">
+
+        <div class="before">
+          <img src="ismail.jpg" alt="Before">
+        </div>
+
+        <div class="after">
+          <img src="ismail.jpg" alt="After">
+        </div>
+
+        <input
+          id="beforeAfterSlider"
+          type="range"
+          min="0"
+          max="100"
+          value="50"
+          aria-label="Before after slider"
         >
-            🎯 Start Trivia
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         ABOUT
+    ========================================================== -->
+
+    <section id="about">
+
+      <h2>👨‍💻 About Me</h2>
+
+      <div class="glass-card">
+
+        <p>
+          I am Ismail, a B.Tech Computer Science & Engineering student
+          interested in software development, Python, SQL, AI and modern
+          web technologies.
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         SKILLS
+    ========================================================== -->
+
+    <section id="skills">
+
+      <h2>💻 Skills</h2>
+
+      <div class="skills-grid">
+
+        <div class="skill-card">
+          <h3>Python</h3>
+          <div class="skill-bar">
+            <div data-progress="75"></div>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <h3>SQL</h3>
+          <div class="skill-bar">
+            <div data-progress="70"></div>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <h3>HTML</h3>
+          <div class="skill-bar">
+            <div data-progress="85"></div>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <h3>CSS</h3>
+          <div class="skill-bar">
+            <div data-progress="75"></div>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <h3>JavaScript</h3>
+          <div class="skill-bar">
+            <div data-progress="60"></div>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         36–41 : CODING
+    ========================================================== -->
+
+    <section id="coding">
+
+      <h2>💻 Coding Lab</h2>
+
+      <!-- 36. Interactive Code Editor -->
+      <div class="tool-card">
+
+        <h3>🖥️ Interactive Code Editor</h3>
+
+        <textarea
+          id="codeEditor"
+          spellcheck="false"
+        >console.log("Hello Ismail!");</textarea>
+
+        <button id="runCodeButton" type="button">
+          ▶ Run Code
         </button>
 
-        <p id="triviaResult"></p>
+        <pre id="codeOutput"></pre>
+
+      </div>
+
+
+      <!-- 37. JavaScript Runner -->
+      <div class="tool-card">
+
+        <h3>▶️ JavaScript Runner</h3>
+
+        <input
+          id="javascriptInput"
+          type="text"
+          placeholder="Example: 5 + 5"
+        >
+
+        <button id="javascriptRun" type="button">
+          Run
+        </button>
+
+        <p id="javascriptResult"></p>
+
+      </div>
+
+
+      <!-- 38. Python Playground -->
+      <div class="tool-card">
+
+        <h3>🐍 Python Playground</h3>
+
+        <textarea
+          id="pythonCode"
+          placeholder="print('Hello Ismail!')"
+        >print("Hello Ismail!")</textarea>
+
+        <button id="pythonRun" type="button">
+          Run Python
+        </button>
+
+        <pre id="pythonOutput">
+Python playground UI
+        </pre>
+
+      </div>
+
+
+      <!-- 39. SQL Playground -->
+      <div class="tool-card">
+
+        <h3>🗃️ SQL Playground</h3>
+
+        <textarea
+          id="sqlEditor"
+        >SELECT * FROM students;</textarea>
+
+        <button id="sqlRun" type="button">
+          Run SQL
+        </button>
+
+        <pre id="sqlOutput"></pre>
+
+      </div>
+
+
+      <!-- 40. Snippet Library -->
+      <div class="tool-card">
+
+        <h3>🧩 Code Snippet Library</h3>
+
+        <button class="snippet-button" data-code="print('Hello World')">
+          Python Hello World
+        </button>
+
+        <button class="snippet-button" data-code="console.log('Hello World');">
+          JavaScript Hello World
+        </button>
+
+        <button class="snippet-button" data-code="SELECT * FROM users;">
+          SQL Select
+        </button>
+
+      </div>
+
+
+      <!-- 41. Cheat Sheet -->
+      <div class="tool-card">
+
+        <h3>📚 Programming Cheat Sheet</h3>
+
+        <details>
+          <summary>Python</summary>
+          <p>Variables, loops, conditions, functions, lists, dictionaries.</p>
+        </details>
+
+        <details>
+          <summary>SQL</summary>
+          <p>SELECT, INSERT, UPDATE, DELETE, JOIN, GROUP BY.</p>
+        </details>
+
+        <details>
+          <summary>JavaScript</summary>
+          <p>Variables, functions, arrays, objects, DOM.</p>
+        </details>
+
+      </div>
 
     </section>
 
 
-    <!-- =
+    <!-- =========================================================
+         42–50 : GAMES
+    ========================================================== -->
+
+    <section id="games">
+
+      <h2>🎮 Mini Games</h2>
+
+      <!-- 42 -->
+      <div class="game-card">
+
+        <h3>🔢 Number Guessing Game</h3>
+
+        <input
+          id="guessInput"
+          type="number"
+          min="1"
+          max="100"
+          placeholder="1–100"
+        >
+
+        <button id="guessButton" type="button">
+          Guess
+        </button>
+
+        <p id="guessResult"></p>
+
+      </div>
+
+
+      <!-- 43 -->
+      <div class="game-card">
+
+        <h3>✊ Rock Paper Scissors</h3>
+
+        <button class="rps-button" data-choice="rock">
+          ✊ Rock
+        </button>
+
+        <button class="rps-button" data-choice="paper">
+          ✋ Paper
+        </button>
+
+        <button class="rps-button" data-choice="scissors">
+          ✌️ Scissors
+        </button>
+
+        <p id="rpsResult"></p>
+
+      </div>
+
+
+      <!-- 44 -->
+      <div class="game-card">
+
+        <h3>❌⭕ Tic-Tac-Toe</h3>
+
+        <div id="ticTacToe"></div>
+
+        <button id="ticReset" type="button">
+          Reset
+        </button>
+
+        <p id="ticResult"></p>
+
+      </div>
+
+
+      <!-- 45 -->
+      <div class="game-card">
+
+        <h3>🐍 Snake Game</h3>
+
+        <canvas
+          id="snakeCanvas"
+          width="300"
+          height="300"
+        ></canvas>
+
+        <button id="snakeStart" type="button">
+          Start Snake
+        </button>
+
+      </div>
+
+
+      <!-- 46 -->
+      <div class="game-card">
+
+        <h3>🧱 Breakout Game</h3>
+
+        <canvas
+          id="breakoutCanvas"
+          width="320"
+          height="220"
+        ></canvas>
+
+        <button id="breakoutStart" type="button">
+          Start Breakout
+        </button>
+
+      </div>
+
+
+      <!-- 47 -->
+      <div class="game-card">
+
+        <h3>🧠 Memory Game</h3>
+
+        <div id="memoryGame"></div>
+
+        <button id="memoryReset" type="button">
+          Reset
+        </button>
+
+      </div>
+
+
+      <!-- 48 -->
+      <div class="game-card">
+
+        <h3>⌨️ Typing Challenge</h3>
+
+        <p id="typingChallengeText">
+          Coding makes the future.
+        </p>
+
+        <input
+          id="typingChallengeInput"
+          type="text"
+          placeholder="Type here..."
+        >
+
+        <p id="typingChallengeResult"></p>
+
+      </div>
+
+
+      <!-- 49 -->
+      <div class="game-card">
+
+        <h3>🔐 Password Generator</h3>
+
+        <input
+          id="generatedPassword"
+          readonly
+        >
+
+        <button id="generatePassword" type="button">
+          Generate
+        </button>
+
+      </div>
+
+
+      <!-- 50 -->
+      <div class="game-card">
+
+        <h3>🔑 Password Strength</h3>
+
+        <input
+          id="passwordStrengthInput"
+          type="password"
+          placeholder="Enter password"
+        >
+
+        <div id="passwordStrength"></div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         51–65 : DEVELOPER TOOLS
+    ========================================================== -->
+
+    <section id="tools">
+
+      <h2>🛠️ Developer Tools</h2>
+
+
+      <!-- 51 -->
+      <div class="tool-card">
+
+        <h3>🧮 Calculator</h3>
+
+        <input
+          id="calculatorInput"
+          type="text"
+          placeholder="Example: 10 + 20"
+        >
+
+        <button id="calculateButton" type="button">
+          Calculate
+        </button>
+
+        <p id="calculatorResult"></p>
+
+      </div>
+
+
+      <!-- 52 -->
+      <div class="tool-card">
+
+        <h3>🔄 Unit Converter</h3>
+
+        <input
+          id="unitInput"
+          type="number"
+          placeholder="Value"
+        >
+
+        <select id="unitType">
+          <option value="km-mi">KM → Miles</option>
+          <option value="mi-km">Miles → KM</option>
+          <option value="kg-lb">KG → Pounds</option>
+          <option value="lb-kg">Pounds → KG</option>
+        </select>
+
+        <button id="unitConvert" type="button">
+          Convert
+        </button>
+
+        <p id="unitResult"></p>
+
+      </div>
+
+
+      <!-- 53 -->
+      <div class="tool-card">
+
+        <h3>📅 Calendar</h3>
+
+        <input
+          id="calendarDate"
+          type="date"
+        >
+
+        <p id="calendarResult"></p>
+
+      </div>
+
+
+      <!-- 54 -->
+      <div class="tool-card">
+
+        <h3>⏱️ Stopwatch</h3>
+
+        <div id="stopwatchDisplay">
+          00:00:00
+        </div>
+
+        <button id="stopwatchStart" type="button">
+          Start
+        </button>
+
+        <button id="stopwatchStop" type="button">
+          Stop
+        </button>
+
+        <button id="stopwatchReset" type="button">
+          Reset
+        </button>
+
+      </div>
+
+
+      <!-- 55 -->
+      <div class="tool-card">
+
+        <h3>⏲️ Countdown Timer</h3>
+
+        <input
+          id="countdownInput"
+          type="number"
+          placeholder="Seconds"
+        >
+
+        <button id="countdownStart" type="button">
+          Start
+        </button>
+
+        <div id="countdownDisplay">0</div>
+
+      </div>
+
+
+      <!-- 56 -->
+      <div class="tool-card">
+
+        <h3>📝 Notes</h3>
+
+        <textarea
+          id="notesArea"
+          placeholder="Write your notes..."
+        ></textarea>
+
+        <button id="saveNotes" type="button">
+          Save Notes
+        </button>
+
+        <button id="clearNotes" type="button">
+          Clear
+        </button>
+
+      </div>
+
+
+      <!-- 57 -->
+      <div class="tool-card">
+
+        <h3>📋 To-Do List</h3>
+
+        <input
+          id="todoInput"
+          type="text"
+          placeholder="New task"
+        >
+
+        <button id="addTodo" type="button">
+          Add
+        </button>
+
+        <ul id="todoList"></ul>
+
+      </div>
+
+
+      <!-- 58 -->
+      <div class="tool-card">
+
+        <h3>📌 Bookmark Manager</h3>
+
+        <input
+          id="bookmarkName"
+          type="text"
+          placeholder="Website name"
+        >
+
+        <input
+          id="bookmarkURL"
+          type="url"
+          placeholder="https://example.com"
+        >
+
+        <button id="addBookmark" type="button">
+          Add Bookmark
+        </button>
+
+        <div id="bookmarkList"></div>
+
+      </div>
+
+
+      <!-- 59 -->
+      <div class="tool-card">
+
+        <h3>🔍 JSON Formatter</h3>
+
+        <textarea
+          id="jsonInput"
+          placeholder='{"name":"Ismail"}'
+        ></textarea>
+
+        <button id="formatJSON" type="button">
+          Format JSON
+        </button>
+
+        <pre id="jsonOutput"></pre>
+
+      </div>
+
+
+      <!-- 60 -->
+      <div class="tool-card">
+
+        <h3>🎨 Color Picker</h3>
+
+        <input
+          id="colorPicker"
+          type="color"
+          value="#008cff"
+        >
+
+        <p id="colorValue">
+          #008cff
+        </p>
+
+      </div>
+
+
+      <!-- 61 -->
+      <div class="tool-card">
+
+        <h3>🔢 Number Converter</h3>
+
+        <input
+          id="numberInput"
+          type="number"
+          placeholder="Enter number"
+        >
+
+        <button id="convertNumber" type="button">
+          Convert
+        </button>
+
+        <pre id="numberOutput"></pre>
+
+      </div>
+
+
+      <!-- 62 -->
+      <div class="tool-card">
+
+        <h3>🔐 Base64 Encoder / Decoder</h3>
+
+        <textarea
+          id="base64Input"
+          placeholder="Enter text"
+        ></textarea>
+
+        <button id="encodeBase64" type="button">
+          Encode
+        </button>
+
+        <button id="decodeBase64" type="button">
+          Decode
+        </button>
+
+        <pre id="base64Output"></pre>
+
+      </div>
+
+
+      <!-- 63 -->
+      <div class="tool-card">
+
+  
