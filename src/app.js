@@ -1,793 +1,904 @@
 /* =========================================================
-   ISMAIL PORTFOLIO — APP.JS
-   Features 1–70
-   Page Loader removed
-   ========================================================= */
+   ISMAIL PORTFOLIO — src/app.js
+   100 FEATURE INTERACTIVE JAVASCRIPT
+========================================================= */
 
 "use strict";
 
 /* =========================================================
-   HELPER FUNCTIONS
-   ========================================================= */
+   GLOBAL HELPERS
+========================================================= */
 
-const $ = (selector, parent = document) =>
-    parent.querySelector(selector);
-
+const $ = (selector, parent = document) => parent.querySelector(selector);
 const $$ = (selector, parent = document) =>
-    [...parent.querySelectorAll(selector)];
+  Array.from(parent.querySelectorAll(selector));
 
-function showToast(message) {
-    const toast = $("#toast");
+const byId = (id) => document.getElementById(id);
 
-    if (!toast) return;
+function showToast(message, duration = 2500) {
+  const toast =
+    byId("toast") ||
+    $(".toast");
 
-    toast.textContent = message;
-    toast.classList.add("show");
+  if (!toast) return;
 
-    clearTimeout(window.toastTimer);
+  toast.textContent = message;
+  toast.classList.add("show");
 
-    window.toastTimer = setTimeout(() => {
-        toast.classList.remove("show");
-    }, 2500);
+  clearTimeout(toast._timer);
+
+  toast._timer = setTimeout(() => {
+    toast.classList.remove("show");
+  }, duration);
 }
 
-window.showToast = showToast;
-
-/* =========================================================
-   1. BACKGROUND MUSIC PLAYER
-   ========================================================= */
-
-const music = $("#backgroundMusic");
-const musicButton = $("#musicButton");
-
-if (music && musicButton) {
-    musicButton.addEventListener("click", () => {
-        if (music.paused) {
-            music.play()
-                .then(() => {
-                    musicButton.textContent = "⏸️";
-                    showToast("Music playing 🎵");
-                })
-                .catch(() => {
-                    showToast("Tap again to start music");
-                });
-        } else {
-            music.pause();
-            musicButton.textContent = "▶️";
-            showToast("Music paused");
-        }
-    });
-
-    music.addEventListener("ended", () => {
-        musicButton.textContent = "▶️";
-    });
+function safeNumber(value, fallback = 0) {
+  const n = Number(value);
+  return Number.isFinite(n) ? n : fallback;
 }
 
 /* =========================================================
-   2. DARK / BLACK THEME
-   ========================================================= */
+   1. 3D NEON LOGO
+========================================================= */
 
-document.body.classList.add("dark-mode");
+const logo = $(".logo");
 
-/* =========================================================
-   3. ANIMATED BACKGROUND PARTICLES
-   ========================================================= */
+if (logo) {
+  logo.addEventListener("mousemove", (e) => {
+    const rect = logo.getBoundingClientRect();
 
-const particlesContainer = $("#particles");
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
 
-function createParticles() {
-    if (!particlesContainer) return;
+    logo.style.transform =
+      `perspective(500px) rotateY(${x * 20}deg) rotateX(${-y * 20}deg)`;
+  });
 
-    particlesContainer.innerHTML = "";
-
-    const count = window.innerWidth < 600 ? 35 : 70;
-
-    for (let i = 0; i < count; i++) {
-        const particle = document.createElement("span");
-
-        particle.className = "particle";
-
-        particle.style.left = `${Math.random() * 100}%`;
-        particle.style.animationDuration =
-            `${5 + Math.random() * 10}s`;
-
-        particle.style.animationDelay =
-            `${Math.random() * 8}s`;
-
-        particle.style.opacity =
-            `${0.2 + Math.random() * 0.8}`;
-
-        particlesContainer.appendChild(particle);
-    }
-}
-
-createParticles();
-
-/* =========================================================
-   4. PHOTO BREAK / RE-FORM EFFECT
-   ========================================================= */
-
-const photoCard = $("#photoCard");
-const resetButton = $("#resetButton");
-
-function photoBreakEffect() {
-    if (!photoCard) return;
-
-    photoCard.classList.remove("breaking");
-
-    void photoCard.offsetWidth;
-
-    photoCard.classList.add("breaking");
-
-    setTimeout(() => {
-        photoCard.classList.remove("breaking");
-    }, 2000);
-}
-
-if (photoCard) {
-    photoCard.addEventListener("click", photoBreakEffect);
-}
-
-if (resetButton) {
-    resetButton.addEventListener("click", photoBreakEffect);
+  logo.addEventListener("mouseleave", () => {
+    logo.style.transform = "";
+  });
 }
 
 /* =========================================================
-   5. MOUSE / TOUCH EFFECT
-   ========================================================= */
+   2–20. BACKGROUND EFFECTS
+========================================================= */
 
-const touchEffect = $("#touchEffect");
+const body = document.body;
 
-function createTouchEffect(x, y) {
-    if (!touchEffect) return;
+function createParticle(className, lifetime = 5000) {
+  const particle = document.createElement("span");
 
-    touchEffect.style.left = `${x}px`;
-    touchEffect.style.top = `${y}px`;
+  particle.className = className;
 
-    touchEffect.classList.remove("active");
+  particle.style.left = `${Math.random() * 100}%`;
+  particle.style.top = `${Math.random() * 100}%`;
 
-    void touchEffect.offsetWidth;
+  particle.style.animationDuration =
+    `${Math.max(1500, lifetime + Math.random() * lifetime)}ms`;
 
-    touchEffect.classList.add("active");
+  document.body.appendChild(particle);
+
+  setTimeout(() => {
+    particle.remove();
+  }, lifetime * 2);
 }
 
-document.addEventListener("pointerdown", event => {
-    createTouchEffect(event.clientX, event.clientY);
-});
+/* Shooting Stars */
 
-/* =========================================================
-   6. TYPING ANIMATION
-   ========================================================= */
+function createShootingStar() {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-const typingElement = $(".typing-text");
+  createParticle("shooting-star", 2500);
+}
 
-const typingWords = [
-    "Python Developer",
-    "CSE Student",
-    "Future Full Stack Developer",
-    "Problem Solver",
-    "Software Developer"
-];
+setInterval(createShootingStar, 3500);
 
-let typingWordIndex = 0;
-let typingCharIndex = 0;
-let deletingText = false;
+/* Rain */
 
-function typeAnimation() {
-    if (!typingElement) return;
+function createRainDrop() {
+  const container = byId("rainEffect");
 
-    const word = typingWords[typingWordIndex];
+  if (!container) return;
 
-    if (!deletingText) {
-        typingElement.textContent =
-            word.substring(0, typingCharIndex + 1);
+  const drop = document.createElement("span");
 
-        typingCharIndex++;
+  drop.className = "rain-drop";
+  drop.style.left = `${Math.random() * 100}%`;
+  drop.style.animationDuration = `${0.5 + Math.random()}s`;
 
-        if (typingCharIndex === word.length) {
-            deletingText = true;
+  container.appendChild(drop);
 
-            setTimeout(typeAnimation, 1300);
-            return;
-        }
-    } else {
-        typingElement.textContent =
-            word.substring(0, typingCharIndex - 1);
+  setTimeout(() => drop.remove(), 2000);
+}
 
-        typingCharIndex--;
+setInterval(createRainDrop, 100);
 
-        if (typingCharIndex === 0) {
-            deletingText = false;
-            typingWordIndex =
-                (typingWordIndex + 1) % typingWords.length;
-        }
-    }
+/* Snow */
 
-    setTimeout(
-        typeAnimation,
-        deletingText ? 45 : 85
+function createSnowflake() {
+  const container = byId("snowEffect");
+
+  if (!container) return;
+
+  const snow = document.createElement("span");
+
+  snow.className = "snowflake";
+  snow.textContent = "❄";
+  snow.style.left = `${Math.random() * 100}%`;
+  snow.style.animationDuration = `${4 + Math.random() * 6}s`;
+
+  container.appendChild(snow);
+
+  setTimeout(() => snow.remove(), 10000);
+}
+
+setInterval(createSnowflake, 500);
+
+/* Fire */
+
+function createFireParticle() {
+  const container = byId("fireEffect");
+
+  if (!container) return;
+
+  const fire = document.createElement("span");
+
+  fire.className = "fire-particle";
+
+  fire.style.left = `${Math.random() * 100}%`;
+  fire.style.bottom = "0";
+  fire.style.animationDuration = `${1 + Math.random() * 2}s`;
+
+  container.appendChild(fire);
+
+  setTimeout(() => fire.remove(), 3500);
+}
+
+setInterval(createFireParticle, 180);
+
+/* Lightning */
+
+function lightningFlash() {
+  const lightning = byId("lightningEffect");
+
+  if (!lightning) return;
+
+  lightning.classList.add("active");
+
+  setTimeout(() => {
+    lightning.classList.remove("active");
+  }, 180);
+}
+
+setInterval(() => {
+  if (Math.random() > 0.7) lightningFlash();
+}, 6000);
+
+/* Ocean Waves */
+
+const ocean = byId("oceanEffect");
+
+if (ocean) {
+  ocean.addEventListener("click", () => {
+    ocean.classList.toggle("wave-active");
+  });
+}
+
+/* Galaxy */
+
+const galaxy = byId("galaxyEffect");
+
+if (galaxy) {
+  for (let i = 0; i < 80; i++) {
+    const star = document.createElement("span");
+
+    star.className = "galaxy-star";
+    star.style.left = `${Math.random() * 100}%`;
+    star.style.top = `${Math.random() * 100}%`;
+    star.style.animationDelay = `${Math.random() * 5}s`;
+
+    galaxy.appendChild(star);
+  }
+}
+
+/* Clouds */
+
+const cloudContainer = byId("cloudEffect");
+
+if (cloudContainer) {
+  for (let i = 0; i < 8; i++) {
+    const cloud = document.createElement("span");
+
+    cloud.className = "cloud";
+    cloud.style.top = `${Math.random() * 80}%`;
+    cloud.style.animationDelay = `${Math.random() * 10}s`;
+
+    cloudContainer.appendChild(cloud);
+  }
+}
+
+/* Day / Night */
+
+function updateSky() {
+  const sky = byId("dayNightEffect");
+
+  if (!sky) return;
+
+  const hour = new Date().getHours();
+
+  if (hour >= 6 && hour < 18) {
+    sky.classList.add("day");
+    sky.classList.remove("night");
+  } else {
+    sky.classList.add("night");
+    sky.classList.remove("day");
+  }
+}
+
+updateSky();
+setInterval(updateSky, 60000);
+
+/* Aurora */
+
+const aurora = byId("auroraEffect");
+
+if (aurora) {
+  aurora.classList.add("active");
+}
+
+/* Bubbles */
+
+function createBubble() {
+  const container = byId("bubbleEffect");
+
+  if (!container) return;
+
+  const bubble = document.createElement("span");
+
+  bubble.className = "bubble";
+  bubble.style.left = `${Math.random() * 100}%`;
+  bubble.style.animationDuration = `${4 + Math.random() * 5}s`;
+
+  container.appendChild(bubble);
+
+  setTimeout(() => bubble.remove(), 10000);
+}
+
+setInterval(createBubble, 700);
+
+/* Falling Petals */
+
+function createPetal() {
+  const container = byId("petalEffect");
+
+  if (!container) return;
+
+  const petal = document.createElement("span");
+
+  petal.className = "falling-petal";
+  petal.textContent = "🌸";
+  petal.style.left = `${Math.random() * 100}%`;
+  petal.style.animationDuration = `${4 + Math.random() * 5}s`;
+
+  container.appendChild(petal);
+
+  setTimeout(() => petal.remove(), 10000);
+}
+
+setInterval(createPetal, 900);
+
+/* Falling Leaves */
+
+function createLeaf() {
+  const container = byId("leafEffect");
+
+  if (!container) return;
+
+  const leaf = document.createElement("span");
+
+  leaf.className = "falling-leaf";
+  leaf.textContent = "🍂";
+  leaf.style.left = `${Math.random() * 100}%`;
+  leaf.style.animationDuration = `${4 + Math.random() * 5}s`;
+
+  container.appendChild(leaf);
+
+  setTimeout(() => leaf.remove(), 10000);
+}
+
+setInterval(createLeaf, 1000);
+
+/* Fireworks */
+
+function createFirework(x, y) {
+  const container = byId("fireworksEffect") || document.body;
+
+  for (let i = 0; i < 20; i++) {
+    const particle = document.createElement("span");
+
+    particle.className = "firework-particle";
+
+    particle.style.left = `${x}px`;
+    particle.style.top = `${y}px`;
+
+    const angle = (Math.PI * 2 * i) / 20;
+    const distance = 50 + Math.random() * 100;
+
+    particle.style.setProperty(
+      "--x",
+      `${Math.cos(angle) * distance}px`
     );
-}
 
-typeAnimation();
-
-/* =========================================================
-   7. GLOWING BUTTONS
-   ========================================================= */
-
-$$(".btn, button").forEach(button => {
-    button.addEventListener("pointermove", event => {
-        const rect = button.getBoundingClientRect();
-
-        const x =
-            ((event.clientX - rect.left) / rect.width) * 100;
-
-        const y =
-            ((event.clientY - rect.top) / rect.height) * 100;
-
-        button.style.setProperty("--mouse-x", `${x}%`);
-        button.style.setProperty("--mouse-y", `${y}%`);
-    });
-});
-
-/* =========================================================
-   8. MOBILE RESPONSIVE
-   ========================================================= */
-
-window.addEventListener("resize", () => {
-    createParticles();
-});
-
-/* =========================================================
-   9. ABOUT ME
-   ========================================================= */
-
-const aboutSection = $("#about");
-
-if (aboutSection) {
-    aboutSection.addEventListener("click", () => {
-        aboutSection.classList.add("about-active");
-
-        setTimeout(() => {
-            aboutSection.classList.remove("about-active");
-        }, 500);
-    });
-}
-
-/* =========================================================
-   10. SKILLS
-   ========================================================= */
-
-const skillFills = $$(".skill-fill");
-
-function animateSkills() {
-    skillFills.forEach(fill => {
-        const progress = fill.dataset.progress || "0";
-
-        fill.style.width = `${Math.min(
-            100,
-            Math.max(0, Number(progress))
-        )}%`;
-    });
-}
-
-/* =========================================================
-   11. PROJECT / PROGRESS
-   ========================================================= */
-
-const progressFill = $("#progressFill");
-const progressText = $("#progressText");
-
-function updateProjectProgress(value = 75) {
-    if (progressFill) {
-        progressFill.style.width = `${value}%`;
-    }
-
-    if (progressText) {
-        progressText.textContent =
-            `Portfolio Progress: ${value}%`;
-    }
-}
-
-updateProjectProgress();
-
-/* =========================================================
-   12. CONTACT
-   ========================================================= */
-
-const contactSection = $("#contact");
-
-if (contactSection) {
-    contactSection.addEventListener("mouseenter", () => {
-        contactSection.classList.add("contact-active");
-    });
-
-    contactSection.addEventListener("mouseleave", () => {
-        contactSection.classList.remove("contact-active");
-    });
-}
-
-/* =========================================================
-   13. BACK TO TOP
-   ========================================================= */
-
-const backToTop = $("#backToTop");
-
-window.addEventListener("scroll", () => {
-    if (!backToTop) return;
-
-    if (window.scrollY > 500) {
-        backToTop.classList.add("show");
-    } else {
-        backToTop.classList.remove("show");
-    }
-});
-
-if (backToTop) {
-    backToTop.addEventListener("click", () => {
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
-    });
-}
-
-/* =========================================================
-   14. LIVE DATE & TIME
-   ========================================================= */
-
-const liveDate = $("#liveDate");
-const liveTime = $("#liveTime");
-
-function updateDateTime() {
-    const now = new Date();
-
-    if (liveDate) {
-        liveDate.textContent =
-            now.toLocaleDateString("en-IN", {
-                weekday: "long",
-                day: "numeric",
-                month: "long",
-                year: "numeric"
-            });
-    }
-
-    if (liveTime) {
-        liveTime.textContent =
-            now.toLocaleTimeString("en-IN");
-    }
-}
-
-updateDateTime();
-
-setInterval(updateDateTime, 1000);
-
-/* =========================================================
-   15. WELCOME ANIMATION
-   ========================================================= */
-
-window.addEventListener("load", () => {
-    document.body.classList.add("loaded");
-
-    setTimeout(() => {
-        showToast("Welcome to Ismail's Portfolio 👋");
-    }, 700);
-});
-
-/* =========================================================
-   16. 3D INTERACTIVE HERO CARD
-   ========================================================= */
-
-const heroCard = $("#heroCard");
-
-if (heroCard) {
-    heroCard.addEventListener("pointermove", event => {
-        const rect = heroCard.getBoundingClientRect();
-
-        const x =
-            event.clientX - rect.left - rect.width / 2;
-
-        const y =
-            event.clientY - rect.top - rect.height / 2;
-
-        const rotateX =
-            (-y / rect.height) * 8;
-
-        const rotateY =
-            (x / rect.width) * 8;
-
-        heroCard.style.transform =
-            `perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-    });
-
-    heroCard.addEventListener("pointerleave", () => {
-        heroCard.style.transform =
-            "perspective(900px) rotateX(0) rotateY(0)";
-    });
-}
-
-/* =========================================================
-   17. FLOATING PARTICLES
-   ========================================================= */
-
-function createFloatingObject() {
-    const object = document.createElement("div");
-
-    object.className = "floating-object";
-    object.textContent =
-        ["◆", "◇", "✦", "•"][Math.floor(Math.random() * 4)];
-
-    object.style.left =
-        `${Math.random() * 100}%`;
-
-    object.style.top =
-        `${Math.random() * 100}%`;
-
-    object.style.fontSize =
-        `${10 + Math.random() * 20}px`;
-
-    document.body.appendChild(object);
-
-    setTimeout(() => {
-        object.remove();
-    }, 10000);
-}
-
-setInterval(createFloatingObject, 2500);
-
-/* =========================================================
-   18. GLASSMORPHISM
-   ========================================================= */
-
-$$(".glass-card").forEach(card => {
-    card.addEventListener("pointermove", event => {
-        const rect = card.getBoundingClientRect();
-
-        const x =
-            ((event.clientX - rect.left) / rect.width) * 100;
-
-        const y =
-            ((event.clientY - rect.top) / rect.height) * 100;
-
-        card.style.background =
-            `radial-gradient(circle at ${x}% ${y}%, rgba(0,170,255,.12), rgba(15,15,15,.88) 45%)`;
-    });
-
-    card.addEventListener("pointerleave", () => {
-        card.style.background = "";
-    });
-});
-
-/* =========================================================
-   19. CUSTOM GLOWING CURSOR
-   ========================================================= */
-
-const cursorGlow = document.createElement("div");
-
-cursorGlow.id = "cursorGlow";
-
-cursorGlow.style.cssText = `
-    position:fixed;
-    width:20px;
-    height:20px;
-    border-radius:50%;
-    pointer-events:none;
-    z-index:9999;
-    border:1px solid rgba(0,170,255,.8);
-    box-shadow:0 0 20px rgba(0,170,255,.6);
-    transform:translate(-50%,-50%);
-    display:none;
-`;
-
-document.body.appendChild(cursorGlow);
-
-if (window.matchMedia("(pointer:fine)").matches) {
-    cursorGlow.style.display = "block";
-
-    document.addEventListener("pointermove", event => {
-        cursorGlow.style.left =
-            `${event.clientX}px`;
-
-        cursorGlow.style.top =
-            `${event.clientY}px`;
-    });
-}
-
-/* =========================================================
-   20. STICKY NAVIGATION
-   ========================================================= */
-
-const navbar = $("#navbar");
-
-window.addEventListener("scroll", () => {
-    if (!navbar) return;
-
-    navbar.classList.toggle(
-        "scrolled",
-        window.scrollY > 50
+    particle.style.setProperty(
+      "--y",
+      `${Math.sin(angle) * distance}px`
     );
+
+    container.appendChild(particle);
+
+    setTimeout(() => particle.remove(), 1200);
+  }
+}
+
+/* Interactive Spider Web */
+
+const spiderWeb = byId("spiderWeb");
+
+if (spiderWeb) {
+  spiderWeb.addEventListener("mousemove", (e) => {
+    spiderWeb.style.setProperty("--mouse-x", `${e.clientX}px`);
+    spiderWeb.style.setProperty("--mouse-y", `${e.clientY}px`);
+  });
+}
+
+/* Click Explosion */
+
+document.addEventListener("click", (e) => {
+  const explosion = document.createElement("span");
+
+  explosion.className = "click-explosion";
+
+  explosion.style.left = `${e.clientX}px`;
+  explosion.style.top = `${e.clientY}px`;
+
+  document.body.appendChild(explosion);
+
+  setTimeout(() => explosion.remove(), 700);
+
+  /* Firework on special areas */
+  if (
+    e.target.closest(".firework-button") ||
+    e.target.closest("#fireworksButton")
+  ) {
+    createFirework(e.clientX, e.clientY);
+  }
 });
 
 /* =========================================================
-   21. SKILL OBSERVER
-   ========================================================= */
+   21. DIGITAL ID CARD
+========================================================= */
 
-if ("IntersectionObserver" in window) {
-    const skillObserver =
-        new IntersectionObserver(entries => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    animateSkills();
-                    skillObserver.unobserve(entry.target);
-                }
-            });
-        }, {
-            threshold: 0.25
-        });
+const idCard = $(".digital-id-card");
 
-    skillFills.forEach(fill => {
-        skillObserver.observe(fill);
-    });
-} else {
-    animateSkills();
+if (idCard) {
+  idCard.addEventListener("click", () => {
+    idCard.classList.toggle("flipped");
+  });
 }
 
 /* =========================================================
-   22. PHOTO GALLERY
-   ========================================================= */
+   22. BIRTHDAY COUNTDOWN
+========================================================= */
 
-$$(".gallery-item img").forEach(image => {
-    image.addEventListener("click", () => {
-        openImageViewer(image.src, image.alt);
-    });
+function getNextBirthday() {
+  const now = new Date();
+
+  let birthday = new Date(
+    now.getFullYear(),
+    3,
+    17,
+    0,
+    0,
+    0
+  );
+
+  if (birthday <= now) {
+    birthday = new Date(
+      now.getFullYear() + 1,
+      3,
+      17,
+      0,
+      0,
+      0
+    );
+  }
+
+  return birthday;
+}
+
+function updateBirthdayCountdown() {
+  const target = getNextBirthday();
+  const now = new Date();
+
+  const difference = target - now;
+
+  const days = Math.max(
+    0,
+    Math.floor(difference / 86400000)
+  );
+
+  const hours = Math.max(
+    0,
+    Math.floor((difference / 3600000) % 24)
+  );
+
+  const minutes = Math.max(
+    0,
+    Math.floor((difference / 60000) % 60)
+  );
+
+  const seconds = Math.max(
+    0,
+    Math.floor((difference / 1000) % 60)
+  );
+
+  const day = byId("birthdayDays");
+  const hour = byId("birthdayHours");
+  const minute = byId("birthdayMinutes");
+  const second = byId("birthdaySeconds");
+
+  if (day) day.textContent = days;
+  if (hour) hour.textContent = hours;
+  if (minute) minute.textContent = minutes;
+  if (second) second.textContent = seconds;
+}
+
+updateBirthdayCountdown();
+setInterval(updateBirthdayCountdown, 1000);
+
+/* =========================================================
+   23. AGE COUNTER
+========================================================= */
+
+function updateAge() {
+  const ageElement = byId("ageCounter");
+
+  if (!ageElement) return;
+
+  const birthday = new Date(2007, 3, 17);
+  const now = new Date();
+
+  let age = now.getFullYear() - birthday.getFullYear();
+
+  const birthdayPassed =
+    now.getMonth() > birthday.getMonth() ||
+    (
+      now.getMonth() === birthday.getMonth() &&
+      now.getDate() >= birthday.getDate()
+    );
+
+  if (!birthdayPassed) age--;
+
+  ageElement.textContent = age;
+}
+
+updateAge();
+
+/* =========================================================
+   24–34. PERSONAL INFORMATION
+========================================================= */
+
+const counters = $$(".counter");
+
+const counterObserver =
+  "IntersectionObserver" in window
+    ? new IntersectionObserver(
+        (entries, observer) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+
+            const element = entry.target;
+            const target = safeNumber(element.dataset.target);
+
+            let current = 0;
+            const duration = 1200;
+            const start = performance.now();
+
+            function animate(time) {
+              const progress = Math.min(
+                (time - start) / duration,
+                1
+              );
+
+              current = Math.floor(target * progress);
+
+              element.textContent = current;
+
+              if (progress < 1) {
+                requestAnimationFrame(animate);
+              } else {
+                element.textContent = target;
+              }
+            }
+
+            requestAnimationFrame(animate);
+
+            observer.unobserve(element);
+          });
+        },
+        { threshold: 0.2 }
+      )
+    : null;
+
+if (counterObserver) {
+  counters.forEach((counter) => counterObserver.observe(counter));
+}
+
+/* =========================================================
+   35. BEFORE / AFTER SLIDER
+========================================================= */
+
+const sliders = $$(".before-after-slider");
+
+sliders.forEach((slider) => {
+  const range =
+    $("input[type='range']", slider) ||
+    $(".before-after-range", slider);
+
+  const afterImage =
+    $(".after-image", slider) ||
+    $(".after", slider);
+
+  if (!range || !afterImage) return;
+
+  function updateSlider() {
+    const value = safeNumber(range.value, 50);
+
+    afterImage.style.width = `${value}%`;
+  }
+
+  range.addEventListener("input", updateSlider);
+
+  updateSlider();
 });
 
 /* =========================================================
-   23. FULLSCREEN IMAGE VIEWER
-   ========================================================= */
+   36. INTERACTIVE CODE EDITOR
+========================================================= */
 
-function openImageViewer(src, alt = "Image") {
-    const viewer = document.createElement("div");
+const codeEditor = byId("codeEditor");
+const codeOutput = byId("codeOutput");
+const runCodeButton =
+  byId("runCode") ||
+  byId("runCodeButton");
 
-    viewer.id = "imageViewer";
+if (runCodeButton && codeEditor && codeOutput) {
+  runCodeButton.addEventListener("click", () => {
+    const code = codeEditor.value.trim();
 
-    viewer.innerHTML = `
-        <div class="image-viewer-inner">
-            <button class="image-viewer-close">✕</button>
-            <img src="${src}" alt="${alt}">
-        </div>
-    `;
-
-    viewer.style.cssText = `
-        position:fixed;
-        inset:0;
-        z-index:10001;
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        padding:20px;
-        background:rgba(0,0,0,.92);
-        backdrop-filter:blur(12px);
-    `;
-
-    document.body.appendChild(viewer);
-
-    const close = $(".image-viewer-close", viewer);
-
-    close.style.cssText = `
-        position:absolute;
-        top:20px;
-        right:20px;
-        width:45px;
-        height:45px;
-        border-radius:50%;
-        background:#111;
-        color:#fff;
-        border:1px solid #555;
-        font-size:20px;
-    `;
-
-    const image = $("img", viewer);
-
-    image.style.cssText = `
-        max-width:95%;
-        max-height:90vh;
-        object-fit:contain;
-        border-radius:15px;
-    `;
-
-    function closeViewer() {
-        viewer.remove();
+    if (!code) {
+      codeOutput.textContent = "Enter JavaScript code first.";
+      return;
     }
-
-    close.addEventListener("click", closeViewer);
-
-    viewer.addEventListener("click", event => {
-        if (event.target === viewer) {
-            closeViewer();
-        }
-    });
-
-    document.addEventListener("keydown", function escapeHandler(event) {
-        if (event.key === "Escape") {
-            closeViewer();
-            document.removeEventListener(
-                "keydown",
-                escapeHandler
-            );
-        }
-    });
-}
-
-/* =========================================================
-   24. SCROLL REVEAL
-   ========================================================= */
-
-const revealElements = $$(".reveal");
-
-if ("IntersectionObserver" in window) {
-    const revealObserver =
-        new IntersectionObserver(entries => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add("visible");
-                }
-            });
-        }, {
-            threshold: 0.12
-        });
-
-    revealElements.forEach(element => {
-        revealObserver.observe(element);
-    });
-} else {
-    revealElements.forEach(element => {
-        element.classList.add("visible");
-    });
-}
-
-/* =========================================================
-   25. TOAST NOTIFICATIONS
-   ========================================================= */
-
-/* showToast() is defined above */
-
-/* =========================================================
-   26. COPY TO CLIPBOARD
-   ========================================================= */
-
-function copyText(text, successMessage = "Copied!") {
-    if (!text) return;
-
-    if (navigator.clipboard) {
-        navigator.clipboard.writeText(text)
-            .then(() => showToast(successMessage))
-            .catch(() => fallbackCopy(text));
-    } else {
-        fallbackCopy(text);
-    }
-}
-
-function fallbackCopy(text) {
-    const textarea =
-        document.createElement("textarea");
-
-    textarea.value = text;
-    textarea.style.position = "fixed";
-    textarea.style.opacity = "0";
-
-    document.body.appendChild(textarea);
-
-    textarea.select();
 
     try {
-        document.execCommand("copy");
-        showToast("Copied!");
-    } catch {
-        showToast("Copy failed");
+      const result = Function(`"use strict"; return (${code})`)();
+
+      codeOutput.textContent =
+        result === undefined
+          ? "Code executed successfully."
+          : String(result);
+
+      showToast("JavaScript executed successfully.");
+    } catch (error) {
+      codeOutput.textContent =
+        `Error: ${error.message}`;
+
+      showToast("JavaScript error.");
+    }
+  });
+}
+
+/* =========================================================
+   37. RUN JAVASCRIPT
+========================================================= */
+
+const jsEditor =
+  byId("jsEditor") ||
+  byId("javascriptEditor");
+
+const jsOutput =
+  byId("jsOutput") ||
+  byId("javascriptOutput");
+
+const jsRun =
+  byId("jsRun") ||
+  byId("runJavaScript");
+
+if (jsRun && jsEditor && jsOutput) {
+  jsRun.addEventListener("click", () => {
+    try {
+      const result = Function(
+        `"use strict";\n${jsEditor.value}`
+      )();
+
+      jsOutput.textContent =
+        result === undefined
+          ? "Executed successfully."
+          : String(result);
+    } catch (error) {
+      jsOutput.textContent =
+        `Error: ${error.message}`;
+    }
+  });
+}
+
+/* =========================================================
+   38. PYTHON PLAYGROUND
+========================================================= */
+
+const pythonEditor = byId("pythonEditor");
+const pythonOutput = byId("pythonOutput");
+const pythonRun = byId("pythonRun");
+
+if (pythonRun && pythonEditor && pythonOutput) {
+  pythonRun.addEventListener("click", () => {
+    const code = pythonEditor.value.trim();
+
+    if (!code) {
+      pythonOutput.textContent =
+        "Enter Python code first.";
+      return;
     }
 
-    textarea.remove();
-}
-
-const copyEmailButton = $("#copyEmailButton");
-
-if (copyEmailButton) {
-    copyEmailButton.addEventListener("click", () => {
-        const email =
-            copyEmailButton.dataset.email ||
-            $(".contact-email")?.textContent ||
-            "";
-
-        copyText(email.trim(), "Email copied!");
-    });
+    pythonOutput.textContent =
+      "Python Playground UI ready.\n\n" +
+      "For real Python execution, a Python runtime/backend is required.\n\n" +
+      "Code entered:\n" +
+      code;
+  });
 }
 
 /* =========================================================
-   27. GITHUB PROFILE
-   ========================================================= */
+   39. SQL PLAYGROUND
+========================================================= */
 
-$$(".github-link").forEach(link => {
-    link.addEventListener("click", () => {
-        showToast("Opening GitHub 🐙");
-    });
+const sqlEditor = byId("sqlEditor");
+const sqlOutput = byId("sqlOutput");
+const sqlRun = byId("sqlRun");
+
+if (sqlRun && sqlEditor && sqlOutput) {
+  sqlRun.addEventListener("click", () => {
+    const query = sqlEditor.value.trim();
+
+    if (!query) {
+      sqlOutput.textContent =
+        "Enter SQL query first.";
+      return;
+    }
+
+    sqlOutput.textContent =
+      "SQL Playground UI ready.\n\n" +
+      "A database connection is required for real SQL execution.\n\n" +
+      "Query:\n" +
+      query;
+  });
+}
+
+/* =========================================================
+   40. CODE SNIPPET LIBRARY
+========================================================= */
+
+$$("[data-copy-code]").forEach((button) => {
+  button.addEventListener("click", async () => {
+    const code =
+      button.dataset.copyCode ||
+      button.textContent;
+
+    try {
+      await navigator.clipboard.writeText(code);
+      showToast("Code copied!");
+    } catch {
+      showToast("Copy failed.");
+    }
+  });
 });
 
 /* =========================================================
-   28. MINI WEB GAME
-   ========================================================= */
+   41. PROGRAMMING CHEAT SHEET
+========================================================= */
 
-const miniGameButton = $("#miniGameButton");
-const miniGameScore = $("#miniGameScore");
+$$(".cheat-sheet-toggle").forEach((button) => {
+  button.addEventListener("click", () => {
+    const targetId = button.dataset.target;
 
-let miniScore = 0;
+    const target = byId(targetId);
 
-if (miniGameButton) {
-    miniGameButton.addEventListener("click", () => {
-        miniScore += Math.floor(Math.random() * 10) + 1;
+    if (target) {
+      target.classList.toggle("hidden");
+    }
+  });
+});
 
-        if (miniGameScore) {
-            miniGameScore.textContent =
-                `Score: ${miniScore}`;
-        }
-    });
+/* =========================================================
+   42. NUMBER GUESSING GAME
+========================================================= */
+
+let secretNumber =
+  Math.floor(Math.random() * 100) + 1;
+
+let guessAttempts = 0;
+
+const guessInput = byId("guessInput");
+const guessButton = byId("guessButton");
+const guessResult = byId("guessResult");
+
+if (guessButton && guessInput && guessResult) {
+  guessButton.addEventListener("click", () => {
+    const guess = Number(guessInput.value);
+
+    if (!Number.isInteger(guess) || guess < 1 || guess > 100) {
+      guessResult.textContent =
+        "Enter a number from 1 to 100.";
+      return;
+    }
+
+    guessAttempts++;
+
+    if (guess === secretNumber) {
+      guessResult.textContent =
+        `🎉 Correct! Attempts: ${guessAttempts}`;
+
+      showToast("You won the guessing game!");
+
+      secretNumber =
+        Math.floor(Math.random() * 100) + 1;
+
+      guessAttempts = 0;
+    } else if (guess < secretNumber) {
+      guessResult.textContent = "⬆️ Try a higher number.";
+    } else {
+      guessResult.textContent = "⬇️ Try a lower number.";
+    }
+  });
 }
 
 /* =========================================================
-   29. ACHIEVEMENTS
-   ========================================================= */
+   43. ROCK PAPER SCISSORS
+========================================================= */
 
-const achievements = [
-    "Python Beginner 🐍",
-    "Portfolio Builder 💻",
-    "GitHub Explorer 🐙",
-    "Coding Learner 🚀",
-    "Future Developer 👨‍💻",
-    "Problem Solver 🧠"
+const rpsButtons =
+  $$(".rps-button");
+
+const rpsResult =
+  byId("rpsResult");
+
+const choices = [
+  "rock",
+  "paper",
+  "scissors"
 ];
 
-function randomAchievement() {
-    return achievements[
-        Math.floor(Math.random() * achievements.length)
-    ];
+function playRPS(player) {
+  const computer =
+    choices[Math.floor(Math.random() * choices.length)];
+
+  let result;
+
+  if (player === computer) {
+    result = "Draw!";
+  } else if (
+    (player === "rock" && computer === "scissors") ||
+    (player === "paper" && computer === "rock") ||
+    (player === "scissors" && computer === "paper")
+  ) {
+    result = "🎉 You win!";
+  } else {
+    result = "Computer wins!";
+  }
+
+  if (rpsResult) {
+    rpsResult.textContent =
+      `You: ${player} | Computer: ${computer} | ${result}`;
+  }
 }
 
-/* =========================================================
-   30. THEME COLOR SELECTOR
-   ========================================================= */
-
-$$(".theme-color").forEach(button => {
-    button.addEventListener("click", () => {
-        const color =
-            button.dataset.color;
-
-        if (!color) return;
-
-        document.documentElement.style.setProperty(
-            "--accent",
-            color
-        );
-
-        document.documentElement.style.setProperty(
-            "--glow",
-            `${color}88`
-        );
-
-        showToast("Theme color updated 🎨");
-    });
+rpsButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    playRPS(button.dataset.choice);
+  });
 });
 
 /* =========================================================
-   31. LIGHT / DARK MODE
-   ========================================================= */
+   44. TIC TAC TOE
+========================================================= */
 
-const lightDarkButton = $("#lightDarkButton");
+const ticCells =
+  $$(".tic-cell");
 
-if (lightDarkButton) {
-    lightDarkButton.addEventListener("click", () => {
-        document.body.classList.toggle("light-mode");
+let ticBoard = Array(9).fill("");
+let ticTurn = "X";
+let ticGameOver = false;
 
-        const light =
-            document.body.classList.contains("light-mode");
+function checkTicWinner() {
+  const wins = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6]
+  ];
 
-        lightDark
+  for (const [a, b, c] of wins) {
+    if (
+      ticBoard[a] &&
+      ticBoard[a] === ticBoard[b] &&
+      ticBoard[a] === ticBoard[c]
+    ) {
+      return ticBoard[a];
+    }
+  }
+
+  if (ticBoard.every(Boolean)) return "draw";
+
+  return null;
+}
+
+function resetTicTacToe() {
+  ticBoard = Array(9).fill("");
+  ticTurn = "X";
+  ticGameOver = false;
+
+  ticCells.forEach((cell) => {
+    cell.textContent = "";
+  });
+
+  const result = byId("ticResult");
+
+  if (result) result.textContent = "X's turn";
+}
+
+ticCells.forEach((cell, index) => {
+  cell.addEventListener("click", () => {
+    if (ticGameOver || ticBoard[index]) return;
+
+    ticBoard[index] = ticTurn;
+    cell.textContent = ticTurn;
+
+    const winner = checkTicWinner();
+
+    const result = byId("ticResult");
+
+    if (winner) {
+      ticGameOver = true;
+
+      if (result) {
+        result.textContent =
+          winner === "draw"
+            ? "Draw!"
+            : `${winner} wins!`;
+      }
+
+      return;
+    }
+
+    ticTurn =
+      ticTurn === "X" ? "O" : "X";
+
+    if (result) {
+      result.textContent =
+        `${ticTurn}'s turn`;
+    }
+  });
+});
+
+const ticReset =
+  byId("ticReset");
+
+if (ticReset) {
+  ticReset.addEventListener(
+    "click",
+    resetTi
