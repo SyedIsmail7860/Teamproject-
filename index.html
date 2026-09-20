@@ -10,6 +10,11 @@
         content="width=device-width, initial-scale=1.0"
     >
 
+    <meta
+        name="description"
+        content="Ismail's 70-feature developer portfolio"
+    >
+
     <title>Ismail | Developer Portfolio</title>
 
     <link
@@ -27,9 +32,9 @@
 
 <body>
 
-    <!-- =================================
-         1–5 BACKGROUND / INTERACTION
-    ================================== -->
+    <!-- =========================================
+         31–40 UI & DESIGN
+    ========================================== -->
 
     <div
         id="particles"
@@ -41,10 +46,25 @@
         class="touch-effect">
     </div>
 
+    <div
+        id="pageLoader"
+        class="page-loader">
 
-    <!-- =================================
-         19 + 20 NAVIGATION
-    ================================== -->
+        <div class="loader-spinner"></div>
+
+        <p>Loading Ismail's Portfolio...</p>
+
+    </div>
+
+
+    <!-- =========================================
+         41–50 NAVIGATION
+    ========================================== -->
+
+    <div
+        id="scrollProgress"
+        class="scroll-progress">
+    </div>
 
     <nav
         id="navbar"
@@ -54,7 +74,18 @@
             Ismail
         </div>
 
-        <div class="nav-links">
+        <button
+            id="menuButton"
+            class="menu-button"
+            type="button">
+
+            ☰
+
+        </button>
+
+        <div
+            id="navLinks"
+            class="nav-links">
 
             <a href="#home">Home</a>
 
@@ -66,6 +97,10 @@
 
             <a href="#gallery">Gallery</a>
 
+            <a href="#developer">Developer</a>
+
+            <a href="#games">Games</a>
+
             <a href="#contact">Contact</a>
 
         </div>
@@ -73,10 +108,35 @@
     </nav>
 
 
-    <!-- =================================
-         1 + 6 + 14 + 15
-         HERO / WELCOME
-    ================================== -->
+    <!-- =========================================
+         SEARCH
+         43
+    ========================================== -->
+
+    <section
+        class="section search-section">
+
+        <h2>🔎 Search Portfolio</h2>
+
+        <input
+            id="portfolioSearch"
+            type="search"
+            placeholder="Search sections..."
+            aria-label="Search portfolio"
+        >
+
+        <div
+            id="searchResults"
+            class="search-results">
+        </div>
+
+    </section>
+
+
+    <!-- =========================================
+         1 + 6 + 15 + 16 + 18 + 20 + 31–40
+         HERO
+    ========================================== -->
 
     <header
         id="home"
@@ -85,6 +145,16 @@
         <div
             id="heroCard"
             class="hero-card">
+
+            <div class="animated-profile-frame">
+
+                <img
+                    src="ismail.jpg"
+                    alt="Ismail"
+                    class="hero-profile-image"
+                >
+
+            </div>
 
             <span class="badge">
                 🚀 CSE Developer
@@ -118,6 +188,14 @@
 
                 </a>
 
+                <a
+                    href="#developer"
+                    class="glow-button">
+
+                    👨‍💻 Developer Mode
+
+                </a>
+
             </div>
 
         </div>
@@ -125,11 +203,90 @@
     </header>
 
 
-    <!-- =================================
-         14 LIVE DATE & TIME
-    ================================== -->
+    <!-- =========================================
+         32 GRADIENT SELECTOR
+         37 RAINBOW GLOW
+    ========================================== -->
 
-    <section class="time-section">
+    <section class="section">
+
+        <h2>🎨 Visual Modes</h2>
+
+        <div class="theme-buttons">
+
+            <button
+                class="theme-color"
+                data-color="#00ffff"
+                type="button">
+
+                Cyan
+
+            </button>
+
+            <button
+                class="theme-color"
+                data-color="#0088ff"
+                type="button">
+
+                Blue
+
+            </button>
+
+            <button
+                class="theme-color"
+                data-color="#9b00ff"
+                type="button">
+
+                Purple
+
+            </button>
+
+            <button
+                class="theme-color"
+                data-color="#00ff66"
+                type="button">
+
+                Green
+
+            </button>
+
+            <button
+                class="theme-color"
+                data-color="#ff0066"
+                type="button">
+
+                Pink
+
+            </button>
+
+        </div>
+
+        <button
+            id="rainbowButton"
+            class="glow-button"
+            type="button">
+
+            🌈 Rainbow Glow
+
+        </button>
+
+        <button
+            id="gradientButton"
+            class="glow-button"
+            type="button">
+
+            🌌 Change Gradient
+
+        </button>
+
+    </section>
+
+
+    <!-- =========================================
+         14 LIVE DATE & TIME
+    ========================================== -->
+
+    <section class="time-section section">
 
         <h2>⏰ Live Date & Time</h2>
 
@@ -144,9 +301,9 @@
     </section>
 
 
-    <!-- =================================
-         1 MUSIC PLAYER
-    ================================== -->
+    <!-- =========================================
+         1 MUSIC
+    ========================================== -->
 
     <section class="section music-section">
 
@@ -164,7 +321,8 @@
 
         <button
             id="musicButton"
-            class="glow-button">
+            class="glow-button"
+            type="button">
 
             🎵 Play Music
 
@@ -173,13 +331,13 @@
     </section>
 
 
-    <!-- =================================
+    <!-- =========================================
          9 ABOUT ME
-    ================================== -->
+    ========================================== -->
 
     <section
         id="about"
-        class="section glass-card">
+        class="section glass-card portfolio-search-item">
 
         <h2>👤 About Me</h2>
 
@@ -201,13 +359,14 @@
     </section>
 
 
-    <!-- =================================
-         10 + 21 SKILLS
-    ================================== -->
+    <!-- =========================================
+         10 + 21 + 59
+         SKILLS
+    ========================================== -->
 
     <section
         id="skills"
-        class="section glass-card">
+        class="section glass-card portfolio-search-item">
 
         <h2>🚀 My Skills</h2>
 
@@ -325,13 +484,80 @@
     </section>
 
 
-    <!-- =================================
+    <!-- =========================================
+         60 DEVELOPER TIMELINE
+    ========================================== -->
+
+    <section
+        class="section glass-card portfolio-search-item">
+
+        <h2>🧑‍💻 Developer Journey</h2>
+
+        <div class="timeline">
+
+            <div class="timeline-item">
+
+                <span>2024</span>
+
+                <h3>🎓 Started B.Tech CSE</h3>
+
+                <p>
+                    Started my Computer Science journey.
+                </p>
+
+            </div>
+
+
+            <div class="timeline-item">
+
+                <span>2025</span>
+
+                <h3>🐍 Started Python</h3>
+
+                <p>
+                    Began learning programming fundamentals.
+                </p>
+
+            </div>
+
+
+            <div class="timeline-item">
+
+                <span>2026</span>
+
+                <h3>🌐 Web Development</h3>
+
+                <p>
+                    Started building real web projects.
+                </p>
+
+            </div>
+
+
+            <div class="timeline-item">
+
+                <span>Future</span>
+
+                <h3>🚀 Software Developer</h3>
+
+                <p>
+                    Continue learning and building.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================
          11 PROJECT PROGRESS
-    ================================== -->
+    ========================================== -->
 
     <section
         id="projects"
-        class="section glass-card">
+        class="section glass-card portfolio-search-item">
 
         <h2>📊 Project Progress</h2>
 
@@ -381,9 +607,9 @@
     </section>
 
 
-    <!-- =================================
-         4 PHOTO BREAK / SHATTER
-    ================================== -->
+    <!-- =========================================
+         4 PHOTO BREAK
+    ========================================== -->
 
     <section class="section photo-section">
 
@@ -414,7 +640,8 @@
 
         <button
             id="resetButton"
-            class="glow-button">
+            class="glow-button"
+            type="button">
 
             🔄 Reset Photo
 
@@ -423,13 +650,13 @@
     </section>
 
 
-    <!-- =================================
-         22–23 PHOTO GALLERY
-    ================================== -->
+    <!-- =========================================
+         22 + 23 PHOTO GALLERY
+    ========================================== -->
 
     <section
         id="gallery"
-        class="section glass-card">
+        class="section glass-card portfolio-search-item">
 
         <h2>🖼️ Photo Gallery</h2>
 
@@ -458,11 +685,13 @@
     </section>
 
 
-    <!-- =================================
+    <!-- =========================================
          24 SCROLL REVEAL
-    ================================== -->
+         39 SPARKLE
+    ========================================== -->
 
-    <section class="section reveal-card">
+    <section
+        class="section reveal-card">
 
         <h2>
             ✨ Keep Learning
@@ -475,13 +704,17 @@
     </section>
 
 
-    <!-- =================================
+    <!-- =========================================
          27 GITHUB
-    ================================== -->
+         57 GITHUB STATISTICS
+         58 CONTRIBUTION HEATMAP
+    ========================================== -->
 
-    <section class="section glass-card">
+    <section
+        id="developer"
+        class="section glass-card portfolio-search-item">
 
-        <h2>🐙 GitHub</h2>
+        <h2>🐙 GitHub Developer</h2>
 
         <div class="github-card">
 
@@ -506,206 +739,251 @@
 
         </div>
 
-    </section>
+        <div
+            id="githubStats"
+            class="github-stats">
 
-
-    <!-- =================================
-         28 MINI GAME
-    ================================== -->
-
-    <section class="section game-section">
-
-        <h2>🎮 Mini Game</h2>
-
-        <p>
-            Click the button as many times
-            as you can!
-        </p>
-
-        <button
-            id="gameButton"
-            class="glow-button">
-
-            🎯 Click Me
-
-        </button>
-
-        <p>
-            Score:
-            <span id="gameScore">0</span>
-        </p>
-
-    </section>
-
-
-    <!-- =================================
-         29 ACHIEVEMENTS
-    ================================== -->
-
-    <section class="section glass-card">
-
-        <h2>🏆 Achievements</h2>
-
-        <div class="achievement-container">
-
-            <div class="achievement">
-                🎓 B.Tech CSE
+            <div>
+                <strong id="repoCount">--</strong>
+                <span>Repositories</span>
             </div>
 
-            <div class="achievement">
-                💻 GitHub Project
+            <div>
+                <strong id="followerCount">--</strong>
+                <span>Followers</span>
             </div>
 
-            <div class="achievement">
-                🐍 Python Learning
+            <div>
+                <strong id="followingCount">--</strong>
+                <span>Following</span>
             </div>
 
-            <div class="achievement">
-                🚀 Web Development
-            </div>
+        </div>
+
+
+        <h3 class="sub-heading">
+            🔥 Contribution Activity
+        </h3>
+
+        <div
+            id="contributionHeatmap"
+            class="contribution-heatmap">
+
+            <div class="heat-cell"></div>
+            <div class="heat-cell"></div>
+            <div class="heat-cell"></div>
+            <div class="heat-cell"></div>
+            <div class="heat-cell"></div>
+            <div class="heat-cell"></div>
+            <div class="heat-cell"></div>
+            <div class="heat-cell"></div>
+            <div class="heat-cell"></div>
+            <div class="heat-cell"></div>
+            <div class="heat-cell"></div>
+            <div class="heat-cell"></div>
 
         </div>
 
     </section>
 
 
-    <!-- =================================
-         30 THEME COLOR SELECTOR
-    ================================== -->
-
-    <section class="section theme-section">
-
-        <h2>🎨 Choose Theme Color</h2>
-
-        <div class="theme-buttons">
-
-            <button
-                class="theme-color"
-                data-color="#00ffff">
-                Cyan
-            </button>
-
-            <button
-                class="theme-color"
-                data-color="#0088ff">
-                Blue
-            </button>
-
-            <button
-                class="theme-color"
-                data-color="#9b00ff">
-                Purple
-            </button>
-
-            <button
-                class="theme-color"
-                data-color="#00ff66">
-                Green
-            </button>
-
-            <button
-                class="theme-color"
-                data-color="#ff0066">
-                Pink
-            </button>
-
-        </div>
-
-    </section>
-
-
-    <!-- =================================
-         25 TOAST NOTIFICATION
-    ================================== -->
-
-    <div
-        id="toast"
-        class="toast">
-
-        Welcome! 🎉
-
-    </div>
-
-
-    <!-- =================================
-         26 COPY INFORMATION
-    ================================== -->
-
-    <section class="section glass-card">
-
-        <h2>📋 Quick Information</h2>
-
-        <p>
-            B.Tech CSE | Web Development |
-            Python | SQL
-        </p>
-
-        <button
-            id="copyButton"
-            class="glow-button">
-
-            📋 Copy Information
-
-        </button>
-
-    </section>
-
-
-    <!-- =================================
-         12 CONTACT
-    ================================== -->
+    <!-- =========================================
+         51 CODING TERMINAL
+    ========================================== -->
 
     <section
-        id="contact"
-        class="section contact">
+        class="section glass-card portfolio-search-item">
 
-        <h2>📧 Contact Me</h2>
+        <h2>👨‍💻 Coding Terminal</h2>
 
-        <p>
-            Interested in my project?
-        </p>
+        <div class="terminal">
 
-        <button
-            id="contactButton"
-            class="glow-button">
+            <div class="terminal-header">
+                ● ● ●
+            </div>
 
-            📧 Contact Me
+            <div
+                id="terminalOutput"
+                class="terminal-output">
 
-        </button>
+                $ welcome Ismail<br>
+                $ portfolio loaded<br>
+                $ ready to code...
+
+            </div>
+
+            <div class="terminal-input-row">
+
+                <span>$</span>
+
+                <input
+                    id="terminalInput"
+                    type="text"
+                    placeholder="Type a command..."
+                    autocomplete="off"
+                >
+
+            </div>
+
+        </div>
 
     </section>
 
 
-    <!-- =================================
-         13 BACK TO TOP
-    ================================== -->
+    <!-- =========================================
+         52 PYTHON SHOWCASE
+    ========================================== -->
 
-    <button
-        id="backToTop"
-        class="back-to-top">
+    <section class="section glass-card">
 
-        🔝
+        <h2>🐍 Python Code</h2>
 
-    </button>
+        <pre class="code-block"><code>name = "Ismail"
+
+print("Hello", name)
+
+for i in range(5):
+    print("Keep learning 🚀")</code></pre>
+
+    </section>
 
 
-    <!-- =================================
-         FOOTER
-    ================================== -->
+    <!-- =========================================
+         53 RESUME
+    ========================================== -->
 
-    <footer>
+    <section class="section">
+
+        <h2>📄 Resume</h2>
 
         <p>
-            © 2026 Ismail
+            Download my resume and learn more
+            about my skills and projects.
         </p>
 
-        <p>
-            Built with HTML, CSS & JavaScript 🚀
-        </p>
+        <a
+            href="resume.pdf"
+            download
+            class="glow-button">
 
-    </footer>
+            📥 Download Resume
+
+        </a>
+
+    </section>
 
 
-</body>
+    <!-- =========================================
+         54–56 PROJECT DETAILS
+    ========================================== -->
 
-                </html>
+    <section class="section glass-card">
+
+        <h2>🚀 Featured Projects</h2>
+
+        <div class="project-showcase">
+
+            <article class="featured-project">
+
+                <h3>
+                    Personal Portfolio
+                </h3>
+
+                <p>
+                    Modern responsive portfolio
+                    built with HTML, CSS and JavaScript.
+                </p>
+
+                <button
+                    class="project-details-button"
+                    data-project="portfolio"
+                    type="button">
+
+                    🔍 View Details
+
+                </button>
+
+                <a
+                    href="#"
+                    class="glow-button">
+
+                    🌐 Live Demo
+
+                </a>
+
+                <div class="project-rating">
+                    ⭐⭐⭐⭐⭐
+                </div>
+
+            </article>
+
+
+            <article class="featured-project">
+
+                <h3>
+                    Python Projects
+                </h3>
+
+                <p>
+                    Beginner programming projects
+                    created while learning Python.
+                </p>
+
+                <button
+                    class="project-details-button"
+                    data-project="python"
+                    type="button">
+
+                    🔍 View Details
+
+                </button>
+
+                <div class="project-rating">
+                    ⭐⭐⭐⭐⭐
+                </div>
+
+            </article>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================
+         61 CODING QUIZ
+    ========================================== -->
+
+    <section
+        id="games"
+        class="section game-section portfolio-search-item">
+
+        <h2>🧩 Coding Quiz</h2>
+
+        <div id="quizContainer">
+
+            <p id="quizQuestion">
+                What does HTML stand for?
+            </p>
+
+            <div class="quiz-options">
+
+                <button
+                    class="quiz-option"
+                    data-answer="wrong"
+                    type="button">
+
+                    Hyper Text Machine Language
+
+                </button>
+
+                <button
+                    class="quiz-option"
+                    data-answer="correct"
+                    type="button">
+
+                    HyperText Markup Language
+
+                </button>
+
+                <button
+              
