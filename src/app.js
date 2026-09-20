@@ -2,55 +2,57 @@ const card = document.getElementById("photoCard");
 const area = document.querySelector(".photo-area");
 const resetButton = document.getElementById("resetButton");
 
-function moveCard(x, y) {
+let targetX = 0;
+let targetY = 0;
+
+let currentX = 0;
+let currentY = 0;
+
+/* Smooth animation */
+function animate() {
+
+    currentX += (targetX - currentX) * 0.12;
+    currentY += (targetY - currentY) * 0.12;
+
+    card.style.transform =
+        `rotateX(${currentX}deg) rotateY(${currentY}deg)`;
+
+    requestAnimationFrame(animate);
+}
+
+animate();
+
+/* Mouse and touch movement */
+area.addEventListener("pointermove", function(event) {
 
     const rect = area.getBoundingClientRect();
 
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
 
-    const rotateY =
-        ((x - centerX) / (rect.width / 2)) * 25;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
 
-    const rotateX =
-        -((y - centerY) / (rect.height / 2)) * 25;
+    targetY =
+        ((x - centerX) / centerX) * 18;
 
-    card.style.transform =
-        `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-
-    card.style.boxShadow =
-        `${-rotateY}px ${20 + rotateX}px 45px rgba(0, 0, 0, 0.7)`;
-}
-
-/* Mouse + touch */
-
-area.addEventListener("pointermove", function (event) {
-
-    moveCard(event.clientX, event.clientY);
+    targetX =
+        -((y - centerY) / centerY) * 18;
 
 });
 
-/* Return to normal */
+/* Return smoothly when leaving */
+area.addEventListener("pointerleave", function() {
 
-area.addEventListener("pointerleave", function () {
-
-    resetCard();
+    targetX = 0;
+    targetY = 0;
 
 });
 
 /* Reset button */
+resetButton.addEventListener("click", function() {
 
-resetButton.addEventListener("click", function () {
-
-    resetCard();
+    targetX = 0;
+    targetY = 0;
 
 });
-
-function resetCard() {
-
-    card.style.transform =
-        "rotateX(0deg) rotateY(0deg)";
-
-    card.style.boxShadow =
-        "0 25px 50px rgba(0, 0, 0, 0.7)";
-}
