@@ -17,223 +17,7 @@ body {
 
     background-size: 25px 25px;
 
-    /* 50 colors = 50 seconds */
-    animation: dots50 50s steps(1) infinite;
-
     overflow-x: hidden;
-}
-
-
-/* =========================
-   50 COLOR DOT ANIMATION
-   1 COLOR = 1 SECOND
-   ========================= */
-
-@keyframes dots50 {
-
-    0% {
-        background-image: radial-gradient(circle, #ff0000 2px, transparent 2px);
-    }
-
-    2% {
-        background-image: radial-gradient(circle, #ff3300 2px, transparent 2px);
-    }
-
-    4% {
-        background-image: radial-gradient(circle, #ff6600 2px, transparent 2px);
-    }
-
-    6% {
-        background-image: radial-gradient(circle, #ff9900 2px, transparent 2px);
-    }
-
-    8% {
-        background-image: radial-gradient(circle, #ffcc00 2px, transparent 2px);
-    }
-
-    10% {
-        background-image: radial-gradient(circle, #ffff00 2px, transparent 2px);
-    }
-
-    12% {
-        background-image: radial-gradient(circle, #ccff00 2px, transparent 2px);
-    }
-
-    14% {
-        background-image: radial-gradient(circle, #99ff00 2px, transparent 2px);
-    }
-
-    16% {
-        background-image: radial-gradient(circle, #66ff00 2px, transparent 2px);
-    }
-
-    18% {
-        background-image: radial-gradient(circle, #33ff00 2px, transparent 2px);
-    }
-
-    20% {
-        background-image: radial-gradient(circle, #00ff00 2px, transparent 2px);
-    }
-
-    22% {
-        background-image: radial-gradient(circle, #00ff33 2px, transparent 2px);
-    }
-
-    24% {
-        background-image: radial-gradient(circle, #00ff66 2px, transparent 2px);
-    }
-
-    26% {
-        background-image: radial-gradient(circle, #00ff99 2px, transparent 2px);
-    }
-
-    28% {
-        background-image: radial-gradient(circle, #00ffcc 2px, transparent 2px);
-    }
-
-    30% {
-        background-image: radial-gradient(circle, #00ffff 2px, transparent 2px);
-    }
-
-    32% {
-        background-image: radial-gradient(circle, #00ccff 2px, transparent 2px);
-    }
-
-    34% {
-        background-image: radial-gradient(circle, #0099ff 2px, transparent 2px);
-    }
-
-    36% {
-        background-image: radial-gradient(circle, #0066ff 2px, transparent 2px);
-    }
-
-    38% {
-        background-image: radial-gradient(circle, #0033ff 2px, transparent 2px);
-    }
-
-    40% {
-        background-image: radial-gradient(circle, #0000ff 2px, transparent 2px);
-    }
-
-    42% {
-        background-image: radial-gradient(circle, #3300ff 2px, transparent 2px);
-    }
-
-    44% {
-        background-image: radial-gradient(circle, #6600ff 2px, transparent 2px);
-    }
-
-    46% {
-        background-image: radial-gradient(circle, #9900ff 2px, transparent 2px);
-    }
-
-    48% {
-        background-image: radial-gradient(circle, #cc00ff 2px, transparent 2px);
-    }
-
-    50% {
-        background-image: radial-gradient(circle, #ff00ff 2px, transparent 2px);
-    }
-
-    52% {
-        background-image: radial-gradient(circle, #ff00cc 2px, transparent 2px);
-    }
-
-    54% {
-        background-image: radial-gradient(circle, #ff0099 2px, transparent 2px);
-    }
-
-    56% {
-        background-image: radial-gradient(circle, #ff0066 2px, transparent 2px);
-    }
-
-    58% {
-        background-image: radial-gradient(circle, #ff0033 2px, transparent 2px);
-    }
-
-    60% {
-        background-image: radial-gradient(circle, #ff3366 2px, transparent 2px);
-    }
-
-    62% {
-        background-image: radial-gradient(circle, #ff6699 2px, transparent 2px);
-    }
-
-    64% {
-        background-image: radial-gradient(circle, #ff99cc 2px, transparent 2px);
-    }
-
-    66% {
-        background-image: radial-gradient(circle, #ffccff 2px, transparent 2px);
-    }
-
-    68% {
-        background-image: radial-gradient(circle, #ffffff 2px, transparent 2px);
-    }
-
-    70% {
-        background-image: radial-gradient(circle, #cccccc 2px, transparent 2px);
-    }
-
-    72% {
-        background-image: radial-gradient(circle, #999999 2px, transparent 2px);
-    }
-
-    74% {
-        background-image: radial-gradient(circle, #666666 2px, transparent 2px);
-    }
-
-    76% {
-        background-image: radial-gradient(circle, #00aaff 2px, transparent 2px);
-    }
-
-    78% {
-        background-image: radial-gradient(circle, #00ddff 2px, transparent 2px);
-    }
-
-    80% {
-        background-image: radial-gradient(circle, #00ffaa 2px, transparent 2px);
-    }
-
-    82% {
-        background-image: radial-gradient(circle, #55ff55 2px, transparent 2px);
-    }
-
-    84% {
-        background-image: radial-gradient(circle, #aaff00 2px, transparent 2px);
-    }
-
-    86% {
-        background-image: radial-gradient(circle, #ffaa00 2px, transparent 2px);
-    }
-
-    88% {
-        background-image: radial-gradient(circle, #ff5500 2px, transparent 2px);
-    }
-
-    90% {
-        background-image: radial-gradient(circle, #ff0088 2px, transparent 2px);
-    }
-
-    92% {
-        background-image: radial-gradient(circle, #aa00ff 2px, transparent 2px);
-    }
-
-    94% {
-        background-image: radial-gradient(circle, #5500ff 2px, transparent 2px);
-    }
-
-    96% {
-        background-image: radial-gradient(circle, #0088ff 2px, transparent 2px);
-    }
-
-    98% {
-        background-image: radial-gradient(circle, #00ffff 2px, transparent 2px);
-    }
-
-    100% {
-        background-image: radial-gradient(circle, #ff0000 2px, transparent 2px);
-    }
 }
 
 
@@ -257,23 +41,77 @@ p {
 
 
 /* =========================
-   ISMAIL NAME
+   SYED ISMAIL LED DOT MATRIX
    ========================= */
 
-.name {
-    font-size: 70px;
-    margin: 30px 0;
-    letter-spacing: 8px;
+.dot-name {
+    display: grid;
 
-    text-shadow:
-        0 0 10px #4da6ff,
-        0 0 25px #007bff,
-        0 0 45px #0055ff;
+    grid-template-columns: repeat(55, 14px);
+
+    gap: 9px;
+
+    justify-content: center;
+    align-items: center;
+
+    margin: 50px auto;
+
+    min-height: 160px;
+}
+
+
+/* LED DOT */
+
+.name-dot {
+    width: 14px;
+    height: 14px;
+
+    border-radius: 50%;
+
+    background: #ff0000;
+
+    box-shadow:
+        0 0 5px currentColor,
+        0 0 12px currentColor,
+        0 0 25px currentColor,
+        0 0 40px currentColor;
+
+    transition:
+        background-color 0.15s ease,
+        box-shadow 0.15s ease;
+
+    animation: ledPulse 0.8s infinite alternate;
+}
+
+
+/* EMPTY DOT */
+
+.empty-dot {
+    width: 14px;
+    height: 14px;
+
+    visibility: hidden;
+}
+
+
+/* LED PULSE */
+
+@keyframes ledPulse {
+
+    from {
+        opacity: 0.75;
+        transform: scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1.15);
+    }
 }
 
 
 /* =========================
-   3D PHOTO AREA
+   3D PHOTO
    ========================= */
 
 .photo-area {
@@ -287,12 +125,9 @@ p {
     touch-action: none;
 }
 
-
-/* =========================
-   PHOTO CARD
-   ========================= */
-
 .photo-card {
+    position: relative;
+
     width: 100%;
     height: 100%;
 
@@ -313,11 +148,6 @@ p {
         3px solid rgba(255, 255, 255, 0.7);
 }
 
-
-/* =========================
-   PHOTO
-   ========================= */
-
 .photo-card img {
     width: 100%;
     height: 100%;
@@ -334,9 +164,7 @@ p {
 }
 
 
-/* =========================
-   PHOTO LIGHT EFFECT
-   ========================= */
+/* PHOTO LIGHT */
 
 .photo-glow {
     position: absolute;
@@ -367,7 +195,6 @@ p {
 
 .instruction {
     font-size: 16px;
-
     opacity: 0.85;
 }
 
@@ -385,8 +212,7 @@ button {
 
     background: #1769e0;
 
-    border:
-        2px solid #5da9ff;
+    border: 2px solid #5da9ff;
 
     border-radius: 12px;
 
@@ -398,9 +224,54 @@ button {
     transition: 0.2s;
 }
 
-
 button:hover {
     background: #2985ff;
 
     transform: scale(1.05);
-            }
+}
+
+
+/* =========================
+   MOBILE
+   ========================= */
+
+@media (max-width: 700px) {
+
+    .dot-name {
+        grid-template-columns: repeat(55, 9px);
+
+        gap: 5px;
+
+        overflow-x: auto;
+
+        justify-content: start;
+
+        padding: 15px;
+    }
+
+    .name-dot,
+    .empty-dot {
+        width: 9px;
+        height: 9px;
+    }
+
+    .name-dot {
+        box-shadow:
+            0 0 4px currentColor,
+            0 0 9px currentColor,
+            0 0 18px currentColor;
+    }
+
+    h1 {
+        font-size: 30px;
+    }
+
+    h2 {
+        font-size: 23px;
+    }
+
+    .photo-area {
+        width: 280px;
+        height: 370px;
+    }
+        }
