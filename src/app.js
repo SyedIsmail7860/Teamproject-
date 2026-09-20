@@ -325,3 +325,17 @@ resetButton.addEventListener(
         );
     }
 );
+const music = document.getElementById("backgroundMusic");
+const musicButton = document.getElementById("musicButton");
+
+musicButton.addEventListener("click", function () {
+
+    if (music.paused) {
+        music.play();
+        musicButton.textContent = "🔇 Pause Music";
+    } else {
+        music.pause();
+        musicButton.textContent = "🎵 Play Music";
+    }
+
+});
