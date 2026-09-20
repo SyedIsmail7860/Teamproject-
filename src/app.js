@@ -1,25 +1,23 @@
+/* =========================================================
+   ISMAIL PORTFOLIO — APP.JS
+   Features 1–70
+   Page Loader removed
+   ========================================================= */
+
 "use strict";
 
 /* =========================================================
-   ISMAIL PORTFOLIO
-   FEATURES 1–70
-========================================================= */
-
-
-/* =========================================================
    HELPER FUNCTIONS
-========================================================= */
+   ========================================================= */
 
-function $(id) {
-    return document.getElementById(id);
-}
+const $ = (selector, parent = document) =>
+    parent.querySelector(selector);
 
-function $all(selector) {
-    return document.querySelectorAll(selector);
-}
+const $$ = (selector, parent = document) =>
+    [...parent.querySelectorAll(selector)];
 
 function showToast(message) {
-    const toast = $("toast");
+    const toast = $("#toast");
 
     if (!toast) return;
 
@@ -28,90 +26,91 @@ function showToast(message) {
 
     clearTimeout(window.toastTimer);
 
-    window.toastTimer = setTimeout(function () {
+    window.toastTimer = setTimeout(() => {
         toast.classList.remove("show");
     }, 2500);
 }
 
-function hexToRgb(hex) {
-    if (!hex) return null;
-
-    const value = hex.replace("#", "");
-
-    if (value.length !== 6) return null;
-
-    const number = parseInt(value, 16);
-
-    if (Number.isNaN(number)) return null;
-
-    return {
-        r: (number >> 16) & 255,
-        g: (number >> 8) & 255,
-        b: number & 255
-    };
-}
-
+window.showToast = showToast;
 
 /* =========================================================
    1. BACKGROUND MUSIC PLAYER
-========================================================= */
+   ========================================================= */
 
-const music = $("backgroundMusic");
-const musicButton = $("musicButton");
+const music = $("#backgroundMusic");
+const musicButton = $("#musicButton");
 
 if (music && musicButton) {
-    musicButton.addEventListener("click", async function () {
-        try {
-            if (music.paused) {
-                await music.play();
-
-                musicButton.textContent = "🔇 Pause Music";
-
-                showToast("🎵 Music started");
-            } else {
-                music.pause();
-
-                musicButton.textContent = "🎵 Play Music";
-
-                showToast("⏸️ Music paused");
-            }
-        } catch (error) {
-            showToast("⚠️ Add music.mp3 to the project");
+    musicButton.addEventListener("click", () => {
+        if (music.paused) {
+            music.play()
+                .then(() => {
+                    musicButton.textContent = "⏸️";
+                    showToast("Music playing 🎵");
+                })
+                .catch(() => {
+                    showToast("Tap again to start music");
+                });
+        } else {
+            music.pause();
+            musicButton.textContent = "▶️";
+            showToast("Music paused");
         }
+    });
+
+    music.addEventListener("ended", () => {
+        musicButton.textContent = "▶️";
     });
 }
 
-
 /* =========================================================
    2. DARK / BLACK THEME
-========================================================= */
+   ========================================================= */
 
-document.documentElement.style.setProperty(
-    "--bg",
-    "#000000"
-);
-
+document.body.classList.add("dark-mode");
 
 /* =========================================================
-   3. ANIMATED BACKGROUND
-========================================================= */
+   3. ANIMATED BACKGROUND PARTICLES
+   ========================================================= */
 
-const particles = document.querySelector(".particles");
+const particlesContainer = $("#particles");
 
-if (particles) {
-    particles.classList.add("active");
+function createParticles() {
+    if (!particlesContainer) return;
+
+    particlesContainer.innerHTML = "";
+
+    const count = window.innerWidth < 600 ? 35 : 70;
+
+    for (let i = 0; i < count; i++) {
+        const particle = document.createElement("span");
+
+        particle.className = "particle";
+
+        particle.style.left = `${Math.random() * 100}%`;
+        particle.style.animationDuration =
+            `${5 + Math.random() * 10}s`;
+
+        particle.style.animationDelay =
+            `${Math.random() * 8}s`;
+
+        particle.style.opacity =
+            `${0.2 + Math.random() * 0.8}`;
+
+        particlesContainer.appendChild(particle);
+    }
 }
 
+createParticles();
 
 /* =========================================================
-   4. PHOTO BREAK / SHATTER EFFECT
-========================================================= */
+   4. PHOTO BREAK / RE-FORM EFFECT
+   ========================================================= */
 
-const photoArea = $("photoArea");
-const photoCard = $("photoCard");
-const resetButton = $("resetButton");
+const photoCard = $("#photoCard");
+const resetButton = $("#resetButton");
 
-function breakPhoto() {
+function photoBreakEffect() {
     if (!photoCard) return;
 
     photoCard.classList.remove("breaking");
@@ -120,48 +119,30 @@ function breakPhoto() {
 
     photoCard.classList.add("breaking");
 
-    showToast("💥 Photo effect activated!");
-
-    setTimeout(function () {
+    setTimeout(() => {
         photoCard.classList.remove("breaking");
     }, 2000);
 }
 
-if (photoArea) {
-    photoArea.addEventListener("pointerdown", function (event) {
-        event.preventDefault();
-
-        breakPhoto();
-
-        createTouchEffect(
-            event.clientX,
-            event.clientY
-        );
-    });
+if (photoCard) {
+    photoCard.addEventListener("click", photoBreakEffect);
 }
 
 if (resetButton) {
-    resetButton.addEventListener("click", function () {
-        if (photoCard) {
-            photoCard.classList.remove("breaking");
-        }
-
-        showToast("🔄 Photo reset");
-    });
+    resetButton.addEventListener("click", photoBreakEffect);
 }
-
 
 /* =========================================================
    5. MOUSE / TOUCH EFFECT
-========================================================= */
+   ========================================================= */
 
-const touchEffect = $("touchEffect");
+const touchEffect = $("#touchEffect");
 
 function createTouchEffect(x, y) {
     if (!touchEffect) return;
 
-    touchEffect.style.left = x + "px";
-    touchEffect.style.top = y + "px";
+    touchEffect.style.left = `${x}px`;
+    touchEffect.style.top = `${y}px`;
 
     touchEffect.classList.remove("active");
 
@@ -170,216 +151,172 @@ function createTouchEffect(x, y) {
     touchEffect.classList.add("active");
 }
 
-document.addEventListener("pointerdown", function (event) {
-    createTouchEffect(
-        event.clientX,
-        event.clientY
-    );
+document.addEventListener("pointerdown", event => {
+    createTouchEffect(event.clientX, event.clientY);
 });
-
 
 /* =========================================================
    6. TYPING ANIMATION
-========================================================= */
+   ========================================================= */
 
-const typingText = $("typingText");
+const typingElement = $(".typing-text");
 
-const messages = [
-    "Welcome to my GitHub project!",
-    "I am Ismail.",
-    "B.Tech Computer Science & Engineering Student.",
-    "Learning Python, SQL and Web Development.",
-    "Building my future with code 🚀"
+const typingWords = [
+    "Python Developer",
+    "CSE Student",
+    "Future Full Stack Developer",
+    "Problem Solver",
+    "Software Developer"
 ];
 
-let messageIndex = 0;
-let characterIndex = 0;
+let typingWordIndex = 0;
+let typingCharIndex = 0;
+let deletingText = false;
 
-function typeMessage() {
-    if (!typingText) return;
+function typeAnimation() {
+    if (!typingElement) return;
 
-    const message = messages[messageIndex];
+    const word = typingWords[typingWordIndex];
 
-    if (characterIndex < message.length) {
-        typingText.textContent +=
-            message.charAt(characterIndex);
+    if (!deletingText) {
+        typingElement.textContent =
+            word.substring(0, typingCharIndex + 1);
 
-        characterIndex++;
+        typingCharIndex++;
 
-        setTimeout(typeMessage, 70);
-    } else {
-        setTimeout(eraseMessage, 1800);
-    }
-}
+        if (typingCharIndex === word.length) {
+            deletingText = true;
 
-function eraseMessage() {
-    if (!typingText) return;
-
-    if (characterIndex > 0) {
-        typingText.textContent =
-            messages[messageIndex].substring(
-                0,
-                characterIndex - 1
-            );
-
-        characterIndex--;
-
-        setTimeout(eraseMessage, 35);
-    } else {
-        messageIndex++;
-
-        if (messageIndex >= messages.length) {
-            messageIndex = 0;
+            setTimeout(typeAnimation, 1300);
+            return;
         }
+    } else {
+        typingElement.textContent =
+            word.substring(0, typingCharIndex - 1);
 
-        setTimeout(typeMessage, 400);
+        typingCharIndex--;
+
+        if (typingCharIndex === 0) {
+            deletingText = false;
+            typingWordIndex =
+                (typingWordIndex + 1) % typingWords.length;
+        }
     }
+
+    setTimeout(
+        typeAnimation,
+        deletingText ? 45 : 85
+    );
 }
 
-if (typingText) {
-    typeMessage();
-}
-
+typeAnimation();
 
 /* =========================================================
    7. GLOWING BUTTONS
-========================================================= */
+   ========================================================= */
 
-$all(".glow-button").forEach(function (button) {
-    button.addEventListener("pointerenter", function () {
-        button.style.setProperty(
-            "box-shadow",
-            "0 0 15px var(--accent)"
-        );
-    });
+$$(".btn, button").forEach(button => {
+    button.addEventListener("pointermove", event => {
+        const rect = button.getBoundingClientRect();
 
-    button.addEventListener("pointerleave", function () {
-        button.style.removeProperty("box-shadow");
+        const x =
+            ((event.clientX - rect.left) / rect.width) * 100;
+
+        const y =
+            ((event.clientY - rect.top) / rect.height) * 100;
+
+        button.style.setProperty("--mouse-x", `${x}%`);
+        button.style.setProperty("--mouse-y", `${y}%`);
     });
 });
-
 
 /* =========================================================
-   8. MOBILE RESPONSIVE DESIGN
-========================================================= */
+   8. MOBILE RESPONSIVE
+   ========================================================= */
 
-window.addEventListener("resize", function () {
-    document.documentElement.style.setProperty(
-        "--screen-width",
-        window.innerWidth + "px"
-    );
+window.addEventListener("resize", () => {
+    createParticles();
 });
-
 
 /* =========================================================
    9. ABOUT ME
-========================================================= */
+   ========================================================= */
 
-const copyButton = $("copyButton");
+const aboutSection = $("#about");
 
-if (copyButton) {
-    copyButton.addEventListener("click", async function () {
-        const text =
-            "B.Tech CSE | Web Development | Python | SQL";
+if (aboutSection) {
+    aboutSection.addEventListener("click", () => {
+        aboutSection.classList.add("about-active");
 
-        try {
-            await navigator.clipboard.writeText(text);
-
-            showToast("📋 Information copied!");
-        } catch (error) {
-            showToast("⚠️ Copy is not available");
-        }
+        setTimeout(() => {
+            aboutSection.classList.remove("about-active");
+        }, 500);
     });
 }
-
 
 /* =========================================================
    10. SKILLS
-========================================================= */
+   ========================================================= */
 
-const skillFills = $all(".skill-fill");
+const skillFills = $$(".skill-fill");
 
 function animateSkills() {
-    skillFills.forEach(function (fill) {
-        const progress =
-            Number(fill.dataset.progress);
+    skillFills.forEach(fill => {
+        const progress = fill.dataset.progress || "0";
 
-        if (!Number.isFinite(progress)) return;
-
-        const safeProgress =
-            Math.max(
-                0,
-                Math.min(100, progress)
-            );
-
-        fill.style.width =
-            safeProgress + "%";
+        fill.style.width = `${Math.min(
+            100,
+            Math.max(0, Number(progress))
+        )}%`;
     });
 }
 
-setTimeout(animateSkills, 700);
-
-
 /* =========================================================
-   11. PROJECT PROGRESS
-========================================================= */
+   11. PROJECT / PROGRESS
+   ========================================================= */
 
-const progressFill = $("progressFill");
-const progressText = $("progressText");
+const progressFill = $("#progressFill");
+const progressText = $("#progressText");
 
-let progress = 0;
-
-function updateProgress() {
-    if (!progressFill) return;
-
-    progress += 1;
-
-    if (progress > 85) {
-        progress = 85;
+function updateProjectProgress(value = 75) {
+    if (progressFill) {
+        progressFill.style.width = `${value}%`;
     }
-
-    progressFill.style.width =
-        progress + "%";
 
     if (progressText) {
         progressText.textContent =
-            progress + "% Complete";
-    }
-
-    if (progress < 85) {
-        setTimeout(updateProgress, 30);
+            `Portfolio Progress: ${value}%`;
     }
 }
 
-if (progressFill) {
-    setTimeout(updateProgress, 800);
-}
-
+updateProjectProgress();
 
 /* =========================================================
    12. CONTACT
-========================================================= */
+   ========================================================= */
 
-const contactButton = $("contactButton");
+const contactSection = $("#contact");
 
-if (contactButton) {
-    contactButton.addEventListener("click", function () {
-        window.location.href =
-            "mailto:your-email@example.com";
+if (contactSection) {
+    contactSection.addEventListener("mouseenter", () => {
+        contactSection.classList.add("contact-active");
+    });
+
+    contactSection.addEventListener("mouseleave", () => {
+        contactSection.classList.remove("contact-active");
     });
 }
 
-
 /* =========================================================
    13. BACK TO TOP
-========================================================= */
+   ========================================================= */
 
-const backToTop = $("backToTop");
+const backToTop = $("#backToTop");
 
-window.addEventListener("scroll", function () {
+window.addEventListener("scroll", () => {
     if (!backToTop) return;
 
-    if (window.scrollY > 300) {
+    if (window.scrollY > 500) {
         backToTop.classList.add("show");
     } else {
         backToTop.classList.remove("show");
@@ -387,7 +324,7 @@ window.addEventListener("scroll", function () {
 });
 
 if (backToTop) {
-    backToTop.addEventListener("click", function () {
+    backToTop.addEventListener("click", () => {
         window.scrollTo({
             top: 0,
             behavior: "smooth"
@@ -395,28 +332,24 @@ if (backToTop) {
     });
 }
 
-
 /* =========================================================
    14. LIVE DATE & TIME
-========================================================= */
+   ========================================================= */
 
-const liveDate = $("liveDate");
-const liveTime = $("liveTime");
+const liveDate = $("#liveDate");
+const liveTime = $("#liveTime");
 
 function updateDateTime() {
     const now = new Date();
 
     if (liveDate) {
         liveDate.textContent =
-            now.toLocaleDateString(
-                "en-IN",
-                {
-                    weekday: "long",
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric"
-                }
-            );
+            now.toLocaleDateString("en-IN", {
+                weekday: "long",
+                day: "numeric",
+                month: "long",
+                year: "numeric"
+            });
     }
 
     if (liveTime) {
@@ -429,455 +362,432 @@ updateDateTime();
 
 setInterval(updateDateTime, 1000);
 
-
 /* =========================================================
    15. WELCOME ANIMATION
-========================================================= */
+   ========================================================= */
 
-window.addEventListener("load", function () {
-    const title = $("welcomeTitle");
+window.addEventListener("load", () => {
+    document.body.classList.add("loaded");
 
-    if (title) {
-        title.style.transform = "scale(1.05)";
-
-        setTimeout(function () {
-            title.style.transform = "scale(1)";
-        }, 500);
-    }
-
-    setTimeout(function () {
-        showToast(
-            "🎉 Welcome to Ismail's Portfolio!"
-        );
-    }, 1200);
+    setTimeout(() => {
+        showToast("Welcome to Ismail's Portfolio 👋");
+    }, 700);
 });
 
-
 /* =========================================================
-   16. 3D HERO CARD
-========================================================= */
+   16. 3D INTERACTIVE HERO CARD
+   ========================================================= */
 
-const heroCard = $("heroCard");
+const heroCard = $("#heroCard");
 
 if (heroCard) {
-    heroCard.addEventListener(
-        "pointermove",
-        function (event) {
+    heroCard.addEventListener("pointermove", event => {
+        const rect = heroCard.getBoundingClientRect();
 
-            if (
-                window.matchMedia(
-                    "(pointer: coarse)"
-                ).matches
-            ) {
-                return;
-            }
+        const x =
+            event.clientX - rect.left - rect.width / 2;
 
-            const rect =
-                heroCard.getBoundingClientRect();
+        const y =
+            event.clientY - rect.top - rect.height / 2;
 
-            const x =
-                event.clientX - rect.left;
+        const rotateX =
+            (-y / rect.height) * 8;
 
-            const y =
-                event.clientY - rect.top;
+        const rotateY =
+            (x / rect.width) * 8;
 
-            const rotateY =
-                ((x / rect.width) - 0.5) * 12;
+        heroCard.style.transform =
+            `perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    });
 
-            const rotateX =
-                ((y / rect.height) - 0.5) * -12;
-
-            heroCard.style.transform =
-                `perspective(900px)
-                 rotateX(${rotateX}deg)
-                 rotateY(${rotateY}deg)
-                 translateY(-4px)`;
-        }
-    );
-
-    heroCard.addEventListener(
-        "pointerleave",
-        function () {
-            heroCard.style.transform = "";
-        }
-    );
+    heroCard.addEventListener("pointerleave", () => {
+        heroCard.style.transform =
+            "perspective(900px) rotateX(0) rotateY(0)";
+    });
 }
-
 
 /* =========================================================
    17. FLOATING PARTICLES
-========================================================= */
+   ========================================================= */
 
-if (particles) {
-    let particleAnimation = 0;
+function createFloatingObject() {
+    const object = document.createElement("div");
 
-    window.addEventListener("scroll", function () {
-        particleAnimation =
-            window.scrollY * 0.05;
+    object.className = "floating-object";
+    object.textContent =
+        ["◆", "◇", "✦", "•"][Math.floor(Math.random() * 4)];
 
-        particles.style.transform =
-            `translateY(${particleAnimation}px)`;
-    });
+    object.style.left =
+        `${Math.random() * 100}%`;
+
+    object.style.top =
+        `${Math.random() * 100}%`;
+
+    object.style.fontSize =
+        `${10 + Math.random() * 20}px`;
+
+    document.body.appendChild(object);
+
+    setTimeout(() => {
+        object.remove();
+    }, 10000);
 }
 
+setInterval(createFloatingObject, 2500);
 
 /* =========================================================
    18. GLASSMORPHISM
-========================================================= */
+   ========================================================= */
 
-$all(".glass-card").forEach(function (card) {
-    card.addEventListener("pointermove", function (event) {
-        const rect =
-            card.getBoundingClientRect();
+$$(".glass-card").forEach(card => {
+    card.addEventListener("pointermove", event => {
+        const rect = card.getBoundingClientRect();
 
         const x =
-            ((event.clientX - rect.left) /
-                rect.width) * 100;
+            ((event.clientX - rect.left) / rect.width) * 100;
 
         const y =
-            ((event.clientY - rect.top) /
-                rect.height) * 100;
+            ((event.clientY - rect.top) / rect.height) * 100;
 
         card.style.background =
-            `radial-gradient(
-                circle at ${x}% ${y}%,
-                rgba(255,255,255,0.14),
-                rgba(255,255,255,0.03)
-            )`;
+            `radial-gradient(circle at ${x}% ${y}%, rgba(0,170,255,.12), rgba(15,15,15,.88) 45%)`;
     });
 
-    card.addEventListener("pointerleave", function () {
+    card.addEventListener("pointerleave", () => {
         card.style.background = "";
     });
 });
 
-
 /* =========================================================
    19. CUSTOM GLOWING CURSOR
-========================================================= */
+   ========================================================= */
 
-document.addEventListener("pointermove", function (event) {
-    if (
-        window.matchMedia(
-            "(pointer: coarse)"
-        ).matches
-    ) {
-        return;
-    }
+const cursorGlow = document.createElement("div");
 
-    if (!touchEffect) return;
+cursorGlow.id = "cursorGlow";
 
-    touchEffect.style.left =
-        event.clientX + "px";
+cursorGlow.style.cssText = `
+    position:fixed;
+    width:20px;
+    height:20px;
+    border-radius:50%;
+    pointer-events:none;
+    z-index:9999;
+    border:1px solid rgba(0,170,255,.8);
+    box-shadow:0 0 20px rgba(0,170,255,.6);
+    transform:translate(-50%,-50%);
+    display:none;
+`;
 
-    touchEffect.style.top =
-        event.clientY + "px";
-});
+document.body.appendChild(cursorGlow);
 
+if (window.matchMedia("(pointer:fine)").matches) {
+    cursorGlow.style.display = "block";
+
+    document.addEventListener("pointermove", event => {
+        cursorGlow.style.left =
+            `${event.clientX}px`;
+
+        cursorGlow.style.top =
+            `${event.clientY}px`;
+    });
+}
 
 /* =========================================================
    20. STICKY NAVIGATION
-========================================================= */
+   ========================================================= */
 
-const navbar = document.querySelector(".navbar");
+const navbar = $("#navbar");
 
-window.addEventListener("scroll", function () {
+window.addEventListener("scroll", () => {
     if (!navbar) return;
 
-    if (window.scrollY > 50) {
-        navbar.style.boxShadow =
-            "0 5px 25px rgba(0,0,0,0.6)";
-    } else {
-        navbar.style.boxShadow = "";
-    }
+    navbar.classList.toggle(
+        "scrolled",
+        window.scrollY > 50
+    );
 });
-
 
 /* =========================================================
-   21. ANIMATED SKILL PROGRESS
-========================================================= */
+   21. SKILL OBSERVER
+   ========================================================= */
 
-const skillObserver =
-    new IntersectionObserver(
-        function (entries) {
-            entries.forEach(function (entry) {
+if ("IntersectionObserver" in window) {
+    const skillObserver =
+        new IntersectionObserver(entries => {
+            entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     animateSkills();
+                    skillObserver.unobserve(entry.target);
                 }
             });
-        },
-        {
-            threshold: 0.2
-        }
-    );
+        }, {
+            threshold: 0.25
+        });
 
-$all(".skills-container").forEach(function (section) {
-    skillObserver.observe(section);
-});
-
+    skillFills.forEach(fill => {
+        skillObserver.observe(fill);
+    });
+} else {
+    animateSkills();
+}
 
 /* =========================================================
    22. PHOTO GALLERY
-========================================================= */
+   ========================================================= */
 
-const galleryImages =
-    $all(".gallery-image");
-
-galleryImages.forEach(function (image) {
-    image.addEventListener("click", function () {
-        openImageViewer(
-            image.src,
-            image.alt
-        );
+$$(".gallery-item img").forEach(image => {
+    image.addEventListener("click", () => {
+        openImageViewer(image.src, image.alt);
     });
 });
-
 
 /* =========================================================
    23. FULLSCREEN IMAGE VIEWER
-========================================================= */
+   ========================================================= */
 
-function openImageViewer(src, alt) {
+function openImageViewer(src, alt = "Image") {
+    const viewer = document.createElement("div");
 
-    const viewer =
-        document.createElement("div");
+    viewer.id = "imageViewer";
 
-    viewer.style.position = "fixed";
-    viewer.style.inset = "0";
-    viewer.style.zIndex = "10000";
-    viewer.style.background =
-        "rgba(0,0,0,0.95)";
-    viewer.style.display = "flex";
-    viewer.style.alignItems = "center";
-    viewer.style.justifyContent = "center";
-    viewer.style.padding = "20px";
+    viewer.innerHTML = `
+        <div class="image-viewer-inner">
+            <button class="image-viewer-close">✕</button>
+            <img src="${src}" alt="${alt}">
+        </div>
+    `;
 
-    const image =
-        document.createElement("img");
-
-    image.src = src;
-    image.alt =
-        alt || "Gallery image";
-
-    image.style.maxWidth = "95%";
-    image.style.maxHeight = "90%";
-    image.style.objectFit = "contain";
-    image.style.borderRadius = "18px";
-
-    const closeButton =
-        document.createElement("button");
-
-    closeButton.textContent = "✕";
-
-    closeButton.style.position = "absolute";
-    closeButton.style.top = "20px";
-    closeButton.style.right = "20px";
-    closeButton.style.margin = "0";
-
-    viewer.appendChild(image);
-    viewer.appendChild(closeButton);
+    viewer.style.cssText = `
+        position:fixed;
+        inset:0;
+        z-index:10001;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        padding:20px;
+        background:rgba(0,0,0,.92);
+        backdrop-filter:blur(12px);
+    `;
 
     document.body.appendChild(viewer);
 
-    closeButton.addEventListener("click", function () {
+    const close = $(".image-viewer-close", viewer);
+
+    close.style.cssText = `
+        position:absolute;
+        top:20px;
+        right:20px;
+        width:45px;
+        height:45px;
+        border-radius:50%;
+        background:#111;
+        color:#fff;
+        border:1px solid #555;
+        font-size:20px;
+    `;
+
+    const image = $("img", viewer);
+
+    image.style.cssText = `
+        max-width:95%;
+        max-height:90vh;
+        object-fit:contain;
+        border-radius:15px;
+    `;
+
+    function closeViewer() {
         viewer.remove();
+    }
+
+    close.addEventListener("click", closeViewer);
+
+    viewer.addEventListener("click", event => {
+        if (event.target === viewer) {
+            closeViewer();
+        }
     });
 
-    viewer.addEventListener("click", function (event) {
-        if (event.target === viewer) {
-            viewer.remove();
+    document.addEventListener("keydown", function escapeHandler(event) {
+        if (event.key === "Escape") {
+            closeViewer();
+            document.removeEventListener(
+                "keydown",
+                escapeHandler
+            );
         }
     });
 }
-
 
 /* =========================================================
    24. SCROLL REVEAL
-========================================================= */
+   ========================================================= */
 
-const revealCards =
-    $all(".reveal-card");
+const revealElements = $$(".reveal");
 
-function revealOnScroll() {
-    revealCards.forEach(function (card) {
+if ("IntersectionObserver" in window) {
+    const revealObserver =
+        new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("visible");
+                }
+            });
+        }, {
+            threshold: 0.12
+        });
 
-        const rect =
-            card.getBoundingClientRect();
-
-        if (
-            rect.top <
-            window.innerHeight * 0.85
-        ) {
-            card.classList.add("visible");
-        }
+    revealElements.forEach(element => {
+        revealObserver.observe(element);
+    });
+} else {
+    revealElements.forEach(element => {
+        element.classList.add("visible");
     });
 }
-
-window.addEventListener(
-    "scroll",
-    revealOnScroll
-);
-
-revealOnScroll();
-
 
 /* =========================================================
    25. TOAST NOTIFICATIONS
-========================================================= */
+   ========================================================= */
 
-window.showToast = showToast;
-
+/* showToast() is defined above */
 
 /* =========================================================
    26. COPY TO CLIPBOARD
-========================================================= */
+   ========================================================= */
 
-if (copyButton) {
-    copyButton.setAttribute(
-        "aria-label",
-        "Copy portfolio information"
-    );
+function copyText(text, successMessage = "Copied!") {
+    if (!text) return;
+
+    if (navigator.clipboard) {
+        navigator.clipboard.writeText(text)
+            .then(() => showToast(successMessage))
+            .catch(() => fallbackCopy(text));
+    } else {
+        fallbackCopy(text);
+    }
 }
 
+function fallbackCopy(text) {
+    const textarea =
+        document.createElement("textarea");
+
+    textarea.value = text;
+    textarea.style.position = "fixed";
+    textarea.style.opacity = "0";
+
+    document.body.appendChild(textarea);
+
+    textarea.select();
+
+    try {
+        document.execCommand("copy");
+        showToast("Copied!");
+    } catch {
+        showToast("Copy failed");
+    }
+
+    textarea.remove();
+}
+
+const copyEmailButton = $("#copyEmailButton");
+
+if (copyEmailButton) {
+    copyEmailButton.addEventListener("click", () => {
+        const email =
+            copyEmailButton.dataset.email ||
+            $(".contact-email")?.textContent ||
+            "";
+
+        copyText(email.trim(), "Email copied!");
+    });
+}
 
 /* =========================================================
    27. GITHUB PROFILE
-========================================================= */
+   ========================================================= */
 
-const githubLink =
-    document.querySelector(
-        ".github-link"
-    );
-
-if (githubLink) {
-    githubLink.addEventListener(
-        "click",
-        function () {
-            showToast("🐙 Opening GitHub...");
-        }
-    );
-}
-
-
-/* =========================================================
-   28. MINI WEB GAME
-========================================================= */
-
-const gameButton = $("gameButton");
-const gameScore = $("gameScore");
-
-let score = 0;
-
-if (gameButton) {
-    gameButton.addEventListener(
-        "click",
-        function () {
-
-            score++;
-
-            if (gameScore) {
-                gameScore.textContent =
-                    score;
-            }
-
-            if (
-                score === 10 ||
-                score === 25 ||
-                score === 50
-            ) {
-                showToast(
-                    `🏆 Score reached ${score}!`
-                );
-            }
-        }
-    );
-}
-
-
-/* =========================================================
-   29. ACHIEVEMENTS
-========================================================= */
-
-$all(".achievement").forEach(function (achievement) {
-    achievement.addEventListener("click", function () {
-        achievement.style.transform =
-            "scale(1.05)";
-
-        setTimeout(function () {
-            achievement.style.transform = "";
-        }, 250);
+$$(".github-link").forEach(link => {
+    link.addEventListener("click", () => {
+        showToast("Opening GitHub 🐙");
     });
 });
 
+/* =========================================================
+   28. MINI WEB GAME
+   ========================================================= */
+
+const miniGameButton = $("#miniGameButton");
+const miniGameScore = $("#miniGameScore");
+
+let miniScore = 0;
+
+if (miniGameButton) {
+    miniGameButton.addEventListener("click", () => {
+        miniScore += Math.floor(Math.random() * 10) + 1;
+
+        if (miniGameScore) {
+            miniGameScore.textContent =
+                `Score: ${miniScore}`;
+        }
+    });
+}
+
+/* =========================================================
+   29. ACHIEVEMENTS
+   ========================================================= */
+
+const achievements = [
+    "Python Beginner 🐍",
+    "Portfolio Builder 💻",
+    "GitHub Explorer 🐙",
+    "Coding Learner 🚀",
+    "Future Developer 👨‍💻",
+    "Problem Solver 🧠"
+];
+
+function randomAchievement() {
+    return achievements[
+        Math.floor(Math.random() * achievements.length)
+    ];
+}
 
 /* =========================================================
    30. THEME COLOR SELECTOR
-========================================================= */
+   ========================================================= */
 
-const themeButtons =
-    $all(".theme-color");
+$$(".theme-color").forEach(button => {
+    button.addEventListener("click", () => {
+        const color =
+            button.dataset.color;
 
-themeButtons.forEach(function (button) {
+        if (!color) return;
 
-    button.addEventListener(
-        "click",
-        function () {
+        document.documentElement.style.setProperty(
+            "--accent",
+            color
+        );
 
-            const color =
-                button.dataset.color;
+        document.documentElement.style.setProperty(
+            "--glow",
+            `${color}88`
+        );
 
-            if (!color) return;
-
-            document.documentElement.style
-                .setProperty(
-                    "--accent",
-                    color
-                );
-
-            const rgb =
-                hexToRgb(color);
-
-            if (rgb) {
-                document.documentElement.style
-                    .setProperty(
-                        "--accent-rgb",
-                        `${rgb.r}, ${rgb.g}, ${rgb.b}`
-                    );
-            }
-
-            showToast(
-                "🎨 Theme color changed!"
-            );
-        }
-    );
+        showToast("Theme color updated 🎨");
+    });
 });
-
 
 /* =========================================================
    31. LIGHT / DARK MODE
-========================================================= */
+   ========================================================= */
 
-const modeButton =
-    $("modeButton") ||
-    $("lightDarkButton");
+const lightDarkButton = $("#lightDarkButton");
 
-if (modeButton) {
+if (lightDarkButton) {
+    lightDarkButton.addEventListener("click", () => {
+        document.body.classList.toggle("light-mode");
 
-    modeButton.addEventListener(
-        "click",
-        function () {
+        const light =
+            document.body.classList.contains("light-mode");
 
-            document.body.classList.toggle(
-                "light-mode"
-            );
-
-            if (
-                document.body.classList.contains(
-                    "light-mode"
-                )
-            ) {
-                document.documentElement.style
-                    .setProperty(
-                        "--bg",
-                        "#f5f7fb"
-       
+        lightDark
