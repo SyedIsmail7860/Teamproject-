@@ -1,267 +1,176 @@
 /* =========================
-   DOT MATRIX LETTERS
-   ========================= */
+   MUSIC PLAYER
+========================= */
 
-const letters = {
+const music =
+    document.getElementById("backgroundMusic");
 
-    S: [
-        "111111",
-        "110000",
-        "110000",
-        "111111",
-        "000011",
-        "000011",
-        "111111"
-    ],
+const musicButton =
+    document.getElementById("musicButton");
 
-    Y: [
-        "110011",
-        "110011",
-        "011110",
-        "001100",
-        "001100",
-        "001100",
-        "001100"
-    ],
+if (music && musicButton) {
 
-    E: [
-        "111111",
-        "110000",
-        "110000",
-        "111110",
-        "110000",
-        "110000",
-        "111111"
-    ],
+    musicButton.addEventListener(
+        "click",
+        function () {
 
-    D: [
-        "111110",
-        "110011",
-        "110011",
-        "110011",
-        "110011",
-        "110011",
-        "111110"
-    ],
+            if (music.paused) {
 
-    I: [
-        "111111",
-        "001100",
-        "001100",
-        "001100",
-        "001100",
-        "001100",
-        "111111"
-    ],
+                music.play();
 
-    M: [
-        "110011",
-        "111111",
-        "111111",
-        "110011",
-        "110011",
-        "110011",
-        "110011"
-    ],
-
-    A: [
-        "011110",
-        "110011",
-        "110011",
-        "111111",
-        "110011",
-        "110011",
-        "110011"
-    ],
-
-    L: [
-        "110000",
-        "110000",
-        "110000",
-        "110000",
-        "110000",
-        "110000",
-        "111111"
-    ],
-
-    " ": [
-        "0000",
-        "0000",
-        "0000",
-        "0000",
-        "0000",
-        "0000",
-        "0000"
-    ]
-};
-
-
-/* =========================
-   CREATE SYED ISMAIL
-   ========================= */
-
-const nameText = "SYED ISMAIL";
-
-const dotName =
-    document.getElementById("dotName");
-
-const dotElements = [];
-
-
-for (let row = 0; row < 7; row++) {
-
-    for (const character of nameText) {
-
-        const pattern =
-            letters[character];
-
-        for (const value of pattern[row]) {
-
-            const dot =
-                document.createElement("div");
-
-
-            if (value === "1") {
-
-                dot.className =
-                    "name-dot";
-
-                dotElements.push(dot);
+                musicButton.textContent =
+                    "🔇 Pause Music";
 
             } else {
 
-                dot.className =
-                    "empty-dot";
+                music.pause();
+
+                musicButton.textContent =
+                    "🎵 Play Music";
             }
 
-
-            dotName.appendChild(dot);
         }
-
-
-        const gap =
-            document.createElement("div");
-
-        gap.className =
-            "empty-dot";
-
-        dotName.appendChild(gap);
-    }
+    );
 }
 
 
 /* =========================
-   50 LED COLORS
-   ========================= */
+   TYPING ANIMATION
+========================= */
 
-const colors = [
+const typingText =
+    document.getElementById("typingText");
 
-    "#ff0000",
-    "#ff3300",
-    "#ff6600",
-    "#ff9900",
-    "#ffcc00",
-    "#ffff00",
-    "#ccff00",
-    "#99ff00",
-    "#66ff00",
-    "#33ff00",
-
-    "#00ff00",
-    "#00ff33",
-    "#00ff66",
-    "#00ff99",
-    "#00ffcc",
-    "#00ffff",
-    "#00ccff",
-    "#0099ff",
-    "#0066ff",
-    "#0033ff",
-
-    "#0000ff",
-    "#3300ff",
-    "#6600ff",
-    "#9900ff",
-    "#cc00ff",
-    "#ff00ff",
-    "#ff00cc",
-    "#ff0099",
-    "#ff0066",
-    "#ff0033",
-
-    "#ff3366",
-    "#ff6699",
-    "#ff99cc",
-    "#ffccff",
-    "#ffffff",
-    "#cccccc",
-    "#999999",
-    "#666666",
-    "#00aaff",
-    "#00ddff",
-
-    "#00ffaa",
-    "#55ff55",
-    "#aaff00",
-    "#ffaa00",
-    "#ff5500",
-    "#ff0088",
-    "#aa00ff",
-    "#5500ff",
-    "#0088ff",
-    "#00ffff"
+const messages = [
+    "Welcome to my GitHub project!",
+    "I am Ismail.",
+    "B.Tech Computer Science & Engineering Student.",
+    "Learning Python, SQL and Web Development.",
+    "Building my future with code 🚀"
 ];
 
+let messageIndex = 0;
+let characterIndex = 0;
 
-let colorIndex = 0;
+function typeMessage() {
 
+    if (!typingText) return;
 
-/* =========================
-   CHANGE LED COLOR
-   ========================= */
+    const message =
+        messages[messageIndex];
 
-function changeColor() {
+    if (characterIndex < message.length) {
 
-    const color =
-        colors[colorIndex];
+        typingText.textContent +=
+            message.charAt(characterIndex);
 
+        characterIndex++;
 
-    dotElements.forEach(dot => {
+        setTimeout(
+            typeMessage,
+            80
+        );
 
-        dot.style.backgroundColor =
-            color;
+    } else {
 
-        dot.style.color =
-            color;
-
-        dot.style.boxShadow =
-            `0 0 5px ${color},
-             0 0 12px ${color},
-             0 0 25px ${color},
-             0 0 40px ${color}`;
-    });
-
-
-    colorIndex++;
-
-    if (colorIndex >= colors.length) {
-
-        colorIndex = 0;
+        setTimeout(
+            eraseMessage,
+            1800
+        );
     }
 }
 
 
-changeColor();
+function eraseMessage() {
+
+    if (characterIndex > 0) {
+
+        typingText.textContent =
+            messages[messageIndex]
+                .substring(
+                    0,
+                    characterIndex - 1
+                );
+
+        characterIndex--;
+
+        setTimeout(
+            eraseMessage,
+            40
+        );
+
+    } else {
+
+        messageIndex++;
+
+        if (
+            messageIndex >=
+            messages.length
+        ) {
+            messageIndex = 0;
+        }
+
+        setTimeout(
+            typeMessage,
+            400
+        );
+    }
+}
+
+
+typeMessage();
+
+
+/* =========================
+   LIVE DATE & TIME
+========================= */
+
+const liveDate =
+    document.getElementById("liveDate");
+
+const liveTime =
+    document.getElementById("liveTime");
+
+
+function updateDateTime() {
+
+    const now = new Date();
+
+    if (liveDate) {
+
+        liveDate.textContent =
+            now.toLocaleDateString(
+                "en-IN",
+                {
+                    weekday: "long",
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric"
+                }
+            );
+    }
+
+    if (liveTime) {
+
+        liveTime.textContent =
+            now.toLocaleTimeString(
+                "en-IN"
+            );
+    }
+}
+
+
+updateDateTime();
 
 setInterval(
-    changeColor,
+    updateDateTime,
     1000
 );
 
 
 /* =========================
-   PHOTO
-   ========================= */
+   PHOTO BREAK EFFECT
+========================= */
 
 const photoArea =
     document.getElementById("photoArea");
@@ -273,19 +182,23 @@ const resetButton =
     document.getElementById("resetButton");
 
 
-/* =========================
-   BREAK PHOTO
-   ========================= */
-
 function breakPhoto() {
+
+    if (!photoCard) return;
+
+    photoCard.classList.remove(
+        "breaking"
+    );
+
+    // Restart animation
+    void photoCard.offsetWidth;
 
     photoCard.classList.add(
         "breaking"
     );
 
-
     setTimeout(
-        function() {
+        function () {
 
             photoCard.classList.remove(
                 "breaking"
@@ -297,45 +210,260 @@ function breakPhoto() {
 }
 
 
-/* =========================
-   TOUCH / CLICK
-   ========================= */
+/* Touch + Mouse */
 
-photoArea.addEventListener(
+if (photoArea) {
+
+    photoArea.addEventListener(
+        "pointerdown",
+        function (event) {
+
+            event.preventDefault();
+
+            breakPhoto();
+
+            createTouchEffect(
+                event.clientX,
+                event.clientY
+            );
+        }
+    );
+}
+
+
+/* Reset */
+
+if (resetButton) {
+
+    resetButton.addEventListener(
+        "click",
+        function () {
+
+            photoCard.classList.remove(
+                "breaking"
+            );
+        }
+    );
+}
+
+
+/* =========================
+   MOUSE / TOUCH EFFECT
+========================= */
+
+const touchEffect =
+    document.getElementById("touchEffect");
+
+
+function createTouchEffect(x, y) {
+
+    if (!touchEffect) return;
+
+    touchEffect.style.left =
+        x + "px";
+
+    touchEffect.style.top =
+        y + "px";
+
+    touchEffect.classList.remove(
+        "active"
+    );
+
+    void touchEffect.offsetWidth;
+
+    touchEffect.classList.add(
+        "active"
+    );
+}
+
+
+document.addEventListener(
     "pointerdown",
-    function(event) {
+    function (event) {
 
-        event.preventDefault();
-
-        breakPhoto();
-    }
-);
-
-
-/* =========================
-   RESET
-   ========================= */
-
-resetButton.addEventListener(
-    "click",
-    function() {
-
-        photoCard.classList.remove(
-            "breaking"
+        createTouchEffect(
+            event.clientX,
+            event.clientY
         );
     }
 );
-const music = document.getElementById("backgroundMusic");
-const musicButton = document.getElementById("musicButton");
 
-musicButton.addEventListener("click", function () {
 
-    if (music.paused) {
-        music.play();
-        musicButton.textContent = "🔇 Pause Music";
-    } else {
-        music.pause();
-        musicButton.textContent = "🎵 Play Music";
+/* =========================
+   PROJECT PROGRESS
+========================= */
+
+const progressFill =
+    document.getElementById(
+        "progressFill"
+    );
+
+const progressText =
+    document.getElementById(
+        "progressText"
+    );
+
+
+let progress = 0;
+
+
+function updateProgress() {
+
+    if (!progressFill) return;
+
+    progress += 1;
+
+    if (progress > 85) {
+        progress = 85;
     }
 
-});
+    progressFill.style.width =
+        progress + "%";
+
+    if (progressText) {
+
+        progressText.textContent =
+            progress + "% Complete";
+    }
+
+    if (progress < 85) {
+
+        setTimeout(
+            updateProgress,
+            30
+        );
+    }
+}
+
+
+setTimeout(
+    updateProgress,
+    800
+);
+
+
+/* =========================
+   CONTACT BUTTON
+========================= */
+
+const contactButton =
+    document.getElementById(
+        "contactButton"
+    );
+
+
+if (contactButton) {
+
+    contactButton.addEventListener(
+        "click",
+        function () {
+
+            window.location.href =
+                "mailto:your-email@example.com";
+        }
+    );
+}
+
+
+/* =========================
+   WELCOME BUTTON
+========================= */
+
+const welcomeButton =
+    document.getElementById(
+        "welcomeButton"
+    );
+
+
+if (welcomeButton) {
+
+    welcomeButton.addEventListener(
+        "click",
+        function () {
+
+            alert(
+                "🎉 Welcome to Ismail's Project!"
+            );
+        }
+    );
+}
+
+
+/* =========================
+   BACK TO TOP
+========================= */
+
+const backToTop =
+    document.getElementById(
+        "backToTop"
+    );
+
+
+window.addEventListener(
+    "scroll",
+    function () {
+
+        if (!backToTop) return;
+
+        if (window.scrollY > 300) {
+
+            backToTop.classList.add(
+                "show"
+            );
+
+        } else {
+
+            backToTop.classList.remove(
+                "show"
+            );
+        }
+    }
+);
+
+
+if (backToTop) {
+
+    backToTop.addEventListener(
+        "click",
+        function () {
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+
+        }
+    );
+}
+
+
+/* =========================
+   WELCOME ANIMATION
+========================= */
+
+window.addEventListener(
+    "load",
+    function () {
+
+        const title =
+            document.getElementById(
+                "welcomeTitle"
+            );
+
+        if (title) {
+
+            title.style.transform =
+                "scale(1.05)";
+
+            setTimeout(
+                function () {
+
+                    title.style.transform =
+                        "scale(1)";
+
+                },
+                500
+            );
+        }
+    }
+);
